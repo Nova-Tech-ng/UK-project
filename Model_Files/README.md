@@ -11,6 +11,7 @@ The dataset contains information about students, including demographic data, aca
 * numpy
 * scikit-learn
 * matplotlib
+* Pickle
 
 ### Usage
 1. Install required libraries using `pip install pandas numpy scikit-learn matplotlib`
@@ -37,3 +38,7 @@ Decision tree Cross-validation values:
 	-Average Precision: 0.9884033613445379
 	-Average Recall: 0.9657017484413121
 	-Average F1-score: 0.9768218645171393
+
+
+##  Model Integration
+Both trained models were extracted using pickle library for easy integration with other applications 
