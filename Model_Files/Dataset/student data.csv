@@ -1,0 +1,220 @@
+Student ID,Name,Grade Level,Age,Learning Style,Socioeconomic Status,Past Grades,Standardized Test Scores,Prior Knowledge,Course ID,Course Name,Course Difficulty,Class Size,Teaching Style,Coursework Load,Attendance,Study Time,Time of Year,Extracurricular Activities,Health,Home Environment,Actual Grade,cgpa
+1001,Jamie Lee,Freshman,16,Visual,Middle Income,85.6,1250,Mathematics,102,Introduction to Computer Science,Medium,35,Lecture-based,"Exams, Projects",85,10,Fall Semester,Yes,Good,Quiet,B,3.5
+1002,Aarav Patel,Sophomore,19,Auditory,Low Income,72.5,1050,None,201,Introduction to Psychology,Easy,20,Interactive,"Homework, Quizzes",80,7,Spring Semester,No,Average,Noisy,C,2.8
+1003,Mia Chen,Junior,21,Kinesthetic,High Income,90.8,1450,Biology,300,Advanced Calculus,Hard,40,Activity-based,"Projects, Presentations",92,12,Fall Semester,Yes,Excellent,Quiet,A,3.9
+1004,Elias Rodriguez,Freshman,17,Visual,Middle Income,88.3,1300,Physics,101,Introduction to Statistics,Medium,25,Lecture-based,"Exams, Projects",88,9,Spring Semester,No,Good,Quiet,B,3.2
+1005,Fatima Ahmed,Sophomore,18,Auditory,Low Income,75.2,1100,None,202,Introduction to Philosophy,Easy,30,Interactive,"Homework, Quizzes",83,8,Fall Semester,Yes,Average,Noisy,C,3.6
+1006,Liam Thompson,Junior,20,Kinesthetic,High Income,92.1,1400,Mathematics,301,Advanced Statistics,Hard,45,Activity-based,"Projects, Presentations",94,13,Spring Semester,No,Excellent,Quiet,A,4.1
+1007,Sofia Garcia,Freshman,16,Visual,Middle Income,86.7,1280,None,103,Introduction to Sociology,Medium,35,Lecture-based,"Exams, Projects",86,10,Fall Semester,Yes,Good,Quiet,B,3.8
+1008,Avery Johnson,Sophomore,19,Auditory,Low Income,70.5,1000,None,203,Introduction to Anthropology,Easy,22,Interactive,"Homework, Quizzes",79,7,Spring Semester,No,Average,Noisy,C,2.9
+1009,Noah Brown,Junior,21,Kinesthetic,High Income,91.9,1420,Biology,302,Advanced Biology,Hard,40,Activity-based,"Projects, Presentations",93,12,Fall Semester,Yes,Excellent,Quiet,A,4.4
+1010,Aria Patel,Freshman,17,Visual,Middle Income,89.6,1310,Mathematics,104,Introduction to Economics,Medium,28,Lecture-based,"Exams, Projects",88,9,Spring Semester,No,Good,Quiet,B,3.5
+1011,Jasmine Davis,Sophomore,18,Auditory,Low Income,75.2,1150,None,204,Introduction to Psychology,Easy,25,Interactive,"Homework, Quizzes",78,8,Fall Semester,Yes,Average,Noisy,C,4.2
+1012,Ethan Lee,Junior,22,Visual,Middle Income,88.3,1350,None,303,Advanced Physics,Hard,48,Activity-based,"Projects, Presentations",95,14,Spring Semester,No,Excellent,Quiet,A,2.9
+1013,Avery Thompson,Freshman,17,Auditory,High Income,90.8,1380,None,105,Introduction to Computer Science,Medium,32,Lecture-based,"Exams, Projects",89,11,Fall Semester,Yes,Good,Quiet,B,3.4
+1014,Isabella Rodriguez,Sophomore,19,Kinesthetic,Low Income,72.1,1050,None,205,Introduction to Philosophy,Easy,23,Interactive,"Homework, Quizzes",77,7,Spring Semester,No,Average,Noisy,C,4.5
+1015,Oliver Chen,Junior,23,Visual,Middle Income,87.6,1330,None,304,Advanced Chemistry,Hard,46,Activity-based,"Projects, Presentations",94,13,Fall Semester,Yes,Excellent,Quiet,A,3.6
+1016,Mia Garcia,Freshman,16,Auditory,Low Income,78.9,1120,None,106,Introduction to Anthropology,Easy,27,Lecture-based,"Homework, Quizzes",80,9,Spring Semester,No,Average,Noisy,C,3.2
+1017,Noah Kim,Sophomore,18,Kinesthetic,High Income,84.5,1370,None,206,Introduction to Art History,Medium,30,Activity-based,"Projects, Presentations",91,10,Fall Semester,Yes,Good,Quiet,B,4.6
+1018,Jasmine Lee,Junior,21,Visual,Middle Income,91.1,1410,None,305,Advanced Biology,Hard,44,Lecture-based,"Exams, Projects",96,15,Spring Semester,No,Excellent,Quiet,A,3.8
+1019,Ethan Patel,Freshman,17,Auditory,Low Income,77.8,1180,None,107,Introduction to Sociology,Easy,24,Interactive,"Homework, Quizzes",83,8,Fall Semester,Yes,Average,Noisy,C,3.6
+1020,Avery Thompson,Sophomore,19,Kinesthetic,High Income,82.3,1360,None,207,Introduction to Literature,Medium,36,Activity-based,"Projects, Presentations",92,12,Spring Semester,No,Excellent,Quiet,B,4.1
+1021,Isabella Davis,Junior,23,Visual,Middle Income,92.6,1430,None,306,Advanced Physics,Hard,47,Lecture-based,"Exams, Projects",97,14,Fall Semester,Yes,Excellent,Quiet,A,3.9
+1022,Mia Chen,Sophomore,18,Auditory,High Income,83.7,1380,None,208,Introduction to Psychology,Medium,32,Lecture-based,"Exams, Projects",90,10,Spring Semester,No,Good,Quiet,B,4.3
+1023,Liam Anderson,Junior,21,Visual,Middle Income,90.5,1420,None,307,Advanced Chemistry,Hard,45,Interactive,"Homework, Quizzes",94,13,Fall Semester,Yes,Average,Quiet,A,4.1
+1024,Ava Smith,Freshman,17,Kinesthetic,Low Income,78.2,1190,None,108,Introduction to Political Science,Easy,23,Activity-based,"Projects, Presentations",85,7,Spring Semester,Yes,Good,Noisy,C,2.8
+1025,Ella Johnson,Sophomore,19,Auditory,High Income,81.6,1350,None,209,Introduction to Philosophy,Medium,35,Lecture-based,"Exams, Projects",93,11,Fall Semester,No,Excellent,Quiet,B,3.5
+1026,Oliver Brown,Junior,22,Visual,Middle Income,93.1,1440,None,308,Advanced Math,Hard,46,Interactive,"Homework, Quizzes",98,15,Spring Semester,Yes,Excellent,Quiet,A,4.5
+1027,Emma White,Freshman,16,Kinesthetic,Low Income,76.9,1170,None,109,Introduction to History,Easy,22,Activity-based,"Projects, Presentations",86,6,Fall Semester,No,Average,Noisy,C,3.2
+1028,Aiden Green,Sophomore,18,Auditory,High Income,84.3,1390,None,210,Introduction to Economics,Medium,33,Lecture-based,"Exams, Projects",91,10,Spring Semester,No,Good,Quiet,B,4.8
+1029,Mason Black,Junior,21,Visual,Middle Income,91.8,1430,None,309,Advanced Statistics,Hard,45,Interactive,"Homework, Quizzes",95,14,Fall Semester,Yes,Excellent,Quiet,A,3.8
+1030,Sophia Gray,Freshman,17,Kinesthetic,Low Income,77.5,1180,None,110,Introduction to Art,Easy,21,Activity-based,"Projects, Presentations",87,7,Spring Semester,No,Average,Noisy,C,3.5
+1031,James Wilson,Sophomore,19,Auditory,High Income,85.2,1370,None,211,Introduction to Anthropology,Medium,34,Lecture-based,"Exams, Projects",92,11,Fall Semester,No,Good,Quiet,B,3.9
+1032,Grace Lee,Junior,22,Visual,Middle Income,92.9,1440,None,310,Advanced Physics Lab,Hard,46,Interactive,"Homework, Quizzes",96,13,Spring Semester,Yes,Excellent,Quiet,A,4.1
+1033,Emily Chen,Senior,23,Auditory,Low Income,78.1,1160,None,220,Introduction to Psychology,Medium,36,Lecture-based,"Exams, Projects",89,12,Fall Semester,No,Average,Quiet,C,3.1
+1034,Daniel Kim,Freshman,16,Visual,High Income,89.7,1320,None,120,Introduction to Computer Science,Medium,25,Interactive,"Homework, Quizzes",94,15,Spring Semester,Yes,Good,Quiet,B,3.9
+1035,Olivia Brown,Sophomore,18,Kinesthetic,Middle Income,90.4,1410,None,230,Introduction to Philosophy,Easy,28,Activity-based,"Projects, Presentations",90,10,Fall Semester,No,Good,Quiet,B,4.1
+1036,Alexander Johnson,Junior,21,Auditory,Low Income,82.5,1250,None,320,Advanced Chemistry Lab,Hard,47,Lecture-based,"Exams, Projects",85,13,Spring Semester,No,Average,Noisy,C,3
+1037,Isabella White,Sophomore,19,Visual,High Income,88.9,1380,None,240,Introduction to Linguistics,Medium,37,Interactive,"Homework, Quizzes",93,14,Fall Semester,Yes,Good,Quiet,B,4.1
+1038,Jacob Thompson,Freshman,17,Kinesthetic,Middle Income,86.3,1280,None,130,Introduction to Sociology,Easy,26,Activity-based,"Projects, Presentations",91,8,Spring Semester,No,Good,Quiet,B,4
+1039,Ava Smith,Sophomore,18,Auditory,Low Income,87.6,1350,None,250,Introduction to Mathematics,Medium,35,Lecture-based,"Exams, Projects",92,13,Fall Semester,No,Good,Quiet,B,4
+1040,Ethan Davis,Junior,20,Visual,High Income,93.1,1450,None,330,Advanced Biology Lab,Hard,48,Interactive,"Homework, Quizzes",95,15,Spring Semester,Yes,Excellent,Quiet,A,4.3
+1041,Mia Rodriguez,Sophomore,19,Kinesthetic,Middle Income,91.8,1420,None,260,Introduction to Anthropology,Easy,29,Activity-based,"Projects, Presentations",94,12,Fall Semester,No,Good,Quiet,B,3.9
+1042,William Brown,Freshman,16,Auditory,Low Income,85.5,1260,None,140,Introduction to History,Medium,30,Lecture-based,"Exams, Projects",88,11,Spring Semester,No,Average,Quiet,C,3.2
+1043,Sophia Johnson,Sophomore,18,Visual,High Income,89.2,1360,None,270,Introduction to Astronomy,Medium,34,Interactive,"Homework, Quizzes",93,14,Fall Semester,Yes,Good,Quiet,B,3.7
+1044,James Thompson,Junior,21,Auditory,Middle Income,90.1,1380,None,340,College Algebra,Medium,42,Lecture-based,"Exams, Projects",91,10,Spring Semester,No,Good,Quiet,B,3.4
+1045,Olivia Davis,Sophomore,17,Visual,Low Income,88.7,1270,None,280,World History I,Easy,28,Activity-based,"Projects, Presentations",90,12,Fall Semester,No,Good,Quiet,B,3.9
+1046,Liam Johnson,Freshman,16,Kinesthetic,High Income,92.6,1480,None,150,Introduction to Computer Science,Hard,45,Interactive,"Homework, Quizzes",94,15,Spring Semester,Yes,Excellent,Quiet,A,3.6
+1047,Sophia Rodriguez,Sophomore,18,Auditory,Middle Income,86.9,1310,None,290,Introduction to Psychology,Medium,32,Lecture-based,"Exams, Projects",93,13,Fall Semester,No,Good,Quiet,B,3.9
+1048,William Davis,Junior,20,Visual,Low Income,93.5,1460,None,350,Calculus I,Hard,46,Interactive,"Homework, Quizzes",95,15,Spring Semester,No,Excellent,Quiet,A,4.1
+1049,Emma Johnson,Freshman,16,Kinesthetic,High Income,87.3,1330,None,160,Introduction to Physics,Medium,38,Activity-based,"Projects, Presentations",92,12,Fall Semester,No,Good,Quiet,B,4.1
+1050,Mason Brown,Sophomore,17,Auditory,Middle Income,91.8,1390,None,285,Introduction to Literature,Easy,30,Lecture-based,"Exams, Projects",90,11,Spring Semester,No,Good,Quiet,B,3.2
+1051,Avery Thompson,Junior,20,Visual,Low Income,92.1,1470,None,345,Statistics I,Hard,47,Interactive,"Homework, Quizzes",94,15,Fall Semester,Yes,Excellent,Quiet,A,
+1052,Nathan Davis,Freshman,16,Kinesthetic,High Income,85.6,1290,None,155,Introduction to Art History,Easy,25,Activity-based,"Projects, Presentations",91,13,Spring Semester,No,Good,Quiet,B,
+1053,Isabella Johnson,Sophomore,18,Auditory,Middle Income,88.4,1300,None,295,Introduction to Sociology,Medium,33,Lecture-based,"Exams, Projects",93,12,Fall Semester,No,Good,Quiet,B,
+1054,Alexander Thompson,Junior,21,Visual,Low Income,94.2,1490,None,355,Calculus II,Hard,44,Interactive,"Homework, Quizzes",95,15,Spring Semester,Yes,Excellent,Quiet,A,
+1056,Emily Davis,Freshman,16,Visual,Low Income,90.1,1280,None,175,Introduction to Chemistry,Easy,28,Activity-based,"Projects, Presentations",93,12,Spring Semester,No,Good,Quiet,B,
+1057,Oliver Johnson,Junior,20,Kinesthetic,High Income,93.7,1510,None,325,Physics I,Hard,49,Interactive,"Homework, Quizzes",94,15,Fall Semester,Yes,Excellent,Quiet,A,
+1058,Ava Thompson,Sophomore,18,Auditory,Middle Income,89.8,1320,None,265,Introduction to Economics,Medium,35,Lecture-based,"Exams, Projects",91,11,Spring Semester,No,Good,Quiet,B,
+1059,Ethan Davis,Freshman,16,Visual,Low Income,91.2,1350,None,195,Introduction to Philosophy,Easy,26,Activity-based,"Projects, Presentations",93,13,Fall Semester,No,Good,Quiet,B,
+1060,Avery Johnson,Junior,21,Kinesthetic,High Income,95.6,1530,None,375,Data Analysis I,Hard,45,Interactive,"Homework, Quizzes",94,15,Spring Semester,Yes,Excellent,Quiet,A,
+1061,Sophia Davis,Sophomore,18,Auditory,Middle Income,86.9,1270,None,245,Introduction to Political Science,Medium,34,Lecture-based,"Exams, Projects",92,10,Fall Semester,No,Good,Quiet,B,
+1062,Mason Thompson,Freshman,16,Visual,Low Income,90.5,1300,None,185,Introduction to Computer Science,Easy,27,Activity-based,"Projects, Presentations",93,12,Spring Semester,No,Good,Quiet,B,
+1063,Logan Johnson,Junior,20,Kinesthetic,High Income,94.8,1520,None,365,Physics II,Hard,48,Interactive,"Homework, Quizzes",95,15,Fall Semester,Yes,Excellent,Quiet,A,
+1064,Ella Davis,Sophomore,18,Auditory,Middle Income,88.1,1310,None,275,Introduction to Anthropology,Medium,36,Lecture-based,"Exams, Projects",91,11,Spring Semester,No,Good,Quiet,B,
+1065,Noah Thompson,Freshman,16,Visual,Low Income,91.6,1340,None,195,Introduction to Linguistics,Easy,26,Activity-based,"Projects, Presentations",93,13,Fall Semester,No,Good,Quiet,B,
+1066,Avery Smith,Junior,19,Kinesthetic,Middle Income,89.2,1350,None,255,Introduction to Psychology,Medium,32,Interactive,"Exams, Projects",90,12,Spring Semester,Yes,Good,Quiet,B,
+1067,Evan Johnson,Freshman,16,Auditory,High Income,92.1,1400,None,175,Introduction to Physics,Easy,24,Lecture-based,"Exams, Projects",94,11,Fall Semester,No,Good,Quiet,B,
+1068,Mia Davis,Sophomore,18,Visual,Low Income,87.5,1280,None,265,Introduction to Sociology,Medium,37,Interactive,"Homework, Quizzes",93,14,Spring Semester,Yes,Good,Quiet,B,
+1069,Ethan Thompson,Junior,20,Kinesthetic,Middle Income,90.3,1320,None,345,Calculus I,Hard,46,Activity-based,"Homework, Quizzes",95,13,Fall Semester,No,Good,Quiet,A,
+1070,Avery Johnson,Sophomore,19,Auditory,High Income,85.9,1250,None,235,Introduction to Philosophy,Medium,31,Lecture-based,"Exams, Projects",92,10,Spring Semester,Yes,Good,Quiet,B,
+1071,Evan Davis,Freshman,16,Visual,Low Income,93.8,1450,None,165,Introduction to Economics,Easy,23,Activity-based,"Projects, Presentations",96,12,Fall Semester,No,Good,Quiet,A,
+1072,Mia Thompson,Sophomore,18,Kinesthetic,Middle Income,84.6,1240,None,245,Introduction to Biology,Medium,35,Interactive,"Homework, Quizzes",91,13,Spring Semester,Yes,Good,Quiet,B,
+1073,Ethan Johnson,Junior,21,Auditory,High Income,91.4,1360,None,325,Calculus II,Hard,45,Lecture-based,"Exams, Projects",95,14,Fall Semester,No,Good,Quiet,A,
+1074,Avery Davis,Sophomore,19,Visual,Middle Income,86.7,1290,None,215,Introduction to History,Medium,33,Interactive,"Exams, Projects",90,11,Spring Semester,Yes,Good,Quiet,B,
+1075,Evan Thompson,Freshman,16,Kinesthetic,Low Income,94.1,1410,None,155,Introduction to Art History,Easy,22,Activity-based,"Projects, Presentations",97,15,Fall Semester,No,Good,Quiet,A,
+1076,Mia Johnson,Sophomore,18,Auditory,High Income,88.8,1300,None,255,Introduction to Literature,Medium,36,Lecture-based,"Homework, Quizzes",94,12,Spring Semester,Yes,Good,Quiet,B,
+1077,Emma White,Junior,20,Visual,Middle Income,79.5,1270,None,265,World History II,Medium,38,Interactive,"Exams, Projects",88,10,Fall Semester,No,Good,Quiet,C,
+1078,Liam Brown,Sophomore,17,Auditory,Low Income,93.2,1420,None,165,College Algebra,Medium,40,Lecture-based,"Exams, Projects",93,14,Spring Semester,Yes,Good,Quiet,B,
+1079,Avery Green,Freshman,16,Kinesthetic,High Income,85.3,1280,None,125,Introduction to Psychology,Easy,28,Activity-based,"Projects, Presentations",95,15,Fall Semester,No,Good,Quiet,B,
+1080,Mia Black,Junior,21,Visual,Middle Income,77.8,1260,None,275,Calculus III,Hard,45,Lecture-based,"Exams, Projects",85,13,Spring Semester,Yes,Good,Quiet,C,
+1081,Evan White,Sophomore,19,Auditory,Low Income,92.5,1390,None,235,Introduction to Philosophy,Medium,34,Interactive,"Homework, Quizzes",96,12,Fall Semester,No,Good,Quiet,B,
+1082,Avery Brown,Freshman,16,Visual,High Income,83.1,1290,None,145,Introduction to Computer Science,Medium,35,Lecture-based,"Exams, Projects",98,14,Spring Semester,Yes,Good,Quiet,B,
+1083,Emma Green,Junior,20,Kinesthetic,Middle Income,75.6,1250,None,285,Physics I,Hard,42,Activity-based,"Exams, Projects",90,15,Fall Semester,No,Good,Quiet,C,
+1084,Liam Black,Sophomore,18,Auditory,High Income,90.9,1400,None,255,Introduction to Sociology,Medium,37,Lecture-based,"Homework, Quizzes",92,13,Spring Semester,Yes,Good,Quiet,B,
+1085,Avery White,Freshman,16,Visual,Low Income,87.4,1310,None,135,Introduction to Anthropology,Easy,29,Activity-based,"Projects, Presentations",94,15,Fall Semester,No,Good,Quiet,B,
+1086,Mia Brown,Junior,21,Auditory,High Income,78.3,1240,None,275,Calculus IV,Hard,48,Lecture-based,"Exams, Projects",80,14,Spring Semester,Yes,Good,Quiet,C,
+1087,Evan Green,Sophomore,19,Visual,Middle Income,93.1,1380,None,245,Chemistry I,Medium,36,Interactive,"Homework, Quizzes",97,12,Fall Semester,No,Good,Quiet,B,
+1088,Sofia Patel,Freshman,17,Kinesthetic,Low Income,84.2,1290,None,195,World History I,Easy,33,Activity-based,"Exams, Projects",93,10,Fall Semester,No,Good,Quiet,B,
+1089,Jaden Kim,Sophomore,19,Auditory,Middle Income,89.5,1450,None,265,English Literature II,Medium,45,Lecture-based,"Homework, Quizzes",85,15,Spring Semester,Yes,Good,Quiet,B,
+1090,Aria Thompson,Junior,20,Visual,High Income,75.8,1330,None,235,Calculus III,Hard,43,Interactive,"Exams, Projects",95,14,Fall Semester,No,Good,Quiet,C,
+1091,Noah Garcia,Freshman,16,Kinesthetic,Low Income,88.1,1370,None,125,Introduction to Psychology,Easy,32,Activity-based,"Projects, Presentations",91,13,Spring Semester,Yes,Good,Quiet,B,
+1092,Alexander Johnson,Junior,20,Auditory,High Income,47.8,900,Advanced,301,Calculus III,Hard,22,Interactive,"Homework, Quizzes",45,9,Spring Semester,No,Average,Noisy,A,
+1093,Sophia Lee,Freshman,16,Kinesthetic,Low Income,35.2,700,Beginner,101,College Algebra,Easy,35,Activity-based,"Projects, Presentations",48,6,Fall Semester,Yes,Poor,Dusty,C,
+1094,Michael Patel,Senior,23,Visual,Middle Income,45.6,820,Intermediate,203,World History II,Medium,30,Lecture-based,"Exams, Projects",47,7,Spring Semester,No,Good,Quiet,B+,
+1095,Ava Brown,Junior,19,Auditory,High Income,49.1,950,Advanced,302,Calculus IV,Hard,20,Interactive,"Homework, Quizzes",44,10,Fall Semester,Yes,Good,Quiet,A-,3.8
+1096,Daniel Kim,Freshman,17,Kinesthetic,Low Income,38.4,750,Beginner,102,English Composition,Easy,32,Activity-based,"Projects, Presentations",46,6,Spring Semester,No,Average,Quiet,C+,2.5
+1097,Emily Johnson,Sophomore,18,Visual,Middle Income,43.9,880,Intermediate,204,Introduction to Computer Science,Medium,26,Lecture-based,"Exams, Projects",43,8,Fall Semester,Yes,Good,Quiet,B-,3.4
+1098,William Smith,Junior,20,Auditory,High Income,50.2,980,Advanced,303,Calculus V,Hard,18,Interactive,"Homework, Quizzes",49,10,Spring Semester,No,Good,Quiet,A,3.9
+1099,Sophia Garcia,Freshman,17,Visual,Low Income,39.5,720,Beginner,103,Introduction to Psychology,Easy,28,Lecture-based,"Exams, Projects",48,6,Fall Semester,Yes,Good,Quiet,C+,2.7
+1100,James Thompson,Sophomore,18,Auditory,Middle Income,46.7,850,Intermediate,205,Introduction to Sociology,Medium,35,Interactive,"Homework, Quizzes",45,7,Spring Semester,No,Average,Quiet,B-,3.3
+1101,Emma Wilson,Junior,20,Kinesthetic,High Income,51.9,960,Advanced,304,Advanced Calculus,Hard,15,Activity-based,"Projects, Presentations",50,10,Fall Semester,Yes,Good,Quiet,A,4
+1102,Mason Davis,Freshman,17,Visual,Low Income,37.8,710,Beginner,104,Introduction to Philosophy,Easy,30,Lecture-based,"Exams, Projects",49,6,Spring Semester,No,Good,Quiet,C,2.8
+1103,Avery Harris,Sophomore,18,Auditory,Middle Income,44.6,840,Intermediate,206,Introduction to Art History,Medium,25,Interactive,"Homework, Quizzes",46,7,Fall Semester,Yes,Average,Quiet,B-,3.5
+1104,Oliver Lewis,Junior,20,Kinesthetic,High Income,52.5,970,Advanced,305,Advanced Statistics,Hard,12,Activity-based,"Projects, Presentations",51,10,Spring Semester,No,Good,Quiet,A+,4.1
+1105,Grace White,Freshman,17,Visual,Low Income,38.3,730,Beginner,105,Introduction to Anthropology,Easy,27,Lecture-based,"Exams, Projects",47,6,Fall Semester,Yes,Good,Quiet,C+,2.7
+1106,Mia Robinson,Sophomore,18,Auditory,Middle Income,45.8,830,Intermediate,207,Introduction to Physics,Medium,33,Interactive,"Homework, Quizzes",44,7,Spring Semester,No,Average,Quiet,B-,3.4
+1107,Noah Brown,Junior,20,Kinesthetic,High Income,52.2,960,Advanced,306,Advanced Physics,Hard,13,Activity-based,"Projects, Presentations",50,10,Fall Semester,Yes,Good,Quiet,A,4.2
+1108,Avery Johnson,Freshman,17,Visual,Low Income,37.6,700,Beginner,106,Introduction to Economics,Easy,29,Lecture-based,"Exams, Projects",48,6,Spring Semester,No,Good,Quiet,C,2.8
+1109,Ella Thompson,Sophomore,18,Auditory,Middle Income,46.2,840,Intermediate,208,Introduction to Psychology,Medium,35,Interactive,"Homework, Quizzes",45,7,Fall Semester,Yes,Average,Quiet,B-,3.5
+1110,Jaxon Davis,Junior,21,Visual,Low Income,48.9,950,Advanced,307,Advanced Psychology,Hard,14,Activity-based,"Projects, Presentations",52,10,Spring Semester,No,Good,Quiet,A-,4.1
+1111,Liam Green,Sophomore,19,Kinesthetic,High Income,43.5,820,Intermediate,209,Introduction to Computer Science,Medium,36,Interactive,"Homework, Quizzes",46,7,Fall Semester,Yes,Good,Quiet,B,2.7
+1112,Ava Wilson,Freshman,16,Auditory,Middle Income,41.8,750,Beginner,107,Introduction to Sociology,Easy,28,Lecture-based,"Exams, Projects",49,6,Spring Semester,No,Good,Quiet,C+,3.6
+1113,Mason Smith,Junior,22,Kinesthetic,Low Income,50.6,940,Advanced,308,Advanced Sociology,Hard,15,Activity-based,"Projects, Presentations",53,10,Fall Semester,Yes,Good,Quiet,A,4
+1114,Olivia Taylor,Freshman,17,Visual,High Income,47.7,930,Beginner,108,Introduction to Mathematics,Easy,27,Lecture-based,"Exams, Projects",48,6,Spring Semester,No,Good,Quiet,B+,3.4
+1115,Elijah Jones,Sophomore,19,Auditory,Middle Income,45.1,810,Intermediate,210,Introduction to Biology,Medium,37,Interactive,"Homework, Quizzes",47,7,Fall Semester,Yes,Average,Quiet,B,2.9
+1116,Avery Brown,Junior,21,Kinesthetic,Low Income,51.5,920,Advanced,309,Advanced Biology,Hard,16,Activity-based,"Projects, Presentations",54,10,Spring Semester,No,Good,Quiet,A-,4.1
+1117,Sophia Johnson,Freshman,16,Visual,High Income,42.3,780,Beginner,109,Introduction to History,Easy,29,Lecture-based,"Exams, Projects",49,6,Fall Semester,No,Good,Quiet,C,3.2
+1118,Daniel Wilson,Sophomore,18,Auditory,Middle Income,44.8,850,Intermediate,211,Introduction to Philosophy,Medium,38,Interactive,"Homework, Quizzes",46,7,Spring Semester,Yes,Average,Quiet,B-,3.5
+1119,Jasmine Davis,Junior,22,Visual,High Income,52.9,900,Advanced,301,Advanced Physics,Hard,20,Lecture-based,"Exams, Projects",52,8,Fall Semester,No,Good,Quiet,A,4
+1120,Elias Thompson,Freshman,17,Auditory,Middle Income,41.2,800,Beginner,101,Introduction to Computer Science,Easy,32,Interactive,"Homework, Quizzes",45,6,Spring Semester,Yes,Average,Quiet,B,2.8
+1121,Amina Patel,Sophomore,19,Kinesthetic,Low Income,50.6,950,Intermediate,212,Introduction to Psychology,Medium,39,Activity-based,"Projects, Presentations",51,9,Fall Semester,No,Good,Quiet,A-,3.6
+1122,Mateo Rodriguez,Junior,21,Visual,High Income,48.7,880,Advanced,302,Advanced Chemistry,Hard,18,Lecture-based,"Exams, Projects",53,7,Spring Semester,Yes,Average,Quiet,A-,4.3
+1123,Zoey White,Freshman,16,Auditory,Middle Income,39.1,750,Beginner,102,Introduction to Literature,Easy,28,Interactive,"Homework, Quizzes",43,5,Fall Semester,No,Good,Quiet,C+,3.4
+1124,Liam Green,Sophomore,18,Kinesthetic,Low Income,47.8,820,Intermediate,213,Introduction to Sociology,Medium,36,Activity-based,"Projects, Presentations",47,6,Spring Semester,Yes,Average,Quiet,B-,4.1
+1125,Isabella Harris,Junior,20,Visual,High Income,53.6,980,Advanced,303,Advanced Physics,Hard,21,Lecture-based,"Exams, Projects",55,9,Fall Semester,No,Good,Quiet,A,4.2
+1126,Noah Carter,Freshman,17,Auditory,Middle Income,37.5,700,Beginner,103,Introduction to Geology,Easy,26,Interactive,"Homework, Quizzes",42,4,Spring Semester,Yes,Average,Quiet,C,2.7
+1127,Avery Thompson,Sophomore,19,Kinesthetic,Low Income,49.3,850,Intermediate,214,Introduction to Anthropology,Medium,35,Activity-based,"Projects, Presentations",48,7,Fall Semester,No,Good,Quiet,B,3.5
+1128,Sophia Garcia,Junior,21,Visual,High Income,51.8,920,Advanced,304,Advanced Biology,Hard,19,Lecture-based,"Exams, Projects",54,8,Spring Semester,Yes,Average,Quiet,A-,4.4
+1129,Mia Walker,Freshman,17,Auditory,Middle Income,42.1,750,Beginner,105,Introduction to Psychology,Easy,28,Interactive,"Homework, Quizzes",44,5,Fall Semester,No,Average,Quiet,C+,2.5
+1130,Elias Hernandez,Sophomore,18,Kinesthetic,Low Income,45.9,800,Intermediate,215,Introduction to Philosophy,Medium,33,Activity-based,"Projects, Presentations",46,6,Spring Semester,Yes,Good,Quiet,B,3.6
+1131,Avery Clark,Junior,20,Visual,High Income,50.7,950,Advanced,305,Advanced Chemistry,Hard,20,Lecture-based,"Exams, Projects",53,9,Fall Semester,No,Good,Quiet,A,4.3
+1132,Jordan Lewis,Freshman,17,Auditory,Middle Income,41.2,720,Beginner,106,Introduction to Economics,Easy,27,Interactive,"Homework, Quizzes",43,4,Spring Semester,No,Average,Quiet,C,2.7
+1133,Isabella Johnson,Sophomore,19,Kinesthetic,Low Income,48.6,830,Intermediate,216,Introduction to Political Science,Medium,34,Activity-based,"Projects, Presentations",47,7,Fall Semester,Yes,Good,Quiet,B-,3.4
+1134,Ethan Thompson,Junior,21,Visual,High Income,52.5,970,Advanced,306,Advanced Mathematics,Hard,18,Lecture-based,"Exams, Projects",55,10,Spring Semester,No,Average,Quiet,A,4.3
+1135,Ava Brown,Freshman,17,Auditory,Middle Income,40.8,710,Beginner,107,Introduction to Computer Science,Easy,29,Interactive,"Homework, Quizzes",45,5,Fall Semester,No,Average,Quiet,C,2.6
+1136,Liam Wilson,Sophomore,18,Kinesthetic,Low Income,47.2,810,Intermediate,217,Introduction to Art History,Medium,32,Activity-based,"Projects, Presentations",46,6,Spring Semester,Yes,Good,Quiet,B,3.5
+1137,Oliver Davis,Junior,20,Visual,High Income,53.1,960,Advanced,307,Advanced Physics,Hard,21,Lecture-based,"Exams, Projects",54,9,Fall Semester,No,Good,Quiet,A,4.4
+1138,Avery White,Freshman,17,Auditory,Middle Income,41.5,730,Beginner,108,Introduction to History,Easy,28,Interactive,"Homework, Quizzes",44,4,Spring Semester,No,Average,Quiet,C,2.7
+1139,Emma Johnson,Sophomore,19,Visual,High Income,48.5,850,Intermediate,202,Intermediate Spanish,Medium,38,Activity-based,"Projects, Presentations",47,7,Fall Semester,Yes,Good,Quiet,B,3.5
+1140,James Anderson,Junior,21,Auditory,Low Income,45.2,780,Beginner,112,Fundamentals of Psychology,Easy,27,Lecture-based,"Exams, Projects",43,5,Spring Semester,No,Average,Quiet,C,4.4
+1141,Isabella Davis,Freshman,17,Kinesthetic,Middle Income,43.7,800,Beginner,101,Introduction to English Literature,Easy,24,Interactive,"Homework, Quizzes",42,6,Fall Semester,Yes,Good,Quiet,B-,2.7
+1142,William Thompson,Sophomore,19,Visual,High Income,51.8,950,Advanced,218,Advanced Chemistry,Hard,25,Lecture-based,"Exams, Projects",56,10,Spring Semester,No,Average,Quiet,A,3.6
+1143,Mia White,Junior,20,Auditory,Low Income,46.9,790,Intermediate,301,Calculus I,Hard,23,Lecture-based,"Exams, Projects",53,8,Fall Semester,No,Good,Quiet,B+,2.8
+1144,Noah Brown,Freshman,16,Kinesthetic,Middle Income,39.6,720,Beginner,102,Introduction to Philosophy,Easy,26,Interactive,"Homework, Quizzes",41,4,Spring Semester,Yes,Average,Quiet,C-,3.2
+1145,Oliver Johnson,Sophomore,18,Visual,High Income,50.3,900,Intermediate,210,Intermediate Sociology,Medium,35,Lecture-based,"Exams, Projects",49,7,Fall Semester,No,Good,Quiet,B,4.5
+1146,Ava Davis,Junior,21,Auditory,Low Income,44.8,770,Beginner,303,Advanced Statistics,Hard,22,Lecture-based,"Exams, Projects",51,9,Spring Semester,Yes,Average,Quiet,B+,3.8
+1147,Ethan Wilson,Freshman,17,Kinesthetic,Middle Income,38.2,700,Beginner,105,Introduction to Art,Easy,29,Interactive,"Homework, Quizzes",40,5,Fall Semester,No,Average,Quiet,C-,2.4
+1148,Liam Thompson,Sophomore,19,Visual,High Income,52.1,930,Advanced,211,Intermediate Economics,Hard,24,Lecture-based,"Exams, Projects",54,10,Spring Semester,No,Good,Quiet,A,3.7
+1149,Isabella Garcia,Junior,20,Auditory,Middle Income,47.5,810,Intermediate,301,Advanced Calculus,Hard,21,Lecture-based,"Exams, Projects",48,7,Fall Semester,Yes,Average,Quiet,B,3.9
+1150,Jamal Smith,Sophomore,18,Visual,Low Income,42.8,750,Beginner,202,Intermediate Psychology,Medium,33,Interactive,"Homework, Quizzes",46,5,Spring Semester,No,Good,Quiet,C,2.3
+1151,Mia Chen,Freshman,16,Kinesthetic,High Income,40.1,850,Beginner,101,Introduction to Physics,Easy,27,Activity-based,"Projects, Presentations",43,6,Fall Semester,Yes,Average,Quiet,C+,4.6
+1152,Liam Patel,Junior,21,Auditory,Middle Income,48.6,880,Intermediate,304,Advanced Statistics,Hard,23,Lecture-based,"Exams, Projects",52,8,Spring Semester,Yes,Average,Quiet,B+,3.8
+1153,Sophia Nguyen,Sophomore,18,Visual,Low Income,44.9,790,Beginner,203,Intermediate Chemistry,Medium,32,Lecture-based,"Homework, Quizzes",47,6,Fall Semester,No,Good,Quiet,C+,2.9
+1154,Elijah Johnson,Junior,20,Kinesthetic,High Income,49.8,890,Intermediate,302,Advanced Biology,Hard,25,Interactive,"Exams, Projects",53,9,Spring Semester,Yes,Average,Quiet,B+,2.5
+1155,Ava Taylor,Sophomore,19,Auditory,Middle Income,46.2,820,Beginner,201,Intermediate History,Medium,34,Lecture-based,"Homework, Quizzes",45,7,Fall Semester,No,Good,Quiet,C,3.9
+1156,Noah White,Freshman,17,Visual,Low Income,39.3,730,Beginner,103,Introduction to Computer Science,Easy,28,Activity-based,"Projects, Presentations",42,5,Spring Semester,Yes,Average,Quiet,C-,2.7
+1157,Mia Martinez,Junior,21,Kinesthetic,High Income,45.7,860,Intermediate,303,Advanced Mathematics,Hard,24,Lecture-based,"Exams, Projects",51,8,Fall Semester,Yes,Average,Quiet,B-,4.1
+1158,Jamal Brown,Sophomore,18,Auditory,Middle Income,43.5,780,Beginner,204,Intermediate Physics,Medium,36,Interactive,"Homework, Quizzes",44,6,Spring Semester,No,Good,Quiet,C+,2.8
+1159,Sophia Garcia,Freshman,16,Visual,Low Income,38.9,740,Beginner,101,Introduction to Psychology,Easy,30,Activity-based,"Projects, Presentations",48,7,Fall Semester,Yes,Good,Quiet,C,2.4
+1160,Liam Thompson,Junior,22,Auditory,High Income,48.5,880,Intermediate,301,Advanced Literature,Medium,26,Interactive,"Exams, Projects",54,9,Spring Semester,Yes,Average,Quiet,B,3.7
+1161,Aisha Patel,Sophomore,19,Kinesthetic,Middle Income,44.2,770,Beginner,203,Intermediate Sociology,Medium,35,Lecture-based,"Homework, Quizzes",46,6,Fall Semester,No,Good,Quiet,C-,2.6
+1162,Mason Kim,Freshman,17,Visual,Low Income,37.6,710,Beginner,104,Introduction to Chemistry,Easy,29,Activity-based,"Projects, Presentations",41,5,Spring Semester,Yes,Average,Quiet,C-,2.3
+1163,Nia Davis,Junior,21,Auditory,High Income,47.8,850,Intermediate,304,Advanced Economics,Hard,23,Interactive,"Exams, Projects",52,8,Fall Semester,Yes,Average,Quiet,B+,4.3
+1164,Jaden Walker,Sophomore,18,Kinesthetic,Middle Income,42.7,760,Beginner,205,Intermediate Biology,Medium,37,Lecture-based,"Homework, Quizzes",45,6,Spring Semester,No,Good,Quiet,C,2.5
+1165,Mia Nguyen,Freshman,16,Visual,Low Income,36.4,700,Beginner,105,Introduction to Art History,Easy,31,Activity-based,"Projects, Presentations",49,7,Fall Semester,Yes,Good,Quiet,C-,2.2
+1166,Ethan Chen,Junior,22,Auditory,High Income,49.2,870,Intermediate,305,Advanced Philosophy,Medium,27,Interactive,"Exams, Projects",53,9,Spring Semester,Yes,Average,Quiet,B-,3.8
+1167,Isabella Rodriguez,Sophomore,19,Kinesthetic,Middle Income,43.9,790,Beginner,206,Intermediate Anthropology,Medium,36,Lecture-based,"Homework, Quizzes",47,6,Fall Semester,No,Good,Quiet,C+,2.4
+1168,Oliver Wilson,Freshman,17,Visual,Low Income,35.8,720,Beginner,106,Introduction to Music Theory,Easy,32,Activity-based,"Projects, Presentations",43,5,Spring Semester,Yes,Average,Quiet,C-,2.1
+1169,Avery Thompson,Junior,20,Auditory,High Income,48.5,850,Intermediate,301,Advanced Calculus I,Hard,28,Lecture-based,"Exams, Projects",52,8,Fall Semester,No,Good,Quiet,B,3.7
+1170,Nia White,Sophomore,18,Visual,Middle Income,45.6,780,Beginner,201,Intermediate Chemistry,Medium,35,Interactive,"Homework, Quizzes",48,6,Spring Semester,Yes,Good,Quiet,B-,3.5
+1171,Liam Green,Freshman,16,Kinesthetic,Low Income,34.9,710,Beginner,101,Introduction to World History,Easy,33,Activity-based,"Projects, Presentations",44,5,Fall Semester,No,Average,Quiet,C-,2
+1172,Avery Thompson,Junior,21,Auditory,High Income,49.2,860,Intermediate,302,Advanced Physics I,Hard,29,Lecture-based,"Exams, Projects",53,9,Spring Semester,Yes,Good,Quiet,A-,3.6
+1173,Nia White,Sophomore,19,Visual,Middle Income,46.3,790,Beginner,202,Intermediate Psychology,Medium,34,Interactive,"Homework, Quizzes",47,7,Fall Semester,No,Good,Quiet,B,3.2
+1174,Liam Green,Freshman,17,Kinesthetic,Low Income,35.1,700,Beginner,102,Introduction to Computer Science,Easy,31,Activity-based,"Projects, Presentations",43,5,Spring Semester,Yes,Average,Quiet,C-,1.9
+1175,Avery Thompson,Junior,22,Auditory,High Income,48.8,870,Intermediate,303,Advanced Statistics,Hard,27,Lecture-based,"Exams, Projects",51,8,Fall Semester,No,Good,Quiet,A,3.8
+1176,Nia White,Sophomore,20,Visual,Middle Income,44.7,780,Beginner,203,Intermediate Art History,Medium,36,Interactive,"Homework, Quizzes",46,6,Spring Semester,Yes,Good,Quiet,B+,2.8
+1177,Liam Green,Freshman,18,Kinesthetic,Low Income,36.2,710,Beginner,103,Introduction to Sociology,Easy,32,Activity-based,"Projects, Presentations",42,5,Fall Semester,No,Average,Quiet,C,1.8
+1178,Avery Thompson,Junior,23,Auditory,High Income,49.5,860,Intermediate,304,Advanced Economics,Hard,28,Lecture-based,"Exams, Projects",53,9,Spring Semester,Yes,Good,Quiet,A-,4.1
+1179,Jamal Brown,Sophomore,19,Visual,Low Income,37.6,720,Beginner,204,Intermediate Psychology,Medium,37,Interactive,"Homework, Quizzes",45,6,Fall Semester,Yes,Good,Quiet,B,3.5
+1180,Sofia Garcia,Freshman,16,Kinesthetic,Middle Income,41.8,800,Beginner,104,Introduction to Physics,Easy,30,Activity-based,"Projects, Presentations",44,5,Spring Semester,No,Average,Quiet,C+,3.2
+1181,Jasmine Davis,Sophomore,18,Visual,Middle Income,42.5,850,Basic,202,Introduction to Psychology,Medium,28,Lecture-based,"Exams, Projects",42,8,Fall Semester,Yes,Good,Quiet,B,3.5
+1183,Raj Patel,Junior,20,Auditory,Low Income,31,1150,Basic,106,College Algebra II,Medium,28,Lecture-based,"Exams, Projects",22,4,Spring Semester,Yes,Noisy, ,F,
+1184,Sofia Garcia,Sophomore,19,Kinesthetic,High Income,42,1300,Basic,107,College Literature II,Easy,25,Activity-based,"Projects, Presentations",24,2,Fall Semester,No,Quiet, ,D,
+1185,Liam Thompson,Senior,22,Visual,Middle Income,38,1250,Basic,108,College US History II (US History),Hard,30,Interactive,"Projects, Presentations",21,5,Spring Semester,Yes,Quiet, ,D-,
+1186,Mia Johnson,Freshman,18,Auditory,Low Income,22,1100,Basic,109,College Biology I Introduction to Biology,Easy,35,Lecture-based,"Exams, Projects",25,3,Fall Semester,No,Quiet, ,F,
+1187,Noah Brown,Junior,21,Kinesthetic,High Income,45,1350,Basic,110,College Algebra III,Medium,27,Activity-based,"Homework, Quizzes",26,4,Spring Semester,Yes,Quiet, ,D,
+1188,Emma White,Sophomore,19,Visual,Middle Income,36,1280,Basic,111,College Literature III,Easy,23,Interactive,"Projects, Presentations",24,3,Fall Semester,No,Quiet, ,D-,
+1189,Daniel Lee,Senior,22,Auditory,Low Income,33,1220,Basic,112,College US History III (US History),Hard,31,Lecture-based,"Exams, Projects",20,5,Spring Semester,Yes,Noisy, ,F,
+1190,Jessica Davis,Freshman,18,Kinesthetic,High Income,48,1380,Basic,113,College Biology II Introduction to Biology I,Medium,30,Activity-based,"Exams, Projects",23,3,Fall Semester,No,Quiet, ,D+,
+1191,William Anderson,Junior,20,Visual,Middle Income,34,1260,Basic,114,College Algebra IV,Hard,26,Lecture-based,"Homework, Quizzes",25,4,Spring Semester,Yes,Quiet, ,F,
+1192,Aisha Patel,Freshman,18,Auditory,Low Income,42,1310,Basic,115,College Literature I Introduction to Literature I,Easy,28,Interactive,"Projects, Presentations",22,4,Fall Semester,No,Quiet, ,D,
+1193,Rajesh Gupta,Sophomore,19,Kinesthetic,Middle Income,38,1290,Basic,116,College Biology I Introduction to Biology I,Medium,29,Activity-based,"Exams, Projects",24,3,Spring Semester,Yes,Quiet, ,D-,
+1194,Fatima Ahmed,Junior,20,Visual,High Income,45,1350,Basic,117,College Algebra III,Hard,30,Lecture-based,"Homework, Quizzes",26,5,Fall Semester,No,Noisy, ,D,
+1195,Mohammed Ali,Senior,21,Auditory,Low Income,40,1270,Basic,118,College US History II (US History),Medium,25,Interactive,"Exams, Projects",21,4,Spring Semester,Yes,Quiet, ,D,
+1196,Sofia Martinez,Freshman,18,Kinesthetic,Middle Income,36,1250,Basic,119,College Algebra II,Medium,27,Activity-based,"Exams, Projects",23,3,Fall Semester,No,Quiet, ,D-,
+1197,Hana Kim,Sophomore,19,Visual,High Income,44,1360,Basic,120,College Biology II Introduction to Biology II,Hard,24,Lecture-based,"Homework, Quizzes",25,5,Spring Semester,Yes,Noisy, ,D,
+1198,Marcus Johnson,Junior,20,Auditory,Low Income,41,1280,Basic,121,College Literature II Introduction to Literature II,Easy,26,Interactive,"Projects, Presentations",22,4,Fall Semester,No,Quiet, ,D,
+1199,Jasmine Thompson,Senior,21,Kinesthetic,Middle Income,39,1240,Basic,122,College US History III (US History),Hard,28,Activity-based,"Exams, Projects",21,5,Spring Semester,Yes,Noisy, ,D-,
+1200,Liam Garcia,Freshman,18,Visual,High Income,46,1370,Basic,123,College Algebra IV,Hard,29,Lecture-based,"Homework, Quizzes",26,5,Fall Semester,No,Quiet, ,D+,
+1201,Aisha Ali,Freshman,18,Auditory,Middle Income,38,1290,Basic,124,College Algebra IV Introduction to Algebra IV,Medium,27,Interactive,"Exams, Projects",24,6,Spring Semester,Yes,Quiet, ,D-,
+1202,Kai Matsuda,Junior,20,Visual,High Income,47,1380,Basic,125,College Literature III Introduction to Literature III,Easy,25,Activity-based,"Homework, Quizzes",23,4,Fall Semester,No,Noisy, ,D+,
+1203,Sophia Chen,Senior,21,Kinesthetic,Low Income,37,1250,Basic,126,College Biology III Introduction to Biology III,Hard,26,Lecture-based,"Exams, Projects",20,5,Spring Semester,Yes,Quiet, ,C,
+1204,Liam Nguyen,Freshman,18,Auditory,Low Income,42,1260,Basic,127,College Algebra III Introduction to Algebra III,Hard,28,Interactive,"Homework, Quizzes",25,6,Fall Semester,No,Noisy, ,D,
+1205,Ava Patel,Sophomore,19,Kinesthetic,High Income,45,1330,Basic,128,College US History II (US History II),Medium,24,Activity-based,"Exams, Projects",21,5,Spring Semester,Yes,Quiet, ,D,
+1206,Mateo Rodriguez,Junior,20,Visual,Middle Income,48,1390,Basic,129,College Literature IV Introduction to Literature IV,Easy,27,Lecture-based,"Homework, Quizzes",23,4,Fall Semester,No,Quiet, ,D,
+1207,Zara Ahmed,Senior,21,Auditory,Low Income,36,1240,Basic,130,College Biology IV Introduction to Biology IV,Hard,29,Interactive,"Exams, Projects",20,5,Spring Semester,Yes,Noisy, ,D,
+1208,Elias Kim,Freshman,18,Kinesthetic,High Income,43,1320,Basic,131,College Algebra II Introduction to Algebra II,Medium,25,Lecture-based,"Homework, Quizzes",24,6,Fall Semester,No,Quiet, ,D,
+1209,Sofia Garcia,Sophomore,19,Visual,Middle Income,46,1370,Basic,132,College US History III (US History III),Hard,26,Interactive,"Exams, Projects",21,5,Spring Semester,Yes,Quiet, ,D+,
+1210,Amina Mohamed,Junior,20,Auditory,Low Income,42,1360,Basic,134,College Literature IV Introduction to Literature IV,Medium,28,Interactive,"Exams, Projects",24,5,Fall Semester,Yes,Noisy, ,D,
+1211,Ravi Patel,Sophomore,19,Kinesthetic,Middle Income,47,1380,Basic,133,College Biology III (Biology III),Easy,25,Lecture-based,"Homework, Quizzes",25,4,Spring Semester,No,Quiet, ,D,
+1212,Mira Khan,Freshman,18,Visual,High Income,45,1350,Basic,136,College Algebra III (Algebra III),Medium,24,Lecture-based,"Homework, Quizzes",22,6,Fall Semester,Yes,Quiet, ,D,
+1213,Liam Thompson,Senior,21,Auditory,Low Income,39,1280,Basic,137,College US History IV (US History IV),Hard,27,Interactive,"Exams, Projects",23,5,Spring Semester,Yes,Noisy, ,D,
+1214,Emily Davis,Junior,20,Kinesthetic,Middle Income,44,1340,Basic,138,College Literature IV Introduction to Literature IV,Medium,26,Interactive,"Exams, Projects",25,4,Fall Semester,Yes,Quiet, ,D,
+1215,James Johnson,Sophomore,19,Visual,High Income,46,1390,Basic,139,College Biology III (Biology III),Easy,23,Lecture-based,"Homework, Quizzes",21,6,Spring Semester,No,Quiet, ,D+,
+1216,Aisha Williams,Freshman,18,Auditory,Low Income,43,1370,Basic,140,College Algebra III (Algebra III),Medium,24,Lecture-based,"Homework, Quizzes",23,5,Fall Semester,Yes,Noisy, ,D,
+1217,Daniel Brown,Senior,21,Kinesthetic,Middle Income,38,1290,Basic,141,College US History IV (US History IV),Hard,27,Interactive,"Exams, Projects",24,5,Spring Semester,No,Quiet, ,D,
+1218,Sophia Chen,Junior,20,Visual,High Income,47,1330,Basic,142,College Literature IV Introduction to Literature IV,Medium,25,Lecture-based,"Exams, Projects",22,4,Fall Semester,Yes,Noisy, ,D,
+1219,Maria Rodriguez,Sophomore,19,Visual,Middle Income,42,1410,Basic,143,College Biology III (Biology III),Easy,22,Lecture-based,"Homework, Quizzes",23,5,Spring Semester,No,Quiet, ,D,
+1220,Kamal Patel,Junior,20,Auditory,High Income,48,1360,Basic,144,College Algebra III (Algebra III),Medium,26,Interactive,"Exams, Projects",24,4,Fall Semester,Yes,Noisy, ,D+,
+1221,Zara Ahmed,Senior,21,Kinesthetic,Low Income,39,1280,Basic,145,College US History IV (US History IV),Hard,28,Lecture-based,"Homework, Quizzes",25,6,Spring Semester,No,Quiet, ,F,
