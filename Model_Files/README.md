@@ -11,10 +11,10 @@ The dataset contains information about students, including demographic data, aca
 * numpy
 * scikit-learn
 * matplotlib
-* Pickle
+* pickle
 
 ### Usage
-1. Install required libraries using `pip install pandas numpy scikit-learn matplotlib`
+1. Install required libraries using `pip install pandas numpy scikit-learn matplotlib pickle`
 2. Prepare your student data in a CSV file with the same format as the provided sample data.
 3. Replace the sample data file path with your data file path.
 4. Run the Python script.
