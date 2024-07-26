@@ -42,3 +42,5 @@ Decision tree Cross-validation values:
 
 ##  Model Integration
 Both trained models were extracted using pickle library for easy integration with other applications 
+
+# ALL MODELS WERE TRAINED USING GOOGLE COLAB ONLINE PLATFORM
