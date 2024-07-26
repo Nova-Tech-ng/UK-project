@@ -1,7 +1,7 @@
 ## Student Data Analysis
 
 ### Description
-This project analyzes student data to predict academic performance and identify potential risk factors. A decision tree model is used to classify students as "at risk" or "not at risk."
+This project analyzes student data to predict academic performance and identify potential risk factors. A decision tree model is used to classify students as "at risk" or "not at risk." and a linear regression model is used to predict student grades
 
 ### Dataset
 The dataset contains information about students, including demographic data, academic performance, and behavioral factors.
