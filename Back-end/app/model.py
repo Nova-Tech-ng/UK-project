@@ -41,7 +41,7 @@ class Student_data(db.Model):
     attendance = db.Column(db.Integer, nullable=False)
     study_time = db.Column(db.Integer, nullable=False)
     time_of_year = db.Column(db.String(50), nullable=False)
-    extra_curricular_activities = db.Column(db.Boolean, nullable=False)
+    extra_curricular_activities = db.Column(db.String(50), nullable=False)
     health = db.Column(db.String(50), nullable=False)
     home_environment = db.Column(db.String(50), nullable=False)
     actual_grade = db.Column(db.String(50), nullable=False)
