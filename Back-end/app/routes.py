@@ -41,6 +41,7 @@ def student_register():
 
         db.session.add(new_user)
         db.session.commit()
+        access_token = create_access_token(identity=new_user.id)
 
         return jsonify({
                         "message": "User registered successfully",
@@ -49,7 +50,8 @@ def student_register():
                             "first_name": new_user.first_name,
                             "last_name": new_user.last_name,
                             "username": new_user.username,
-                            "email": new_user.email
+                            "email": new_user.email,
+                            "access_token": access_token,
                         }
                     }), 201
         
@@ -113,6 +115,7 @@ def admin_register():
         
         db.session.add(new_admin)
         db.session.commit()
+        access_token = create_access_token(identity=new_admin.id)
         
         return jsonify({
                         "message": "Admin registered successfully",
@@ -121,6 +124,7 @@ def admin_register():
                             "first_name": new_admin.admin_name,
                             "username": new_admin.username,
                             "email": new_admin.email,
+                            "access_token": access_token,
                         }
                         }), 201
     # handle errors of headers
@@ -155,15 +159,7 @@ def admin_login():
 def submit_student_data():
     data = request.get_json()
     student_id = get_jwt_identity()
-    
-    value = data['extra_curricular_activities']
-    
-    # Convert value to boolean
-    if value == 'yes':
-        value = True
-    else:
-        value = False
-        
+            
     new_student_data = Student_data(
         id=str(uuid.uuid4()),
         age=data['age'],
@@ -182,7 +178,7 @@ def submit_student_data():
         attendance=data['attendance'],
         study_time=data['study_time'],
         time_of_year=data['time_of_year'],
-        extra_curricular_activities=value,
+        extra_curricular_activities=data['extra_curricular_activities'],
         health=data['health'],
         home_environment=data['home_environment'],
         actual_grade=data['actual_grade'],
