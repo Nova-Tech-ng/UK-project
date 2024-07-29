@@ -8,4 +8,8 @@ config.py
 # Ignore .vscode directory
 .vscode/
 
+# Ignore __pycache__ directory
 __pycache__/
+
+# Ignore database file
+instance/

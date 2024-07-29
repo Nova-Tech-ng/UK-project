@@ -45,8 +45,35 @@ class Student_data(db.Model):
     health = db.Column(db.String(50), nullable=False)
     home_environment = db.Column(db.String(50), nullable=False)
     actual_grade = db.Column(db.String(50), nullable=False)
-    cgpa = db.Column(db.Boolean, nullable=False)
+    cgpa = db.Column(db.Integer, nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f'<Student_data {self.id}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'age': self.age,
+            'grade_level': self.grade_level,
+            'learning_style': self.learning_style,
+            'socio_economic_status': self.socio_economic_status,
+            'past_grades': self.past_grades,
+            'standardized_test_scores': self.standardized_test_scores,
+            'prior_knowledge': self.prior_knowledge,
+            'course_id': self.course_id,
+            'course_name': self.course_name,
+            'course_difficulty': self.course_difficulty,
+            'class_size': self.class_size,
+            'teaching_style': self.teaching_style,
+            'course_work_load': self.course_work_load,
+            'attendance': self.attendance,
+            'study_time': self.study_time,
+            'time_of_year': self.time_of_year,
+            'extra_curricular_activities': self.extra_curricular_activities,
+            'health': self.health,
+            'home_environment': self.home_environment,
+            'actual_grade': self.actual_grade,
+            'cgpa': self.cgpa,
+            'student_id': self.student_id
+        }
