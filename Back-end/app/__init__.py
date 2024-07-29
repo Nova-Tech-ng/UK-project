@@ -13,7 +13,9 @@ def create_app():
     jwt.init_app(app)
     
     # Import and register blueprints
-    from .routes import api as api_blueprint
-    app.register_blueprint(api_blueprint)
+    from .admin_routes import admin_bp
+    from .student_routes import student_bp
+    app.register_blueprint(admin_bp)
+    app.register_blueprint(student_bp)
     
     return app
