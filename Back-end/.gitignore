@@ -3,7 +3,9 @@ node_modules/
 
 # Ignore .env file
 .env
+config.py
 
 # Ignore .vscode directory
 .vscode/
 
+__pycache__/
