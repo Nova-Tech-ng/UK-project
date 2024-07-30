@@ -15,7 +15,7 @@ function SignUpForm() {
     );
   };
   return (
-    <div className="flex  items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex  items-center justify-center min-h-screen bg-gray-100  flex-col-reverse md:flex-row">
       <div>
         <img src={signup} alt="" className="w-[500px]" />
       </div>
