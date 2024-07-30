@@ -66,13 +66,13 @@ class GradePredictionModel:
 
     def predict_grade_linear_regression(self, data):
         """Predicts a student's grade using the linear regression model."""
-        processed_data = self.process_data(data)
+        processed_data = self.clean_data(data)
         prediction = self.linear_regression_model.predict(processed_data)
         return prediction[0]
 
     def predict_grade_decision_tree(self, data):
         """Predicts a student's grade using the decision tree model."""
-        processed_data = self.process_data(data)
+        processed_data = self.clean_data(data)
         probabilities = self.decision_tree_model.predict_proba(processed_data)[0]
         threshold = 0.5  # Adjust threshold as needed
         predicted_class = "Pass" if probabilities[1] >= threshold else "Fail"

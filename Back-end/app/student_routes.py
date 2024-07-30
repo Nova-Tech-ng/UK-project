@@ -120,7 +120,7 @@ def submit_student_data():
 
     return jsonify({"message": "Student data submitted successfully"}), 201
 
-@student_bp.route('/api/student/predict', methods=['POST'])
+@student_bp.route('/api/student/predict', methods=['GET'])
 @jwt_required()
 def student_prediction():
     current_user = get_jwt_identity()
@@ -129,41 +129,33 @@ def student_prediction():
     if not student_prediction_data:
         return jsonify({"message": "Student data not found"}), 404
     
-    try:
-        # Convert student_prediction_data to dictionary
-        data_dict = {
-            'Age': student_prediction_data.age,
-            'Past Grades': student_prediction_data.past_grades,
-            'Standardized Test Scores': student_prediction_data.standardized_test_scores,
-            'Class Size': student_prediction_data.class_size,
-            'Attendance': student_prediction_data.attendance,
-            'Study Time': student_prediction_data.study_time
-        }
-        
-        # Predict grade
-        predictions = grade_model.predict(data_dict)
-        
-        # Extract individual predictions
-        decision_tree_pred = predictions['decision_tree']['predicted_class']
-        linear_regression_pred = predictions['linear_regression']['predicted_grade']
-        
-        new_prediction = Predicted_score(
-            id=str(uuid.uuid4()),
-            predict_grade_decision_tree=decision_tree_pred,
-            predict_grade_linear_regression=linear_regression_pred,
-            student_data_id=student_prediction_data.id
-        )
-        
-        db.session.add(new_prediction)
-        db.session.commit()
-        
-        return jsonify({
-            "predictions": predictions,
-            "stored_prediction": new_prediction.to_dict()
-        })
+    print(student_prediction_data)
     
-    except Exception as e:
-        db.session.rollback()  # Rollback the session in case of error
-        return jsonify({
-            "message": f"An error occurred: {str(e)}"
-        }), 500
+    # try:
+        
+    #     predictions = grade_model.predict(student_prediction_data)
+        
+    #     # Extract individual predictions
+    #     decision_tree_pred = predictions['decision_tree']['predicted_class']
+    #     linear_regression_pred = predictions['linear_regression']['predicted_grade']
+        
+    #     new_prediction = Predicted_score(
+    #         id=str(uuid.uuid4()),
+    #         predict_grade_decision_tree=decision_tree_pred,
+    #         predict_grade_linear_regression=linear_regression_pred,
+    #         student_data_id=student_prediction_data.id
+    #     )
+        
+    #     db.session.add(new_prediction)
+    #     db.session.commit()
+        
+    #     return jsonify({
+    #         "predictions": predictions,
+    #         "stored_prediction": new_prediction.to_dict()
+    #     })
+    
+    # except Exception as e:
+    #     db.session.rollback()
+    #     return jsonify({
+    #         "message": f"An error occurred: {str(e)}"
+    #     }), 500
