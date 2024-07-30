@@ -4,6 +4,7 @@
 
 **Model Description:**
 * A linear regression model predicting student grades based on age, past grades, standardized test scores, class size, attendance, and study time.
+
 * Model is saved as a pickled file named `linear_regression_model.pkl`.
 * Input: A dictionary containing the features: 'Age', 'Past Grades', 'Standardized Test Scores', 'Class Size', 'Attendance', and 'Study Time'.
 * Output: A predicted grade as a float.

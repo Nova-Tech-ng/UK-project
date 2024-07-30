@@ -1,10 +1,11 @@
-## Documenting Model Integration for Flask and Django
+## Documenting Model Integration for Flask
 
 ### General Documentation
 
 **Model Description:**
 * A decision tree model predicting student grades (categorical: Pass/Fail) based on various features such as age, past grades, standardized test scores, class size, attendance, and study time.
 * Model is saved as a pickled file named `decision_tree_model.pkl`.
+
 * Input: A dictionary containing the features: 'Age', 'Past Grades', 'Standardized Test Scores', 'Class Size', 'Attendance', and 'Study Time'.
 * Output:
   * A predicted grade as a string ('Pass' or 'Fail').
@@ -73,19 +74,6 @@ def predict():
                   'probability_distribution': probabilities.tolist()})
 ```
 
-#### Django
-
-```python
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
-def predict(request):
-  if request.method == 'POST':
-    data = json.loads(request.body)
-    predicted_class, probabilities = predict_grade(model, data)
-    return JsonResponse({'predicted_class': predicted_class,
-                          'probability_distribution': probabilities.tolist()})
-```
 
 ### Additional Considerations
 
