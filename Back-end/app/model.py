@@ -1,3 +1,4 @@
+import uuid
 from .extensions import db
 
 class User(db.Model):
@@ -32,8 +33,8 @@ class Student_data(db.Model):
     past_grades = db.Column(db.String(50), nullable=False)
     standardized_test_scores = db.Column(db.String(50), nullable=False)
     prior_knowledge = db.Column(db.String(50), nullable=False)
-    course_id = db.Column(db.Integer, nullable=False)
-    course_name = db.Column(db.String(50), nullable=False)
+    course_id = db.Column(db.Integer, unique=True, nullable=False)
+    course_name = db.Column(db.String(50), unique=True, nullable=False)
     course_difficulty = db.Column(db.String(50), nullable=False)
     class_size = db.Column(db.Integer, nullable=False)
     teaching_style = db.Column(db.String(50), nullable=False)
@@ -76,4 +77,28 @@ class Student_data(db.Model):
             'actual_grade': self.actual_grade,
             'cgpa': self.cgpa,
             'student_id': self.student_id
+        }
+        
+        
+class Predicted_score(db.Model):
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    predict_grade_decision_tree = db.Column(db.String(50), nullable=True)
+    predict_grade_linear_regression = db.Column(db.Float, nullable=True)
+    student_data_id = db.Column(db.String(36), db.ForeignKey('student_data.id'), nullable=False)
+    
+    def __repr__(self):
+        return f'<Predicted_score {self.id}>'
+    
+    def check_linear_score(self):
+        return "no prediction available" if self.predict_grade_linear_regression is None else self.predict_grade_linear_regression
+        
+    def check_decision_score(self):
+        return "no prediction available" if self.predict_grade_decision_tree is None else self.predict_grade_decision_tree
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'predict_grade_decision_tree': self.check_decision_score(),
+            'predict_grade_linear_regression': self.check_linear_score(),
+            'student_data_id': self.student_data_id
         }

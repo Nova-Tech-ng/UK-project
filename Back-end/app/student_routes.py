@@ -1,12 +1,17 @@
 from flask import Blueprint, request, jsonify
-from .model import User, Student_data
+from .model import User, Student_data, Predicted_score
 from .extensions import db
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import UnsupportedMediaType
 import uuid
+from .grade_prediction_model import GradePredictionModel
+
 
 student_bp = Blueprint('student_bp', __name__)
+
+# init the GradePredictionModel
+grade_model = GradePredictionModel('./pickle_files/linear_regression_model.pkl', './pickle_files/decision_tree_model.pkl')
 
 # Student Registration
 @student_bp.route('/api/student/register', methods=['POST'])
@@ -14,7 +19,7 @@ def student_register():
     try:
         if request.content_type == 'application/json':
             data = request.get_json()
-        elif request.content_type in ['application/x-www-form-urlencoded', 'multipart/form-data', 'multipart/form-data; boundary=X-INSOMNIA-BOUNDARY']:
+        elif request.content_type in ['application/x-www-form-urlencoded', 'multipart/form-ddecision_tree_model.pklata', 'multipart/form-data; boundary=X-INSOMNIA-BOUNDARY']:
             data = request.form
         else:
             raise UnsupportedMediaType(f"Unsupported content type: {request.content_type}")
@@ -114,3 +119,43 @@ def submit_student_data():
     db.session.commit()
 
     return jsonify({"message": "Student data submitted successfully"}), 201
+
+@student_bp.route('/api/student/predict', methods=['GET'])
+@jwt_required()
+def student_prediction():
+    current_user = get_jwt_identity()
+    student_prediction_data = Student_data.query.filter_by(student_id=current_user).first()
+    
+    if not student_prediction_data:
+        return jsonify({"message": "Student data not found"}), 404
+    
+    print(student_prediction_data)
+    
+    # try:
+        
+    #     predictions = grade_model.predict(student_prediction_data)
+        
+    #     # Extract individual predictions
+    #     decision_tree_pred = predictions['decision_tree']['predicted_class']
+    #     linear_regression_pred = predictions['linear_regression']['predicted_grade']
+        
+    #     new_prediction = Predicted_score(
+    #         id=str(uuid.uuid4()),
+    #         predict_grade_decision_tree=decision_tree_pred,
+    #         predict_grade_linear_regression=linear_regression_pred,
+    #         student_data_id=student_prediction_data.id
+    #     )
+        
+    #     db.session.add(new_prediction)
+    #     db.session.commit()
+        
+    #     return jsonify({
+    #         "predictions": predictions,
+    #         "stored_prediction": new_prediction.to_dict()
+    #     })
+    
+    # except Exception as e:
+    #     db.session.rollback()
+    #     return jsonify({
+    #         "message": f"An error occurred: {str(e)}"
+    #     }), 500
