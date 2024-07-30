@@ -1,54 +1,125 @@
-import React from "react";
-// import "./StudentPerformance.css"; // For custom styles if needed
+import { FaRegUserCircle } from "react-icons/fa";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+const data = [
+  { year: "2021", PredictedGrade: 70, ActualGrade: 50 },
+  { year: "2022", PredictedGrade: 30, ActualGrade: 60 },
+  { year: "2023", PredictedGrade: 60, ActualGrade: 55 },
+  { year: "2024", PredictedGrade: 70, ActualGrade: 40 },
+];
+export const studentData = [
+  {
+    id: 194,
+    gender: "Female",
+    name: "Grace Evans",
+    PredictedGrade: 89,
+    attendance: 89,
+    assignment: 89,
+    gpa: 3.74,
+    status: "Pending",
+  },
+  {
+    id: 233,
+    gender: "Male",
+    name: "Maro Oghenerukwe",
+    PredictedGrade: 90,
+    attendance: 94,
+    assignment: 94,
+    gpa: 3.92,
+    status: "Pending",
+  },
+  {
+    id: 921,
+    gender: "Male",
+    name: "Matthew Jonathan",
+    PredictedGrade: 75,
+    attendance: 25,
+    assignment: 25,
+    gpa: 1.45,
+    status: "At Risk",
+  },
+  {
+    id: 183,
+    gender: "Female",
+    name: "Glory Evans",
+    PredictedGrade: 76,
+    attendance: 56,
+    assignment: 56,
+    gpa: 2.85,
+    status: "Pending",
+  },
+  {
+    id: 219,
+    gender: "Male",
+    name: "Wila Amirs",
+    PredictedGrade: 55,
+    attendance: 62,
+    assignment: 62,
+    gpa: 3.02,
+    status: "pending",
+  },
+];
 
-function StudentPerformance() {
+const StudentDashboard = () => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <Header name="Jacob Fatu" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <PerformanceMetric title="Predicted Grade" value="54%" />
-        <PerformanceMetric title="Actual Grade" value="72.43%" />
-        <PerformanceMetric title="Attendance Rate" value="80%" />
-        <RiskIndicator value="Safe" />
+    <div className="container p-4 mx-auto">
+      <div className="mb-4">
+        <FaRegUserCircle size={30} />
+        <p>Jacob Fatu</p>
       </div>
-      <PerformanceChart />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+        <div className="border p-2 rounded shadow-lg flex flex-col justify-around">
+          <span className="ml-2 font-semibold">Predicted Grade</span>
+          <div className="flex justify-end">
+            <p className="text-5xl font-semibold">54%</p>
+          </div>
+        </div>
+        <div className="border p-2 rounded shadow-lg flex flex-col justify-around">
+          <span className="ml-2 font-semibold">Actual Grade</span>
+          <div className="flex justify-end">
+            <p className="text-5xl font-semibold">72.43%</p>
+          </div>
+        </div>
+        <div className="border p-2 rounded shadow-lg flex flex-col justify-around">
+          <span className="ml-2 font-semibold">Attendance Rate</span>
+          <div className="flex justify-end">
+            <p className="text-5xl font-semibold">80%</p>
+          </div>
+        </div>
+        <div className="border p-2 rounded shadow-lg flex flex-col justify-around">
+          <span className="ml-2 font-semibold">Risk Indicator</span>
+          <div className="flex justify-end">
+            <p className="text-5xl font-semibold">3.75</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
+        <div className="border p-4 rounded shadow-lg">
+          <h2 className="text-center mb-4">Performance Over Time</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="year" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="PredictedGrade" fill="#D25D09" />
+              <Bar dataKey="ActualGrade" fill="#4567B7" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-function Header({ name }) {
-  return (
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl font-bold">{name}</h2>
-      <div className="flex space-x-4">{/* Add tabs here */}</div>
-    </div>
-  );
-}
-
-function PerformanceMetric({ title, value }) {
-  return (
-    <div className="bg-gray-100 p-4 rounded-lg text-center">
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-2xl font-bold">{value}</p>
-    </div>
-  );
-}
-
-function RiskIndicator({ value }) {
-  const colorClass = value === "Safe" ? "bg-green-500" : "bg-red-500";
-  return (
-    <div className={`bg-gray-100 p-4 rounded-lg text-center ${colorClass}`}>
-      <h3 className="text-lg font-semibold">Risk Indicator</h3>
-      <p className="text-xl font-bold">{value}</p>
-    </div>
-  );
-}
-
-function PerformanceChart() {
-  // Implement chart using a charting library like Chart.js or React Chartjs
-  return (
-    <div className="bg-gray-100 p-4 rounded-lg">{/* Chart goes here */}</div>
-  );
-}
-
-export default StudentPerformance;
+export default StudentDashboard;

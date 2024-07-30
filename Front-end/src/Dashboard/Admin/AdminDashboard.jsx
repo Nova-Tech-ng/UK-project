@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { FaRegUserCircle } from "react-icons/fa";
 import Modal from "../Admin/Modal";
+import risk from "../../assets/risk.svg";
+import studentgraduate from "../../assets/studentgraduate.svg";
 import {
   BarChart,
   Bar,
@@ -82,41 +85,35 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <div className="mb-4">
+        <FaRegUserCircle size={30} />
+        <p>Admin</p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-        <div className="border p-2 ">
-          <label className="block mb-2">Select Course</label>
-          <select className="border p-2 rounded shadow-lg w-full">
+        <div className="border p-2 rounded shadow-lg">
+          <label className="block mb-2 font-semibold">Select Course</label>
+          <select className="border p-2  w-full">
             <option>All</option>
           </select>
         </div>
-        <div className="border p-2">
-          <label className="block mb-2">Select Grade Level</label>
-          <select className="border p-2 rounded shadow-lg w-full">
+        <div className="border p-2 rounded shadow-lg">
+          <label className="block mb-2 font-semibold">Select Grade Level</label>
+          <select className="border p-2  w-full">
             <option>All</option>
           </select>
         </div>
-        <div className="border p-2 rounded flex items-center justify-center shadow-lg">
-          <span className="text-3xl">3.75</span>
-          <span className="ml-2">Overall Class Performance</span>
+        <div className="border p-2 rounded shadow-lg flex flex-col justify-around">
+          <span className="ml-2 font-semibold">Overall Class Performance</span>
+          <div className="flex justify-end">
+            <p className="text-5xl font-semibold">3.75</p>
+          </div>
         </div>
-        <div className="border p-2 rounded flex items-center justify-center shadow-lg">
-          <span className="text-3xl">433</span>
-          <span className="ml-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0v5a3 3 0 01-3 3H6a3 3 0 01-3-3v-5m15 0v5a3 3 0 01-3 3h-3a3 3 0 01-3-3v-5m0 0L3 9"
-              />
-            </svg>
-          </span>
+        <div className="border p-2 rounded shadow-lg flex justify-between px-4">
+          <img src={studentgraduate} alt="studentgraduate" />
+          <div className="flex flex-col justify-between">
+            <p className="flex justify-end font-semibold">Students</p>
+            <p className="text-5xl font-semibold">433</p>
+          </div>
         </div>
       </div>
 
@@ -161,7 +158,7 @@ const AdminDashboard = () => {
                 <tr
                   key={student.id}
                   className={`${
-                    student.gpa < 2 ? "bg-red-200" : ""
+                    student.gpa < 2 ? "bg-[#EC5050]" : ""
                   } cursor-pointer`}
                   onClick={() => handleRowClick(student)}
                 >
@@ -186,6 +183,10 @@ const AdminDashboard = () => {
         onClose={() => setModalOpen(false)}
         student={selectedStudent}
       />
+      <div className="flex justify-center space-x-1 m-4">
+        <img src={risk} alt="Stuent at risk" className="w-[20px]" />
+        <p className="text-red-500">GPA in red signifies student at risk</p>
+      </div>
     </div>
   );
 };
