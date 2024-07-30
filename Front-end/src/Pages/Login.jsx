@@ -57,7 +57,14 @@ function Login() {
               </button>
             </div>
           </div>
-
+          <div>
+            <p className="text-center">
+              First Time Here?
+              <a href="/signup" className="text-[#0072D8] ml-1">
+                Sign Up
+              </a>
+            </p>
+          </div>
           <div className="flex items-center justify-between">
             <button
               className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"

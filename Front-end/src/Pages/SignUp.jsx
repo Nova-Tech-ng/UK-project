@@ -63,22 +63,6 @@ function SignUpForm() {
 
           <div className="mb-4">
             <label
-              htmlFor="role"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              My Role
-            </label>
-            <select
-              id="role"
-              className="w-full border border-gray-300 p-2 rounded"
-            >
-              <option value="student">Student</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label
               htmlFor="password"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
@@ -131,7 +115,14 @@ function SignUpForm() {
               </button>
             </div>
           </div>
-
+          <div>
+            <p className="text-center">
+              Have an account?
+              <a href="/login" className="text-[#0072D8] ml-1">
+                Sign In
+              </a>
+            </p>
+          </div>
           <div className="text-center">
             <button
               type="submit"
