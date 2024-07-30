@@ -3,13 +3,9 @@ node_modules/
 
 # Ignore .env file
 .env
-config.py
 
 # Ignore .vscode directory
 .vscode/
 
-# Ignore __pycache__ directory
-__pycache__/
-
-# Ignore database file
-instance/
+# virtual evnvironment
+.venv/
