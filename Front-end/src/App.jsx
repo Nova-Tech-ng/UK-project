@@ -12,8 +12,8 @@ function App() {
     <div>
       {/* <AdminDashboard /> */}
       {/* <SignUp /> */}
-      {/* <Login /> */}
-      <StudentDashboard />
+      <Login />
+      {/* <StudentDashboard /> */}
       {/* <StudentLearningResource /> */}
       {/* <DataEntryPage /> */}
       {/* <CourseDetail /> */}
