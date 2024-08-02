@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import Modal from "../Admin/Modal";
-import risk from "../../assets/risk.svg";
-import studentgraduate from "../../assets/studentgraduate.svg";
+import risk from "../assets/risk.svg";
+import studentgraduate from "../assets/studentgraduate.svg";
 import {
   BarChart,
   Bar,

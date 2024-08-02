@@ -90,9 +90,6 @@ const StudentDashboard = () => {
                         "linear-gradient(to right, green 80%, red 20%)",
                     }}
                   ></div>
-                  <div className="absolute top-0 left-3/4 transform -translate-x-1/2 text-red-500 text-sm">
-                    At risk
-                  </div>
                 </div>
               </div>
             </div>

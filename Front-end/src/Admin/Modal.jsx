@@ -1,5 +1,5 @@
 import React from "react";
-import studentmodal from "../../assets/studentmodal.svg";
+import studentmodal from "../assets/studentmodal.svg";
 
 const Modal = ({ isOpen, onClose, student }) => {
   if (!isOpen || !student) return null;

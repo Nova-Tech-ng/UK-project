@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import StudentDashboard from "./Dashboard/Student/StudentDashboard";
+import AdminLogin from "./Admin/AdminLogin";
+import AdminRegister from "./Admin/AdminRegister";
 import NotFoundPage from "./Pages/NotFoundPage";
-import AdminDashboard from "./Dashboard/Admin/AdminDashboard";
-import StudentLearningResource from "./Dashboard/Student/StudentLearningResource";
-import Login from "./Pages/Login";
-import SignUpForm from "./Pages/SignUp";
+import AdminDashboard from "./Admin/AdminDashboard";
+import StudentLogin from "./Student/StudentLogin";
+import StudentRegister from "./Student/StudentRegister";
+import StudentDashboard from "./Student/StudentDashboard";
+import DataEntryPage from "./Student/DataEntryPage";
 
 export const router = createBrowserRouter([
   {
@@ -14,23 +16,31 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/admin/login",
+    element: <AdminLogin />,
   },
   {
-    path: "/signup",
-    element: <SignUpForm />,
+    path: "/admin/register",
+    element: <AdminRegister />,
   },
   {
-    path: "/dashboard",
-    element: <StudentDashboard />,
-  },
-  {
-    path: "/learning-resources",
-    element: <StudentLearningResource />,
-  },
-  {
-    path: "/admindashboard",
+    path: "/admin/dashboard",
     element: <AdminDashboard />,
+  },
+  {
+    path: "/student/login",
+    element: <StudentLogin />,
+  },
+  {
+    path: "/student/register",
+    element: <StudentRegister />,
+  },
+  {
+    path: "/student/data",
+    element: <DataEntryPage />,
+  },
+  {
+    path: "/student/studentdashboard",
+    element: <StudentDashboard />,
   },
 ]);
