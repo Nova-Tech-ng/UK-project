@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 function StudentLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = useContext(AuthContext); // Access login function from AuthContext
+  const { login } = useContext(AuthContext); // Access login function from AuthContext
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
   const [errorMessage, setErrorMessage] = useState("");
@@ -17,14 +17,26 @@ function StudentLogin() {
     setErrorMessage(""); // Clear any previous error message
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/admin/register",
-        formData
+        "https://gregoryalpha.pythonanywhere.com/api/student/login",
+        { email, password } // Update the payload according to your API requirements
       );
 
       const token = response.data.token;
-      login(token, "student");
-      navigate("/student/dashboard");
+      if (token) {
+        console.log("Token received:", token); // Log the token after receiving it
+        localStorage.setItem("token", token); // Store the token in localStorage
+        console.log(
+          "Token set in localStorage:",
+          localStorage.getItem("token")
+        ); // Log the token from localStorage
+
+        login(token, "student");
+        navigate("/student/dashboard");
+      } else {
+        setErrorMessage("Login failed. Try again.");
+      }
     } catch (error) {
+      console.error("Error logging in:", error);
       if (
         error.response &&
         error.response.data &&

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import Modal from "../Admin/Modal";
 import risk from "../assets/risk.svg";
 import studentgraduate from "../assets/studentgraduate.svg";
@@ -77,28 +78,42 @@ export const studentData = [
 const AdminDashboard = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const navigate = useNavigate();
 
   const handleRowClick = (student) => {
     setSelectedStudent(student);
     setModalOpen(true);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove the token from localStorage
+    navigate("/admin/login"); // Redirect to the login page
+  };
+
   return (
     <div className="container mx-auto p-4">
-      <div className="mb-4">
-        <FaRegUserCircle size={30} />
-        <p>Admin</p>
+      <div className="flex justify-between mb-4">
+        <div className="flex items-center">
+          <FaRegUserCircle size={30} />
+          <p className="ml-2">Admin</p>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Logout
+        </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mb-4">
         <div className="border p-2 rounded shadow-lg">
           <label className="block mb-2 font-semibold">Select Course</label>
-          <select className="border p-2  w-full">
+          <select className="border p-2 w-full">
             <option>All</option>
           </select>
         </div>
         <div className="border p-2 rounded shadow-lg">
           <label className="block mb-2 font-semibold">Select Grade Level</label>
-          <select className="border p-2  w-full">
+          <select className="border p-2 w-full">
             <option>All</option>
           </select>
         </div>

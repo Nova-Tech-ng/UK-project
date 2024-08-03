@@ -12,7 +12,7 @@ function AdminRegister() {
     email: "",
     password: "",
   });
-  const login = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -23,6 +23,18 @@ function AdminRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Clear any previous error message
+
+    // Check if all fields are filled
+    if (
+      !formData.admin_name ||
+      !formData.username ||
+      !formData.email ||
+      !formData.password
+    ) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "https://gregoryalpha.pythonanywhere.com/api/admin/register",
@@ -30,9 +42,14 @@ function AdminRegister() {
       );
 
       const token = response.data.token;
+      console.log("Token received:", token); // Log the token after receiving it
+      localStorage.setItem("token", token); // Store the token in localStorage
+      console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
+
       login(token, "admin");
       navigate("/admin/dashboard");
     } catch (error) {
+      console.error("Error Registering:", error);
       if (
         error.response &&
         error.response.data &&
@@ -44,6 +61,7 @@ function AdminRegister() {
       }
     }
   };
+  console.log(errorMessage);
 
   const [passwordType, setPasswordType] = useState("password");
   const togglePasswordVisibility = () => {
