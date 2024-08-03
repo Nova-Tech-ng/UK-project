@@ -1,5 +1,0 @@
-matplotlib==3.5.1
-numpy==2.0.1
-pandas==2.2.2
-protobuf==3.12.4
-scikit_learn==1.5.1
