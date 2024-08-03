@@ -137,12 +137,19 @@ def get_student_data():
     return jsonify(student_data_dicts), 200
 
 # predicting student data   
-@student_bp.route('/api/student/create/prediction', methods=['GET'])
+@student_bp.route('/api/student/create/prediction', methods=['POST'])
 @jwt_required()
 def create_student_prediction():
     current_user = get_jwt_identity()
     data = request.get_json()
-    student_data = Student_data.query.filter_by(student_id=current_user).first()
+    
+    if 'course_name' not in data:
+        return jsonify({"message": "Course name is required"}), 400
+
+    student_data = Student_data.query.filter_by(
+        student_id=current_user,
+        course_name=data['course_name']
+        ).first()
     
     if not student_data:
         return jsonify({"message": "Student data not found"}), 404
@@ -179,17 +186,17 @@ def create_student_prediction():
             linear_regression_pred=linear_regression_pred,
             risk_factor=risk_factor,
             student_data_id=student_data.id,
-            course_name=student_data.course_name
+            course_name=data['course_name']
         )
         
         db.session.add(new_prediction)
         db.session.commit()
         
         return jsonify({
-            "predictions": "Prediction made successful",
-            "access token": current_user,
+            "message": "Prediction made successfully",
+            "access_token": current_user,
             "stored_prediction": new_prediction.to_dict()
-        })
+        }), 201
     
     except Exception as e:
         db.session.rollback()
@@ -197,24 +204,36 @@ def create_student_prediction():
             "message": f"An error occurred: {str(e)}"
         }), 500
 
-# get all student predictions 
+# get a specific student prediction for a specific course
 @student_bp.route('/api/student/predictions', methods=['GET'])
+@student_bp.route('/api/student/predictions/<string:course_name>', methods=['GET'])
 @jwt_required()
-def get_student_predictions():
+def get_student_predictions(course_name=None):
     current_user = get_jwt_identity()
-    # get the student_data for the current user
-    student_data = Student_data.query.filter_by(student_id=current_user).first()
     
-    if not student_data:
-        return jsonify({"message": "Student data not found"}), 404
+    # Base query
+    query = Student_data.query.filter_by(student_id=current_user)
     
-    # Now get all predictions for this student_data
-    predicted_scores = Predicted_score.query.filter_by(student_data_id=student_data.id).all()
+    # If course_name is provided, filter by it
+    if course_name:
+        query = query.filter_by(course_name=course_name)
     
-    # Convert predictions to dict
-    predictions = [score.to_dict() for score in predicted_scores]
+    student_data_entries = query.all()
+    
+    if not student_data_entries:
+        return jsonify({"message": "No student data found"}), 404
+    
+    all_predictions = []
+    
+    for student_data in student_data_entries:
+        predicted_scores = Predicted_score.query.filter_by(student_data_id=student_data.id).all()
+        
+        for score in predicted_scores:
+            prediction_dict = score.to_dict()
+            prediction_dict['course_name'] = student_data.course_name
+            all_predictions.append(prediction_dict)
     
     return jsonify({
         "user_id": current_user,
-        "predictions": predictions
+        "predictions": all_predictions
     }), 200
