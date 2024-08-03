@@ -13,7 +13,7 @@ function StudentRegister() {
     email: "",
     password: "",
   });
-  const register = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
 
@@ -23,15 +23,23 @@ function StudentRegister() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { first_name, last_name, username, email, password } = formData;
+    if (!first_name || !last_name || !username || !email || !password) {
+      alert("All fields are required.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "https://gregoryalpha.pythonanywhere.com/api/student/register",
         formData
       );
-      register(response.data.token, "student");
-      navigate("/student/data-entry");
+      console.log(response.data); // Log the response to see what the server sends back
+      login(response.data.token, "student");
+      navigate("/student/data");
     } catch (error) {
-      console.error("Registration failed", error);
+      console.error("Registration failed", error.response.data); // Log detailed error
     }
   };
 

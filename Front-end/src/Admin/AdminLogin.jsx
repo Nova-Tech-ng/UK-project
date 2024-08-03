@@ -8,8 +8,10 @@ function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const login = useContext(AuthContext); // Destructure login from the AuthContext
+  console.log(login);
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const togglePasswordVisibility = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -17,15 +19,26 @@ function AdminLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Clear any previous error message
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/admin/login",
-        { email, password }
+        "https://gregoryalpha.pythonanywhere.com/api/admin/register",
+        formData
       );
-      login(response.data.token, "admin");
+
+      const token = response.data.token;
+      login(token, "admin");
       navigate("/admin/dashboard");
     } catch (error) {
-      console.error("Login failed", error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage(error.response.data.message); // Set error message from backend response
+      } else {
+        setErrorMessage("Login failed. Please try again.");
+      }
     }
   };
 
@@ -79,6 +92,9 @@ function AdminLogin() {
               </button>
             </div>
           </div>
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
           {/* FIRST TIME HERE? */}
           <div>
             <p className="text-center">

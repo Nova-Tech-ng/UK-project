@@ -28,10 +28,9 @@ function AdminRegister() {
         "https://gregoryalpha.pythonanywhere.com/api/admin/register",
         formData
       );
-      // Assuming response.data contains { token: "..." }
+
       const token = response.data.token;
-      // Call the login function from AuthContext to store the token (and type?)
-      login(token, "admin"); // Update with actual argument names
+      login(token, "admin");
       navigate("/admin/dashboard");
     } catch (error) {
       if (

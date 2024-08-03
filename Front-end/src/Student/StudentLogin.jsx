@@ -10,18 +10,30 @@ function StudentLogin() {
   const login = useContext(AuthContext); // Access login function from AuthContext
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Clear any previous error message
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/student/login",
-        { email, password }
+        "https://gregoryalpha.pythonanywhere.com/api/admin/register",
+        formData
       );
-      login(response.data.token, "student"); // Call login function from AuthContext
-      navigate("/student/data");
+
+      const token = response.data.token;
+      login(token, "student");
+      navigate("/student/dashboard");
     } catch (error) {
-      console.error("Login failed", error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage(error.response.data.message); // Set error message from backend response
+      } else {
+        setErrorMessage("Login failed. Please try again.");
+      }
     }
   };
 
@@ -51,7 +63,6 @@ function StudentLogin() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border border-gray-300 p-2 rounded"
-              required
             />
           </div>
           {/* PASSWORD */}
@@ -71,7 +82,6 @@ function StudentLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border border-gray-300 p-2 rounded"
-                required
               />
               <button
                 type="button"
@@ -82,6 +92,9 @@ function StudentLogin() {
               </button>
             </div>
           </div>
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
           {/* FIRST TIME HERE? */}
           <div className="text-center mb-4">
             <p>
