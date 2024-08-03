@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from .model import Admin, User, Student_data, Predicted_score
 from .extensions import db
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -8,9 +8,31 @@ import uuid
 
 admin_bp = Blueprint('admin_bp', __name__)
 
+@admin_bp.route('/')
+def api_documentation():
+    return render_template('api_documentation.html')
+
 # Admin Registration
 @admin_bp.route('/api/admin/register', methods=['POST'])
 def admin_register():
+    """Registeration Route for admin
+
+    Raises:
+        UnsupportedMediaType: _description_
+
+    Returns:
+        JSON: {
+                    "message": "Admin registered successfully",
+                    "user": {
+                        "access_token": "........",
+                        "email": "........",
+                        "first_name": "........",
+                        "id": "........",
+                        "username": "........."
+                    }
+                }
+    """
+    
     try:
         if request.content_type == 'application/json':
             data = request.get_json()
@@ -58,6 +80,18 @@ def admin_register():
 # Admin Login
 @admin_bp.route('/api/admin/login', methods=['POST'])
 def admin_login():
+    """Login route for Admin
+
+    Returns:
+        JSON: {
+                    "access_token": "........",
+                    "admin": {
+                        "admin_name": ".........",
+                        "email": ".........",
+                        "username": "........."
+                    }
+                }
+    """
     data = request.get_json()
     admin = Admin.query.filter_by(email=data['email']).first()
 
@@ -78,6 +112,23 @@ def admin_login():
 @admin_bp.route('/api/admin/students', methods=['GET'])
 @jwt_required()
 def get_all_students():
+    """ fetch all student route for admin
+
+    Returns:
+        JSON: [
+                    {
+                        "email": ".......",
+                        "id": "...........",
+                        "username": "........"
+                    },
+                    {
+                        "email": "........",
+                        "id": "...........",
+                        "username": "........"
+                    },
+                    ..........
+                ]
+    """
     current_user = get_jwt_identity()
     if not Admin.query.get(current_user):
         return jsonify({"message": "Unauthorized access"}), 403
@@ -88,7 +139,32 @@ def get_all_students():
 # Get Student by ID 
 @admin_bp.route('/api/admin/student/<string:id>', methods=['GET'])
 @jwt_required()
-def get_student_by_id(id):
+def get_student_by_id(id: str):
+    """_summary_
+
+    Args:
+        id (str): uses the ID to fetch the student
+
+    Returns:
+        JSON: {
+                "email": ".......@gmail.com",
+                "id": "........",
+                "student_data": [
+                    {
+                        "actual_grade": "..........",
+                        "age": ..........,
+                        "attendance": ..........,
+                        "cgpa": 4...........,
+                        "class_size": ..........,
+                        "course_difficulty": "..........",
+                        "course_id": ..........,
+                        ........
+                    },	
+                ],
+                "username": "........"
+            }
+    """
+    
     current_user = get_jwt_identity()
     if not Admin.query.get(current_user):
         return jsonify({"message": "Unauthorized access"}), 403
@@ -111,7 +187,31 @@ def get_student_by_id(id):
 @admin_bp.route('/api/admin/student/<string:id>/predictions', methods=['GET'])
 @admin_bp.route('/api/admin/student/<string:id>/predictions/<string:course_name>', methods=['GET'])
 @jwt_required()
-def get_student_predictions_admin(id, course_name=None):
+def get_student_predictions_admin(id: str, course_name: str=None):
+    """_summary_
+
+    Args:
+        id (str): student_id
+        course_name (str, optional): course name . Defaults to None.
+
+    Returns:
+        _type_: {
+                    "predictions": [
+                        {
+                            "course name": ".............",
+                            "course_name": ".............",
+                            "decision tree pred class": .............,
+                            "decision tree pred prob": .............,
+                            "id": ".............",
+                            "linear regression pred": .............,
+                            "risk factor": ".............",
+                            "student_data_id": "............."
+                        }
+                    ],
+                    "student_id": "........",
+                    "student_username": "......"
+                }
+    """
     current_user = get_jwt_identity()
     if not Admin.query.get(current_user):
         return jsonify({"message": "Unauthorized access"}), 403

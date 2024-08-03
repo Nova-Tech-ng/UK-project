@@ -23,6 +23,24 @@ grade_model = GradePredictionModel(linear_regression_path, decision_tree_path)
 # Student Registration
 @student_bp.route('/api/student/register', methods=['POST'])
 def student_register():
+    """student Registeration Route for student
+
+    Raises:
+        UnsupportedMediaType: wrong content type
+
+    Returns:
+        JSON: {
+                    "message": "User registered successfully",
+                    "user": {
+                        "access_token": "...........",
+                        "email": "..........@yahoo.com",
+                        "first_name": ".........",
+                        "id": "...........",
+                        "last_name": "..........",
+                        "username": ".........."
+                    }
+                }
+    """
     try:
         if request.content_type == 'application/json':
             data = request.get_json()
@@ -72,6 +90,19 @@ def student_register():
 # Student Login
 @student_bp.route('/api/student/login', methods=['POST'])
 def student_login():
+    """Login route for student
+
+    Returns:
+        JSON: {
+                    "access_token": "...........",
+                    "user": {
+                        "email": "........@gmail.com",
+                        "first_name": "......",
+                        "last_name": "......",
+                        "username": "......"
+                    }
+                }
+    """
     data = request.get_json()
     user = User.query.filter_by(email=data['email']).first()
 
@@ -93,6 +124,13 @@ def student_login():
 @student_bp.route('/api/student/data', methods=['POST'])
 @jwt_required()
 def submit_student_data():
+    """Submit student data route for student
+
+    Returns:
+        JSON: {
+                    "message": "Student data submitted successfully"
+                }
+    """
     data = request.get_json()
     student_id = get_jwt_identity()
 
@@ -126,6 +164,19 @@ def submit_student_data():
 @student_bp.route('/api/student/datas', methods=['GET'])
 @jwt_required()
 def get_student_data():
+    """Fetch all student data route for student
+
+    Returns:
+        JSON: {
+                "course_name": "........",
+                "course_code": "........",
+                "course_unit": "........",
+                "test_score": "........",
+                "exam_score": "........",
+                "student_id": "........",
+                "id": "........"
+        }
+    """
     student_id = get_jwt_identity()
     student_data_list = Student_data.query.filter_by(student_id=student_id).all()
 
@@ -140,6 +191,23 @@ def get_student_data():
 @student_bp.route('/api/student/create/prediction', methods=['POST'])
 @jwt_required()
 def create_student_prediction():
+    """Create student prediction route for student
+
+    Returns:
+        JSON: {
+            "message": "Prediction made successfully",
+            "access_token": .........,
+            "stored_prediction": {
+                "course name": ".........",
+                "decision tree pred class": .......,
+                "decision tree pred prob": .....,
+                "id": ".........",
+                "linear regression pred": .........,
+                "risk factor": "......",
+                "student_data_id": "........"
+            }
+        }
+    """
     current_user = get_jwt_identity()
     data = request.get_json()
     
@@ -208,7 +276,29 @@ def create_student_prediction():
 @student_bp.route('/api/student/predictions', methods=['GET'])
 @student_bp.route('/api/student/predictions/<string:course_name>', methods=['GET'])
 @jwt_required()
-def get_student_predictions(course_name=None):
+def get_student_predictions(course_name: str=None):
+    """Get student predictions route for student
+
+    Args:
+        course_name (str, optional): course name. Defaults to None.
+
+    Returns:
+        JSON: {
+                    "predictions": [
+                        {
+                            "course name": ".........",
+                            "course_name": ".........",
+                            "decision tree pred class": .........,
+                            "decision tree pred prob": .........,
+                            "id": ".........",
+                            "linear regression pred": .........,
+                            "risk factor": ".........",
+                            "student_data_id": "........."
+                        }
+                    ],
+                    "user_id": "........."
+                }
+    """
     current_user = get_jwt_identity()
     
     # Base query
