@@ -5,13 +5,13 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import UnsupportedMediaType
 import uuid
-from .grade_prediction_model import GradePredictionModel
+# from .grade_prediction_model import GradePredictionModel
 
 
 student_bp = Blueprint('student_bp', __name__)
 
 # init the GradePredictionModel
-grade_model = GradePredictionModel('./pickle_files/linear_regression_model.pkl', './pickle_files/decision_tree_model.pkl')
+# grade_model = GradePredictionModel('./pickle_files/linear_regression_model.pkl', './pickle_files/decision_tree_model.pkl')
 
 # Student Registration
 @student_bp.route('/api/student/register', methods=['POST'])
@@ -120,16 +120,16 @@ def submit_student_data():
 
     return jsonify({"message": "Student data submitted successfully"}), 201
 
-@student_bp.route('/api/student/predict', methods=['GET'])
-@jwt_required()
-def student_prediction():
-    current_user = get_jwt_identity()
-    student_prediction_data = Student_data.query.filter_by(student_id=current_user).first()
+# @student_bp.route('/api/student/predict', methods=['GET'])
+# @jwt_required()
+# def student_prediction():
+#     current_user = get_jwt_identity()
+#     student_prediction_data = Student_data.query.filter_by(student_id=current_user).first()
     
-    if not student_prediction_data:
-        return jsonify({"message": "Student data not found"}), 404
+#     if not student_prediction_data:
+#         return jsonify({"message": "Student data not found"}), 404
     
-    print(student_prediction_data)
+#     print(student_prediction_data)
     
     # try:
         
