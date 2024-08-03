@@ -32,6 +32,10 @@ const StudentDashboard = () => {
     window.history.pushState({}, "", `/${id}`);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove the token from localStorage
+    navigate("/student/login"); // Redirect to the login page
+  };
   return (
     <div className="container p-4 mx-auto">
       {/* ADMIN ICON */}
@@ -39,6 +43,12 @@ const StudentDashboard = () => {
         <FaRegUserCircle size={30} />
         <p>Jacob Fatu</p>
       </div>
+      <button
+        onClick={handleLogout}
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Logout
+      </button>
       {/* NAVIGATION */}
       <div className="space-x-4">
         {routes.map((route) => (
