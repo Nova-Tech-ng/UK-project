@@ -7,29 +7,36 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = useContext(AuthContext); // Destructure login from the AuthContext
-  console.log(login);
+  const { login } = useContext(AuthContext); // Access login function from AuthContext
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const togglePasswordVisibility = () => {
-    setPasswordType(passwordType === "password" ? "text" : "password");
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Clear any previous error message
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/admin/register",
-        formData
+        "https://gregoryalpha.pythonanywhere.com/api/admin/login",
+        { email, password } // Update the payload according to your API requirements
       );
 
       const token = response.data.token;
-      login(token, "admin");
-      navigate("/admin/dashboard");
+      if (token) {
+        console.log("Token received:", token); // Log the token after receiving it
+        localStorage.setItem("token", token); // Store the token in localStorage
+        console.log(
+          "Token set in localStorage:",
+          localStorage.getItem("token")
+        ); // Log the token from localStorage
+
+        login(token, "admin");
+        navigate("/admin/dashboard");
+      } else {
+        setErrorMessage("Login failed. Try again.");
+      }
     } catch (error) {
+      console.error("Error logging in:", error);
       if (
         error.response &&
         error.response.data &&
@@ -42,10 +49,14 @@ function AdminLogin() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
+        <h2 className="text-2xl font-bold mb-4">Log in to your dashboard</h2>
 
         <form onSubmit={handleSubmit}>
           {/* EMAIL */}
@@ -59,10 +70,11 @@ function AdminLogin() {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="Email address"
-              className="w-full border border-gray-300 p-2 rounded"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 p-2 rounded"
             />
           </div>
           {/* PASSWORD */}
@@ -77,12 +89,12 @@ function AdminLogin() {
               <input
                 type={passwordType}
                 id="password"
+                name="password"
                 placeholder="Enter Password"
-                className="w-full border border-gray-300 p-2 rounded"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-full border border-gray-300 p-2 rounded"
               />
-              {/* SHOW/HIDE PASSWORD BUTTON */}
               <button
                 type="button"
                 className="absolute top-0 right-0 m-2"
@@ -96,8 +108,8 @@ function AdminLogin() {
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
           )}
           {/* FIRST TIME HERE? */}
-          <div>
-            <p className="text-center">
+          <div className="text-center mb-4">
+            <p>
               First Time Here?
               <a href="/admin/register" className="text-[#0072D8] ml-1">
                 Sign Up
@@ -107,8 +119,8 @@ function AdminLogin() {
           {/* BUTTON */}
           <div className="flex items-center justify-between">
             <button
-              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
               type="submit"
+              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             >
               Login
             </button>

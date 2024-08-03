@@ -59,7 +59,7 @@ function StudentRegister() {
           {/* STUDENT NAME */}
           <div className="mb-4">
             <label
-              htmlFor="full_name"
+              htmlFor="first_name"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
               Full Name
