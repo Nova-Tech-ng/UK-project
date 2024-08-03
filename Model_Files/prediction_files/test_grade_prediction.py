@@ -35,9 +35,9 @@ student_data = MockStudentData(
     cgpa=1.5
 )
 
-print("STUDENT DATA: ")
-for attr, value in student_data.__dict__.items():
-    print(f"{attr}: {value}")
+# print("STUDENT DATA: ")
+# for attr, value in student_data.__dict__.items():
+#     print(f"{attr}: {value}")
 
  
 
@@ -51,11 +51,11 @@ model = GradePredictionModel(linear_regression_model_path, decision_tree_model_p
 predictions = model.predict(student_data)
 
 # Print the prediction results
-print("Linear Regression Prediction:")
-print(f"Predicted Grade: {predictions['linear_regression']}")
-print("\nDecision Tree Prediction:")
-print(f"Predicted Class: {predictions['decision_tree']['predicted_class']}")
-print(f"Probability Distribution: {predictions['decision_tree']['probability_distribution']}")
+# print("Linear Regression Prediction:")
+# print(f"Predicted Grade: {predictions['linear_regression']}")
+# print("\nDecision Tree Prediction:")
+# print(f"Predicted Class: {predictions['decision_tree']['predicted_class']}")
+# print(f"Probability Distribution: {predictions['decision_tree']['probability_distribution']}")
 
 pred = float(predictions['linear_regression'])
 
