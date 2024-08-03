@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, request, jsonify
 from .model import User, Student_data, Predicted_score
 from .extensions import db
@@ -5,13 +6,19 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import UnsupportedMediaType
 import uuid
-from .grade_prediction_model import GradePredictionModel
+from .predictions.grade_prediction_model import GradePredictionModel
 
 
 student_bp = Blueprint('student_bp', __name__)
 
 # init the GradePredictionModel
-grade_model = GradePredictionModel('./pickle_files/linear_regression_model.pkl', './pickle_files/decision_tree_model.pkl')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the paths to the pickle files
+linear_regression_path = os.path.join(current_dir, 'predictions', 'pickle_files', 'linear_regression_model.pkl')
+decision_tree_path = os.path.join(current_dir, 'predictions', 'pickle_files', 'decision_tree_model.pkl')
+
+grade_model = GradePredictionModel(linear_regression_path, decision_tree_path)
 
 # Student Registration
 @student_bp.route('/api/student/register', methods=['POST'])
@@ -89,68 +96,98 @@ def submit_student_data():
     data = request.get_json()
     student_id = get_jwt_identity()
 
+    # Check if a record already exists for this student and course
+    existing_data = Student_data.query.filter_by(
+        student_id=student_id,
+        course_name=data['course_name']
+    ).first()
+
+    if existing_data:
+        # If both student_id and course_name match, return error
+        return jsonify({"message": "Student data already exists for this course"}), 400
+
+    # If we reach here, either student_id doesn't exist or course_name is different
+    # So we create a new record
     new_student_data = Student_data(
         id=str(uuid.uuid4()),
-        age=data['age'],
-        grade_level=data['grade_level'],
-        learning_style=data['learning_style'],
-        socio_economic_status=data['socio_economic_status'],
-        past_grades=data['past_grades'],
-        standardized_test_scores=data['standardized_test_scores'],
-        prior_knowledge=data['prior_knowledge'],
-        course_id=data['course_id'],
-        course_name=data['course_name'],
-        course_difficulty=data['course_difficulty'],
-        class_size=data['class_size'],
-        teaching_style=data['teaching_style'],
-        course_work_load=data['course_work_load'],
-        attendance=data['attendance'],
-        study_time=data['study_time'],
-        time_of_year=data['time_of_year'],
-        extra_curricular_activities=data['extra_curricular_activities'],
-        health=data['health'],
-        home_environment=data['home_environment'],
-        actual_grade=data['actual_grade'],
-        cgpa=data['cgpa'],
-        student_id=student_id
+        student_id=student_id,
+        **data
     )
-
     db.session.add(new_student_data)
-    db.session.commit()
 
-    return jsonify({"message": "Student data submitted successfully"}), 201
+    try:
+        db.session.commit()
+        return jsonify({"message": "Student data submitted successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": f"An error occurred: {str(e)}"}), 500
 
-@student_bp.route('/api/student/predict', methods=['GET'])
+# Fetch all Student Data
+@student_bp.route('/api/student/datas', methods=['GET'])
 @jwt_required()
-def student_prediction():
+def get_student_data():
+    student_id = get_jwt_identity()
+    student_data_list = Student_data.query.filter_by(student_id=student_id).all()
+
+    if not student_data_list:
+        return jsonify({"message": "Student data not found"}), 404
+
+    student_data_dicts = [student_data.to_dict() for student_data in student_data_list]
+
+    return jsonify(student_data_dicts), 200
+
+# predicting student data   
+@student_bp.route('/api/student/create/prediction', methods=['GET'])
+@jwt_required()
+def create_student_prediction():
     current_user = get_jwt_identity()
-    student_prediction_data = Student_data.query.filter_by(student_id=current_user).first()
+    data = request.get_json()
+    student_data = Student_data.query.filter_by(student_id=current_user).first()
     
-    if not student_prediction_data:
+    if not student_data:
         return jsonify({"message": "Student data not found"}), 404
     
-    print(student_prediction_data)
+    # Check if the student has a prediction for that course already
+    existing_prediction = Predicted_score.query.filter_by(
+        student_data_id=student_data.id,
+        course_name=data['course_name']
+    ).first()
+    
+    if existing_prediction:
+        return jsonify({
+            "message": "Prediction for this course already exists",
+            "existing_prediction": existing_prediction.to_dict()
+        }), 400
     
     try:
+        # Convert student_data to a dictionary
+        student_data_dict = student_data
         
-        predictions = grade_model.predict(student_prediction_data)
+        # Perform prediction
+        predictions = grade_model.predict(student_data_dict)
         
         # Extract individual predictions
-        decision_tree_pred = predictions['decision_tree']['predicted_class']
-        linear_regression_pred = predictions['linear_regression']['predicted_grade']
+        decision_tree_pred_class = predictions['decision_tree']['predicted_class']
+        decision_tree_pred_prob = predictions['decision_tree']['probability_distribution']
+        risk_factor = predictions['risk_factor']
+        linear_regression_pred = float(predictions['linear_regression'])
         
+        # Create new Predicted_score entry
         new_prediction = Predicted_score(
-            id=str(uuid.uuid4()),
-            predict_grade_decision_tree=decision_tree_pred,
-            predict_grade_linear_regression=linear_regression_pred,
-            student_data_id=student_prediction_data.id
+            decision_tree_pred_class=decision_tree_pred_class,
+            decision_tree_pred_prob=decision_tree_pred_prob,
+            linear_regression_pred=linear_regression_pred,
+            risk_factor=risk_factor,
+            student_data_id=student_data.id,
+            course_name=student_data.course_name
         )
         
         db.session.add(new_prediction)
         db.session.commit()
         
         return jsonify({
-            "predictions": predictions,
+            "predictions": "Prediction made successful",
+            "access token": current_user,
             "stored_prediction": new_prediction.to_dict()
         })
     
@@ -159,3 +196,25 @@ def student_prediction():
         return jsonify({
             "message": f"An error occurred: {str(e)}"
         }), 500
+
+# get all student predictions 
+@student_bp.route('/api/student/predictions', methods=['GET'])
+@jwt_required()
+def get_student_predictions():
+    current_user = get_jwt_identity()
+    # get the student_data for the current user
+    student_data = Student_data.query.filter_by(student_id=current_user).first()
+    
+    if not student_data:
+        return jsonify({"message": "Student data not found"}), 404
+    
+    # Now get all predictions for this student_data
+    predicted_scores = Predicted_score.query.filter_by(student_data_id=student_data.id).all()
+    
+    # Convert predictions to dict
+    predictions = [score.to_dict() for score in predicted_scores]
+    
+    return jsonify({
+        "user_id": current_user,
+        "predictions": predictions
+    }), 200

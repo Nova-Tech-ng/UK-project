@@ -85,7 +85,7 @@ def get_all_students():
     students = User.query.all()
     return jsonify([{"id": s.id, "username": s.username, "email": s.email} for s in students]), 200
 
-# Get Student by ID (Admin only)
+# Get Student by ID 
 @admin_bp.route('/api/admin/student/<string:id>', methods=['GET'])
 @jwt_required()
 def get_student_by_id(id):
@@ -96,12 +96,14 @@ def get_student_by_id(id):
     student = User.query.get(id)
     if not student:
         return jsonify({"message": "Student not found"}), 404
+    
+    student_data = Student_data.query.filter_by(student_id=id).all()
 
-    student_data = Student_data.query.filter_by(student_id=id).first()
+    student_data_dict = [data.to_dict() for data in student_data] if student_data else None
 
     return jsonify({
         "id": student.id,
         "username": student.username,
         "email": student.email,
-        "student_data": student_data.to_dict() if student_data else None
+        "student_data": student_data_dict
     }), 200

@@ -33,8 +33,8 @@ class Student_data(db.Model):
     past_grades = db.Column(db.String(50), nullable=False)
     standardized_test_scores = db.Column(db.String(50), nullable=False)
     prior_knowledge = db.Column(db.String(50), nullable=False)
-    course_id = db.Column(db.Integer, unique=True, nullable=False)
-    course_name = db.Column(db.String(50), unique=True, nullable=False)
+    course_id = db.Column(db.Integer, nullable=False)
+    course_name = db.Column(db.String(50), nullable=False)
     course_difficulty = db.Column(db.String(50), nullable=False)
     class_size = db.Column(db.Integer, nullable=False)
     teaching_style = db.Column(db.String(50), nullable=False)
@@ -46,7 +46,7 @@ class Student_data(db.Model):
     health = db.Column(db.String(50), nullable=False)
     home_environment = db.Column(db.String(50), nullable=False)
     actual_grade = db.Column(db.String(50), nullable=False)
-    cgpa = db.Column(db.Integer, nullable=False)
+    cgpa = db.Column(db.Float, nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
@@ -82,23 +82,35 @@ class Student_data(db.Model):
         
 class Predicted_score(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    predict_grade_decision_tree = db.Column(db.String(50), nullable=True)
-    predict_grade_linear_regression = db.Column(db.Float, nullable=True)
+    decision_tree_pred_class = db.Column(db.Float, nullable=False)
+    decision_tree_pred_prob = db.Column(db.Float, nullable=False)
+    linear_regression_pred = db.Column(db.Float, nullable=False)
+    risk_factor = db.Column(db.String(50), nullable=False)
     student_data_id = db.Column(db.String(36), db.ForeignKey('student_data.id'), nullable=False)
+    course_name = db.Column(db.String(50), nullable=False)
     
     def __repr__(self):
         return f'<Predicted_score {self.id}>'
     
-    def check_linear_score(self):
-        return "no prediction available" if self.predict_grade_linear_regression is None else self.predict_grade_linear_regression
+    def check_decision_tree_pred_class(self):
+        return "no prediction available" if self.decision_tree_pred_class is None else self.decision_tree_pred_class
         
-    def check_decision_score(self):
-        return "no prediction available" if self.predict_grade_decision_tree is None else self.predict_grade_decision_tree
+    def check_decision_tree_pred_prob(self):
+        return "no prediction available" if self.decision_tree_pred_prob is None else self.decision_tree_pred_prob
+    
+    def check_linear_regression_pred(self):
+        return "no prediction available" if self.linear_regression_pred is None else self.linear_regression_pred
+    
+    def check_risk_factor(self):
+        return "no prediction available" if self.risk_factor is None else self.risk_factor
     
     def to_dict(self):
         return {
             'id': self.id,
-            'predict_grade_decision_tree': self.check_decision_score(),
-            'predict_grade_linear_regression': self.check_linear_score(),
+            'decision tree pred prob': self.check_decision_tree_pred_prob(),
+            'decision tree pred class': self.check_decision_tree_pred_class(),
+            'linear regression pred': self.check_linear_regression_pred(),
+            'risk factor': self.check_risk_factor(),
+            'course name': self.course_name,
             'student_data_id': self.student_data_id
         }
