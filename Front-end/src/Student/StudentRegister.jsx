@@ -15,6 +15,7 @@ function StudentRegister() {
   });
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [passwordType, setPasswordType] = useState("password");
 
   const handleChange = (e) => {
@@ -23,10 +24,17 @@ function StudentRegister() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Clear any previous error message
 
-    const { first_name, last_name, username, email, password } = formData;
-    if (!first_name || !last_name || !username || !email || !password) {
-      alert("All fields are required.");
+    // Check if all fields are filled
+    if (
+      !formData.first_name ||
+      !formData.last_name ||
+      !formData.username ||
+      !formData.email ||
+      !formData.password
+    ) {
+      setErrorMessage("Please fill in all fields.");
       return;
     }
 
@@ -35,13 +43,28 @@ function StudentRegister() {
         "https://gregoryalpha.pythonanywhere.com/api/student/register",
         formData
       );
-      console.log(response.data); // Log the response to see what the server sends back
-      login(response.data.token, "student");
+
+      const token = response.data.token;
+      console.log("Token received:", token); // Log the token after receiving it
+      localStorage.setItem("token", token); // Store the token in localStorage
+      console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
+
+      login(token, "student");
       navigate("/student/data");
     } catch (error) {
-      console.error("Registration failed", error.response.data); // Log detailed error
+      console.error("Error Registering:", error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage(error.response.data.message); // Set error message from backend response
+      } else {
+        setErrorMessage("Registration failed. Please try again.");
+      }
     }
   };
+  console.log(errorMessage);
 
   const togglePasswordVisibility = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -148,6 +171,9 @@ function StudentRegister() {
               </button>
             </div>
           </div>
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
           {/* HAVE AN ACCOUNT? */}
           <div>
             <p className="text-center">

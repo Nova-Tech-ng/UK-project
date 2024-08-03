@@ -22,12 +22,19 @@ function StudentLogin() {
       );
 
       const token = response.data.token;
-      console.log("Token received:", token); // Log the token after receiving it
-      localStorage.setItem("token", token); // Store the token in localStorage
-      console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
+      if (token) {
+        console.log("Token received:", token); // Log the token after receiving it
+        localStorage.setItem("token", token); // Store the token in localStorage
+        console.log(
+          "Token set in localStorage:",
+          localStorage.getItem("token")
+        ); // Log the token from localStorage
 
-      login(token, "student");
-      navigate("/student/dashboard");
+        login(token, "student");
+        navigate("/student/dashboard");
+      } else {
+        setErrorMessage("Login failed. Try again.");
+      }
     } catch (error) {
       console.error("Error logging in:", error);
       if (
