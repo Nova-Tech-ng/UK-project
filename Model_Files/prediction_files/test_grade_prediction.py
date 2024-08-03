@@ -17,10 +17,10 @@ student_data = MockStudentData(
     learning_style="Visual",
     socio_economic_status="Middle Income",
     past_grades=39.8,
-    standardized_test_scores=900,
+    standardized_test_scores=1000,
     prior_knowledge="None",
     course_id=101,
-    course_name="Advanced Calculus",
+    course_name="Advanced bilogy",
     course_difficulty="Hard",
     class_size=45,
     teaching_style="Lecture-based",
@@ -34,11 +34,6 @@ student_data = MockStudentData(
     actual_grade="D",
     cgpa=1.5
 )
-
-print("STUDENT DATA: ")
-for attr, value in student_data.__dict__.items():
-    print(f"{attr}: {value}")
-
  
 
 linear_regression_model_path = 'pickle_files/linear_regression_model.pkl'
@@ -49,13 +44,6 @@ model = GradePredictionModel(linear_regression_model_path, decision_tree_model_p
 
 # Run predictions and print the results
 predictions = model.predict(student_data)
-
-# Print the prediction results
-print("Linear Regression Prediction:")
-print(f"Predicted Grade: {predictions['linear_regression']}")
-print("\nDecision Tree Prediction:")
-print(f"Predicted Class: {predictions['decision_tree']['predicted_class']}")
-print(f"Probability Distribution: {predictions['decision_tree']['probability_distribution']}")
 
 pred = float(predictions['linear_regression'])
 
