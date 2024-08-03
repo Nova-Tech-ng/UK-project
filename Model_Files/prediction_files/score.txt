@@ -1,4 +1,0 @@
-linear_regression_prediction:  1.852021946408141
-decision_tree_prediction:  0.0
-probabilities:  1.0
-At risk

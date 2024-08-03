@@ -1,10 +1,5 @@
 import pickle
-import numpy as np
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import LabelEncoder
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-# import matplotlib.pyplot as plt
 
 
 class GradePredictionModel:
@@ -26,16 +21,13 @@ class GradePredictionModel:
             "D+": 1, "D": 1, "D-": 1,
             "F": 0
         }
-        # self.required_fields = [field.lower().replace(' ', '_') for field in self.feature_order]
-        
+
 
     @staticmethod
     def load_model(model_path):
         """Loads the pickled model from the specified path."""
         with open(model_path, 'rb') as f:
             return pickle.load(f)
-        
-
 
 
     def clean_data(self, student_data):
@@ -76,17 +68,14 @@ class GradePredictionModel:
                 print(f"Error processing field '{field}': {e}")
                 # Consider assigning default values or removing the data point
         
-        # print(cleaned_data)
-
         return cleaned_data
-
-
 
 
     def predict_grade_linear_regression(self, processed_data):
         """Predicts a student's grade using the linear regression model."""
         prediction = self.linear_regression_model.predict(processed_data)
         return prediction[0]
+
 
     def predict_grade_decision_tree(self, processed_data):
         """Predicts a student's grade using the decision tree model."""
@@ -107,10 +96,6 @@ class GradePredictionModel:
         """
 
         cleaned_data = self.clean_data(student_data)
-        # cleaned_data.rename(columns={'CGPA': 'cgpa'}, inplace=True)
-
-        # print("cleaned_data: ")
-        # print(cleaned_data)
 
         # Convert cleaned data to a Pandas DataFrame for flexibility
         df = pd.DataFrame(cleaned_data, index=[0])
@@ -138,9 +123,7 @@ class GradePredictionModel:
             'actual_grade' : 'Actual Grade',
             # 'CGPA' : 'cgpa',
 
-            
             'teaching_style' : 'Teaching Style',
-
 
             # Add more mappings as needed
         }
@@ -149,35 +132,15 @@ class GradePredictionModel:
 
         # Apply the mapping to the DataFrame
         df = df.rename(columns=column_mapping)
-        # print("DF: ")
-        # print(df.columns)
-
-
+        
         # Preprocess data for linear regression (adjust based on your training pipeline)
         linear_regression_data = df[["Age", "Past Grades", "Standardized Test Scores",
             "Class Size", "Attendance", "Study Time", "cgpa"]]
-        linear_regression_data = linear_regression_data.values  # Convert to NumPy array
-
-
-        def reconstruct_encoder(feature_names):
-            feature_mapping = {}
-            for feature in feature_names:
-                if "_" in feature:
-                    base_feature, value = feature.split("_", 1)
-                    if base_feature not in feature_mapping:
-                        feature_mapping[base_feature] = []
-                    feature_mapping[base_feature].append(feature)
-                else:
-                     feature_mapping[feature] = feature
-
-            return feature_mapping
-
+        
+        # Convert to NumPy array
+        linear_regression_data = linear_regression_data.values 
 
         feature_names = ['Student ID', 'Age', 'Past Grades', 'Standardized Test Scores', 'Course ID', 'Class Size', 'Attendance', 'Study Time', 'cgpa', 'Learning Style_Auditory', 'Learning Style_Kinesthetic', 'Learning Style_Visual', 'Course Name_Advanced Biology', 'Course Name_Advanced Biology Lab', 'Course Name_Advanced Calculus', 'Course Name_Advanced Calculus I', 'Course Name_Advanced Chemistry', 'Course Name_Advanced Chemistry Lab', 'Course Name_Advanced Economics', 'Course Name_Advanced Literature', 'Course Name_Advanced Math', 'Course Name_Advanced Mathematics', 'Course Name_Advanced Philosophy', 'Course Name_Advanced Physics', 'Course Name_Advanced Physics I', 'Course Name_Advanced Physics Lab', 'Course Name_Advanced Psychology', 'Course Name_Advanced Sociology', 'Course Name_Advanced Statistics', 'Course Name_Calculus I', 'Course Name_Calculus II', 'Course Name_Calculus III', 'Course Name_Calculus IV', 'Course Name_Calculus V', 'Course Name_Chemistry I', 'Course Name_College Algebra', 'Course Name_College Algebra II', 'Course Name_College Algebra II Introduction to Algebra II', 'Course Name_College Algebra III', 'Course Name_College Algebra III (Algebra III)', 'Course Name_College Algebra III Introduction to Algebra III', 'Course Name_College Algebra IV', 'Course Name_College Algebra IV Introduction to Algebra IV', 'Course Name_College Biology I Introduction to Biology', 'Course Name_College Biology I Introduction to Biology I', 'Course Name_College Biology II Introduction to Biology I', 'Course Name_College Biology II Introduction to Biology II', 'Course Name_College Biology III (Biology III)', 'Course Name_College Biology III Introduction to Biology III', 'Course Name_College Biology IV Introduction to Biology IV', 'Course Name_College Literature I Introduction to Literature I', 'Course Name_College Literature II', 'Course Name_College Literature II Introduction to Literature II', 'Course Name_College Literature III', 'Course Name_College Literature III Introduction to Literature III', 'Course Name_College Literature IV Introduction to Literature IV', 'Course Name_College US History II (US History II)', 'Course Name_College US History II (US History)', 'Course Name_College US History III (US History III)', 'Course Name_College US History III (US History)', 'Course Name_College US History IV (US History IV)', 'Course Name_Data Analysis I', 'Course Name_English Composition', 'Course Name_English Literature II', 'Course Name_Fundamentals of Psychology', 'Course Name_Intermediate Anthropology', 'Course Name_Intermediate Art History', 'Course Name_Intermediate Biology', 'Course Name_Intermediate Chemistry', 'Course Name_Intermediate Economics', 'Course Name_Intermediate History', 'Course Name_Intermediate Physics', 'Course Name_Intermediate Psychology', 'Course Name_Intermediate Sociology', 'Course Name_Intermediate Spanish', 'Course Name_Introduction to Anthropology', 'Course Name_Introduction to Art', 'Course Name_Introduction to Art History', 'Course Name_Introduction to Astronomy', 'Course Name_Introduction to Biology', 'Course Name_Introduction to Chemistry', 'Course Name_Introduction to Computer Science', 'Course Name_Introduction to Economics', 'Course Name_Introduction to English Literature', 'Course Name_Introduction to Geology', 'Course Name_Introduction to History', 'Course Name_Introduction to Linguistics', 'Course Name_Introduction to Literature', 'Course Name_Introduction to Mathematics', 'Course Name_Introduction to Music Theory', 'Course Name_Introduction to Philosophy', 'Course Name_Introduction to Physics', 'Course Name_Introduction to Political Science', 'Course Name_Introduction to Psychology', 'Course Name_Introduction to Sociology', 'Course Name_Introduction to Statistics', 'Course Name_Introduction to World History', 'Course Name_Physics I', 'Course Name_Physics II', 'Course Name_Statistics I', 'Course Name_World History I', 'Course Name_World History II', 'Course Difficulty_Easy', 'Course Difficulty_Hard', 'Course Difficulty_Medium', 'Teaching Style_Activity-based', 'Teaching Style_Interactive', 'Teaching Style_Lecture-based', 'Grade Level_Freshman', 'Grade Level_Junior', 'Grade Level_Senior', 'Grade Level_Sophomore']
-
-        mapping = reconstruct_encoder(feature_names)
-        # print(mapping)  
-
 
         # Identify missing features
         missing_features = set(feature_names) - set(df.columns)
@@ -188,24 +151,12 @@ class GradePredictionModel:
 
         # Ensure feature order matches feature_names
         df = df[feature_names]
-        # print("DF2: ")
-        # print(df)
-
-
-
-
-
-
-
-
-        # Make predictions
-        linear_regression_prediction = self.linear_regression_model.predict(linear_regression_data)[0]
-        print("linear_regression_prediction: ", linear_regression_prediction)
-
-       
-
-
         
+        # Make for linear regresssion predictions
+        linear_regression_prediction = self.linear_regression_model.predict(linear_regression_data)[0]
+        print("linear_regression_prediction: ", linear_regression_prediction)     
+
+        # Make for decision_tree_prediction predictions
         decision_tree_prediction, probabilities = self.decision_tree_model.predict_proba(df)[0]
         print("decision_tree_prediction: ", decision_tree_prediction)
         print("probabilities: ", probabilities)
