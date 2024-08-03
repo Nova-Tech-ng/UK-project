@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from .model import Admin, User, Student_data
+from .model import Admin, User, Student_data, Predicted_score
 from .extensions import db
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -106,4 +106,44 @@ def get_student_by_id(id):
         "username": student.username,
         "email": student.email,
         "student_data": student_data_dict
+    }), 200
+
+@admin_bp.route('/api/admin/student/<string:id>/predictions', methods=['GET'])
+@admin_bp.route('/api/admin/student/<string:id>/predictions/<string:course_name>', methods=['GET'])
+@jwt_required()
+def get_student_predictions_admin(id, course_name=None):
+    current_user = get_jwt_identity()
+    if not Admin.query.get(current_user):
+        return jsonify({"message": "Unauthorized access"}), 403
+
+    student = User.query.get(id)
+    if not student:
+        return jsonify({"message": "Student not found"}), 404
+
+    # Base query
+    query = Student_data.query.filter_by(student_id=id)
+    
+    # If course_name is provided, filter by it
+    if course_name:
+        query = query.filter_by(course_name=course_name)
+    
+    student_data_entries = query.all()
+    
+    if not student_data_entries:
+        return jsonify({"message": "No student data found"}), 404
+    
+    all_predictions = []
+    
+    for student_data in student_data_entries:
+        predicted_scores = Predicted_score.query.filter_by(student_data_id=student_data.id).all()
+        
+        for score in predicted_scores:
+            prediction_dict = score.to_dict()
+            prediction_dict['course_name'] = student_data.course_name
+            all_predictions.append(prediction_dict)
+    
+    return jsonify({
+        "student_id": id,
+        "student_username": student.username,
+        "predictions": all_predictions
     }), 200
