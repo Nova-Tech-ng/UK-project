@@ -16,23 +16,23 @@ student_data = MockStudentData(
     grade_level="Freshman",
     learning_style="Visual",
     socio_economic_status="Middle Income",
-    past_grades=39.8,
-    standardized_test_scores=1000,
+    past_grades=100,
+    standardized_test_scores=1900,
     prior_knowledge="None",
     course_id=101,
     course_name="Advanced bilogy",
     course_difficulty="Hard",
-    class_size=45,
+    class_size=30,
     teaching_style="Lecture-based",
     course_work_load="Projects, Presentations",
-    attendance=20,
-    study_time=5,
+    attendance=100,
+    study_time=10,
     time_of_year="Spring Semester",
     extra_curricular_activities="Yes",
     health="Good",
     home_environment="Quiet",
-    actual_grade="D",
-    cgpa=1.5
+    actual_grade="A",
+    cgpa=3.8
 )
  
 
@@ -58,4 +58,5 @@ else:
     risk_factor = "At risk"
 
 print(risk_factor)
+print(pred)
 
