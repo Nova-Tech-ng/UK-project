@@ -11,27 +11,32 @@ function AdminLogin() {
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Clear any previous error message
+    setSuccessMessage(""); // Clear any previous success message
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/admin/login",
+        "https://backend-nova-3omg.onrender.com/api/admin/login",
         { email, password } // Update the payload according to your API requirements
       );
 
-      const token = response.data.token;
-      if (token) {
-        console.log("Token received:", token); // Log the token after receiving it
-        localStorage.setItem("token", token); // Store the token in localStorage
+      const accessToken = response.data.access_token;
+      if (accessToken) {
+        console.log("Access token received:", accessToken); // Log the token after receiving it
+        localStorage.setItem("token", accessToken); // Store the token in localStorage
         console.log(
-          "Token set in localStorage:",
+          "Access token set in localStorage:",
           localStorage.getItem("token")
         ); // Log the token from localStorage
 
-        login(token, "admin");
-        navigate("/admin/dashboard");
+        login(accessToken, "admin");
+        setSuccessMessage("Login successful!");
+        setTimeout(() => {
+          navigate("/admin/dashboard");
+        }, 3000); // Redirect to dashboard after 3 seconds
       } else {
         setErrorMessage("Login failed. Try again.");
       }
@@ -106,6 +111,9 @@ function AdminLogin() {
           </div>
           {errorMessage && (
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
+          {successMessage && (
+            <div className="mb-4 text-green-500 text-sm">{successMessage}</div>
           )}
           {/* FIRST TIME HERE? */}
           <div className="text-center mb-4">

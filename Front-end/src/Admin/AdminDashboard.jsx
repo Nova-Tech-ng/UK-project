@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Modal from "../Admin/Modal";
-import risk from "../assets/risk.svg";
 import studentgraduate from "../assets/studentgraduate.svg";
 import {
   BarChart,
@@ -22,72 +20,16 @@ const data = [
   { year: "2024", PredictedGrade: 70, ActualGrade: 40 },
 ];
 
-export const studentData = [
-  {
-    id: 194,
-    gender: "Female",
-    name: "Grace Evans",
-    PredictedGrade: 89,
-    attendance: 89,
-    assignment: 89,
-    gpa: 3.74,
-    status: "Pending",
-  },
-  {
-    id: 233,
-    gender: "Male",
-    name: "Maro Oghenerukwe",
-    PredictedGrade: 90,
-    attendance: 94,
-    assignment: 94,
-    gpa: 3.92,
-    status: "Pending",
-  },
-  {
-    id: 921,
-    gender: "Male",
-    name: "Matthew Jonathan",
-    PredictedGrade: 75,
-    attendance: 25,
-    assignment: 25,
-    gpa: 1.45,
-    status: "At Risk",
-  },
-  {
-    id: 183,
-    gender: "Female",
-    name: "Glory Evans",
-    PredictedGrade: 76,
-    attendance: 56,
-    assignment: 56,
-    gpa: 2.85,
-    status: "Pending",
-  },
-  {
-    id: 219,
-    gender: "Male",
-    name: "Wila Amirs",
-    PredictedGrade: 55,
-    attendance: 62,
-    assignment: 62,
-    gpa: 3.02,
-    status: "pending",
-  },
-];
-
 const AdminDashboard = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState(null);
   const navigate = useNavigate();
-
-  const handleRowClick = (student) => {
-    setSelectedStudent(student);
-    setModalOpen(true);
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove the token from localStorage
     navigate("/admin/login"); // Redirect to the login page
+  };
+
+  const handleViewStudents = () => {
+    navigate("/admin/students");
   };
 
   return (
@@ -153,55 +95,12 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="border p-4 rounded shadow-lg">
-        <h2 className="text-center mb-4">Academic Details of Students</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto">
-            <thead>
-              <tr className="bg-[#EAF1EF]">
-                <th className="px-4 py-2 border">Student ID</th>
-                <th className="px-4 py-2 border">Gender</th>
-                <th className="px-4 py-2 border">Student Name</th>
-                <th className="px-4 py-2 border">Predicted Grade</th>
-                <th className="px-4 py-2 border">Attendance Rate</th>
-                <th className="px-4 py-2 border">Assignment Scores</th>
-                <th className="px-4 py-2 border">GPA</th>
-              </tr>
-            </thead>
-            <tbody>
-              {studentData.map((student) => (
-                <tr
-                  key={student.id}
-                  className={`${
-                    student.gpa < 2 ? "bg-[#EC5050]" : ""
-                  } cursor-pointer`}
-                  onClick={() => handleRowClick(student)}
-                >
-                  <td className="border px-4 py-2">{student.id}</td>
-                  <td className="border px-4 py-2">{student.gender}</td>
-                  <td className="border px-4 py-2">{student.name}</td>
-                  <td className="border px-4 py-2">
-                    {student.PredictedGrade}%
-                  </td>
-                  <td className="border px-4 py-2">{student.attendance}%</td>
-                  <td className="border px-4 py-2">{student.assignment}%</td>
-                  <td className="border px-4 py-2">{student.gpa}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        student={selectedStudent}
-      />
-      <div className="flex justify-center space-x-1 m-4">
-        <img src={risk} alt="Stuent at risk" className="w-[20px]" />
-        <p className="text-red-500">GPA in red signifies student at risk</p>
-      </div>
+      <button
+        onClick={handleViewStudents}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        View Students
+      </button>
     </div>
   );
 };

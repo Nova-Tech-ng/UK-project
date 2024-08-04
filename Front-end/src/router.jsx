@@ -8,6 +8,9 @@ import StudentRegister from "./Student/StudentRegister";
 import StudentDashboard from "./Student/StudentDashboard";
 import DataEntryPage from "./Student/DataEntryPage";
 import NotFoundPage from "./Pages/NotFoundPage";
+import StudentLearningResource from "./Student/StudentLearningResource";
+import StudentList from "./Admin/StudentList";
+import StudentDetails from "./Admin/StudentDetails";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +24,8 @@ export const router = createBrowserRouter([
       { path: "login", element: <AdminLogin /> },
       { path: "register", element: <AdminRegister /> },
       { path: "dashboard", element: <AdminDashboard /> },
+      { path: "students", element: <StudentList /> },
+      { path: "students/:id", element: <StudentDetails /> },
     ],
   },
   {
@@ -28,8 +33,9 @@ export const router = createBrowserRouter([
     children: [
       { path: "login", element: <StudentLogin /> },
       { path: "register", element: <StudentRegister /> },
-      { path: "dashboard", element: <StudentDashboard /> },
       { path: "data", element: <DataEntryPage /> },
+      { path: "dashboard", element: <StudentDashboard /> },
+      { path: "learning-resources", element: <StudentLearningResource /> },
     ],
   },
 ]);

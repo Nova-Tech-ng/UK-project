@@ -29,6 +29,7 @@ const DataEntryPage = () => {
   });
 
   const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
   const [token, setToken] = useState(null);
 
@@ -61,6 +62,9 @@ const DataEntryPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(""); // Clear any previous error message
+    setSuccessMessage(""); // Clear any previous success message
+
     if (!validateForm()) {
       setMessage("Please fill in all fields.");
       return;
@@ -75,7 +79,7 @@ const DataEntryPage = () => {
       console.log("Token before request:", token); // Debugging: log the token before the request
 
       const response = await axios.post(
-        "http://localhost:5175/api/student/data",
+        "https://backend-nova-3omg.onrender.com/api/student/data",
         formData,
         {
           headers: {
@@ -84,7 +88,7 @@ const DataEntryPage = () => {
         }
       );
 
-      setMessage("Data entry successful!");
+      setSuccessMessage("Data entry successful!");
       setTimeout(() => {
         navigate("/student/dashboard");
       }, 2000);
@@ -114,6 +118,11 @@ const DataEntryPage = () => {
         <p className="text-center mb-6">Please enter your details</p>
         {message && (
           <div className="mb-4 text-center text-red-500">{message}</div>
+        )}
+        {successMessage && (
+          <div className="mb-4 text-center text-green-500">
+            {successMessage}
+          </div>
         )}
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

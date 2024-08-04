@@ -4,10 +4,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Add this if you have a proxy
     proxy: {
       "/api": {
-        target: "https://gregoryalpha.pythonanywhere.com",
+        target: "https://backend-nova-3omg.onrender.com/",
         changeOrigin: true,
         secure: false,
       },

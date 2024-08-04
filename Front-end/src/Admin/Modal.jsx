@@ -12,7 +12,7 @@ const Modal = ({ isOpen, onClose, student }) => {
             {student.name}
           </h2>
           <div className="fixed ml-96 mt-14">
-            <img src={studentmodal} alt="" />
+            <img src={studentmodal} alt="Student" />
           </div>
           <button
             onClick={onClose}
@@ -49,7 +49,7 @@ const Modal = ({ isOpen, onClose, student }) => {
           </span>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white ">
+          <table className="min-w-full bg-white">
             <thead>
               <tr className="text-left bg-[#EAF1EF]">
                 <th className="border py-2 px-1 sm:px-2">Student ID</th>
@@ -67,7 +67,7 @@ const Modal = ({ isOpen, onClose, student }) => {
                 <td className="border py-2 px-1 sm:px-2">{student.gender}</td>
                 <td className="border py-2 px-1 sm:px-2">{student.name}</td>
                 <td className="border py-2 px-1 sm:px-2">
-                  {student.PredictedGrade}%
+                  {student.predictedGrade}%
                 </td>
                 <td className="border py-2 px-1 sm:px-2">
                   {student.attendance}%
