@@ -13,7 +13,7 @@ const StudentDetails = ({ student }) => {
       if (!token) throw new Error("No token found");
 
       const response = await axios.get(
-        `https://backend-nova-3omg.onrender.com/api/admin/student/${studentId}/predictions/${courseName}`,
+        `https://amaremoelaebi.pythonanywhere.com//api/admin/student/${studentId}/predictions/${courseName}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

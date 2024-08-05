@@ -79,7 +79,7 @@ const DataEntryPage = () => {
       console.log("Token before request:", token); // Debugging: log the token before the request
 
       const response = await axios.post(
-        "https://backend-nova-3omg.onrender.com/api/student/data",
+        "https://amaremoelaebi.pythonanywhere.com/api/student/data",
         formData,
         {
           headers: {

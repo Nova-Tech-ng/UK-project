@@ -19,14 +19,21 @@ function StudentLogin() {
     setSuccessMessage(""); // Clear any previous success message
     try {
       const response = await axios.post(
-        "https://backend-nova-3omg.onrender.com/api/student/login",
+        "https://amaremoelaebi.pythonanywhere.com/api/student/login",
         { email, password } // Update the payload according to your API requirements
       );
 
       const accessToken = response.data.access_token;
+      const user = response.data.user;
+
       if (accessToken) {
         console.log("Access token received:", accessToken); // Log the token after receiving it
         localStorage.setItem("token", accessToken); // Store the token in localStorage
+
+        // Save student name in local storage
+        const studentName = `${user.first_name} ${user.last_name}`;
+        localStorage.setItem("studentName", studentName);
+
         console.log(
           "Access token set in localStorage:",
           localStorage.getItem("token")
