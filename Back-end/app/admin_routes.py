@@ -124,7 +124,8 @@ def get_all_students():
                     {
                         "email": "........",
                         "id": "...........",
-                        "username": "........"
+                        "username": "........",
+                        "full_name": "........",
                     },
                     ..........
                 ]
@@ -134,7 +135,7 @@ def get_all_students():
         return jsonify({"message": "Unauthorized access"}), 403
 
     students = User.query.all()
-    return jsonify([{"id": s.id, "username": s.username, "email": s.email} for s in students]), 200
+    return jsonify([{"id": s.id, "username": s.username, "email": s.email, "full_name": f"{s.first_name} {s.last_name}", "time_created": s.created} for s in students]), 200
 
 # Get Student by ID 
 @admin_bp.route('/api/admin/student/<string:id>', methods=['GET'])
