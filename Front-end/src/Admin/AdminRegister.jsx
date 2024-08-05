@@ -5,7 +5,7 @@ import { AuthContext } from "../auth/AuthContext";
 import signup from "../assets/signup.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-function AdminRegister() {
+function StudentRegister() {
   const [formData, setFormData] = useState({
     admin_name: "",
     username: "",
@@ -15,6 +15,8 @@ function AdminRegister() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [passwordType, setPasswordType] = useState("password");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +25,7 @@ function AdminRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Clear any previous error message
+    setSuccessMessage(""); // Clear any previous success message
 
     // Check if all fields are filled
     if (
@@ -37,17 +40,25 @@ function AdminRegister() {
 
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/admin/register",
-        formData
+        "https://backend-nova-3omg.onrender.com/api/admin/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      const token = response.data.token;
+      const token = response.data.user.access_token; // Ensure this matches the server response
       console.log("Token received:", token); // Log the token after receiving it
       localStorage.setItem("token", token); // Store the token in localStorage
       console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
 
       login(token, "admin");
-      navigate("/admin/dashboard");
+      setSuccessMessage("Registration successful!");
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 3000); // Redirect to dashboard after 3 seconds
     } catch (error) {
       console.error("Error Registering:", error);
       if (
@@ -61,9 +72,7 @@ function AdminRegister() {
       }
     }
   };
-  console.log(errorMessage);
 
-  const [passwordType, setPasswordType] = useState("password");
   const togglePasswordVisibility = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
@@ -71,11 +80,13 @@ function AdminRegister() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 flex-col-reverse md:flex-row">
       <div>
-        <img src={signup} alt="" className="w-[500px]" />
+        <img src={signup} alt="Sign Up" className="w-[500px]" />
       </div>
       <div className="p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Create Your Account (Admin)</h2>
+
         <form onSubmit={handleSubmit}>
+          {/* ADMIN NAME */}
           <div className="mb-4">
             <label
               htmlFor="admin_name"
@@ -95,6 +106,7 @@ function AdminRegister() {
               />
             </div>
           </div>
+          {/* USER NAME */}
           <div className="mb-4">
             <label
               htmlFor="username"
@@ -102,18 +114,17 @@ function AdminRegister() {
             >
               User Name
             </label>
-            <div className="flex gap-4">
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="User Name"
-                className="w-full border border-gray-300 p-2 rounded"
-                value={formData.username}
-                onChange={handleChange}
-              />
-            </div>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="User Name"
+              className="w-full border border-gray-300 p-2 rounded"
+              value={formData.username}
+              onChange={handleChange}
+            />
           </div>
+          {/* EMAIL */}
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -131,6 +142,7 @@ function AdminRegister() {
               onChange={handleChange}
             />
           </div>
+          {/* PASSWORD */}
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -160,20 +172,25 @@ function AdminRegister() {
           {errorMessage && (
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
           )}
+          {successMessage && (
+            <div className="mb-4 text-green-500 text-sm">{successMessage}</div>
+          )}
+          {/* HAVE AN ACCOUNT? */}
           <div>
             <p className="text-center">
               Have an account?
-              <a href="/admin/login" className="text-[#0072D8] ml-1">
+              <a href="/student/login" className="text-[#0072D8] ml-1">
                 Log In
               </a>
             </p>
           </div>
+          {/* SUBMIT BUTTON */}
           <div className="text-center">
             <button
               type="submit"
               className="bg-[#D25D09] hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
             >
-              Register
+              Next
             </button>
           </div>
         </form>
@@ -182,4 +199,4 @@ function AdminRegister() {
   );
 }
 
-export default AdminRegister;
+export default StudentRegister;

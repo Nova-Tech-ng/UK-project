@@ -11,6 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useNavigate } from "react-router";
 
 const data = [
   { year: "2021", PredictedGrade: 70, ActualGrade: 50 },
@@ -21,10 +22,11 @@ const data = [
 
 const StudentDashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const navigate = useNavigate();
 
   const routes = [
-    { id: "dashboard", name: "Individual Performance" },
-    { id: "learning-resources", name: "Learning Resources" },
+    { id: "/student/dashboard", name: "Individual Performance" },
+    { id: "/student/learning-resources", name: "Learning Resources" },
   ];
 
   const handleNavigation = (id) => {
@@ -39,16 +41,19 @@ const StudentDashboard = () => {
   return (
     <div className="container p-4 mx-auto">
       {/* ADMIN ICON */}
-      <div className="mb-4">
-        <FaRegUserCircle size={30} />
-        <p>Jacob Fatu</p>
+      <div className="mb-4 flex justify-between">
+        <div>
+          <FaRegUserCircle size={30} />
+          <p>Jacob Fatu</p>
+        </div>
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Logout
+        </button>
       </div>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Logout
-      </button>
       {/* NAVIGATION */}
       <div className="space-x-4">
         {routes.map((route) => (

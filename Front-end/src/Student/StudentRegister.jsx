@@ -16,6 +16,7 @@ function StudentRegister() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [passwordType, setPasswordType] = useState("password");
 
   const handleChange = (e) => {
@@ -25,6 +26,7 @@ function StudentRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Clear any previous error message
+    setSuccessMessage(""); // Clear any previous success message
 
     // Check if all fields are filled
     if (
@@ -40,17 +42,25 @@ function StudentRegister() {
 
     try {
       const response = await axios.post(
-        "https://gregoryalpha.pythonanywhere.com/api/student/register",
-        formData
+        "https://backend-nova-3omg.onrender.com/api/student/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      const token = response.data.token;
+      const token = response.data.user.access_token; // Ensure this matches the server response
       console.log("Token received:", token); // Log the token after receiving it
       localStorage.setItem("token", token); // Store the token in localStorage
       console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
 
       login(token, "student");
-      navigate("/student/data");
+      setSuccessMessage("Registration successful!");
+      setTimeout(() => {
+        navigate("/student/data");
+      }, 3000); // Redirect to dashboard after 3 seconds
     } catch (error) {
       console.error("Error Registering:", error);
       if (
@@ -64,7 +74,6 @@ function StudentRegister() {
       }
     }
   };
-  console.log(errorMessage);
 
   const togglePasswordVisibility = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -173,6 +182,9 @@ function StudentRegister() {
           </div>
           {errorMessage && (
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+          )}
+          {successMessage && (
+            <div className="mb-4 text-green-500 text-sm">{successMessage}</div>
           )}
           {/* HAVE AN ACCOUNT? */}
           <div>
