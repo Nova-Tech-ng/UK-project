@@ -69,7 +69,10 @@ def student_register():
                 return jsonify({"message": f"Missing required field: {field}"}), 400
 
         if User.query.filter_by(email=data['email']).first():
-            return jsonify({"message": "User already exists"}), 400
+            return jsonify({"message": "email already exists"}), 400
+        
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({"message": "username already exists"}), 400
 
         new_user = User(
             id=str(uuid.uuid4()),

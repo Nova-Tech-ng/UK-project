@@ -268,9 +268,11 @@ def get_all_prediction():
     predictions = {}
     for user, student_data, predicted_score in results:
         full_name = f"{user.first_name} {user.last_name}"
+        username = user.username
         
-        if full_name not in predictions:
-            predictions[full_name] = {
+        if username not in predictions:
+            predictions[username] = {
+                "student_name": full_name,
                 "actual_grades": {},
                 "predicted_grades": {}
             }
@@ -278,17 +280,19 @@ def get_all_prediction():
         course_name = student_data.course_name
         
         # Add actual grade
-        predictions[full_name]["actual_grades"][course_name] = student_data.actual_grade
+        predictions[username]["actual_grades"][course_name] = student_data.actual_grade
+        predictions[username]["actual_grades"]["cgpa"] = student_data.cgpa
         
         # Add predicted grade
-        if course_name not in predictions[full_name]["predicted_grades"]:
-            predictions[full_name]["predicted_grades"][course_name] = []
+        if course_name not in predictions[username]["predicted_grades"]:
+            predictions[username]["predicted_grades"][course_name] = []
         
-        predictions[full_name]["predicted_grades"][course_name].append({
+        predictions[username]["predicted_grades"][course_name].append({
             "predicted_grade": predicted_score.predicted_grade,
             "linear_regression_pred": predicted_score.linear_regression_pred,
             "risk_factor": predicted_score.risk_factor
         })
 
     return jsonify(predictions), 200
+
 
