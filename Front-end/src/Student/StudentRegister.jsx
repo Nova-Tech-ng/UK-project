@@ -10,6 +10,7 @@ function StudentRegister() {
     first_name: "",
     last_name: "",
     username: "",
+    gender: "",
     email: "",
     password: "",
   });
@@ -33,6 +34,7 @@ function StudentRegister() {
       !formData.first_name ||
       !formData.last_name ||
       !formData.username ||
+      !formData.gender ||
       !formData.email ||
       !formData.password
     ) {
@@ -136,7 +138,7 @@ function StudentRegister() {
               htmlFor="username"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              User Name
+              Username
             </label>
             <input
               type="text"
@@ -148,6 +150,29 @@ function StudentRegister() {
               onChange={handleChange}
             />
           </div>
+
+          {/* gender  */}
+          <div className="mb-4">
+            <label
+              htmlFor="gender"
+              className="block text-gray-700 text-sm capitalize font-bold mb-2"
+            >
+              Gender
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              className="w-full border border-gray-300 p-2 rounded"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+
           {/* EMAIL */}
           <div className="mb-4">
             <label
