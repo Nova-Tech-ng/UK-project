@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template
 from .model import Admin, User, Student_data, Predicted_score
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 from .extensions import db
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.exceptions import UnsupportedMediaType
@@ -295,4 +295,48 @@ def get_all_prediction():
 
     return jsonify(predictions), 200
 
+@admin_bp.route('/api/admin/courses-and-students', methods=['GET'])
+@jwt_required()
+def get_courses_and_student_count():
+    """
+    Admin route to get all unique courses and total student count
+
+    Returns:
+        JSON: {
+            "courses": [
+                "course1",
+                "course2",
+                ...
+            ],
+            "total_students": 100
+        }
+    """
+    try:
+        current_user = get_jwt_identity()
+        admin = Admin.query.get(current_user)
+        
+        if not admin:
+            return jsonify({"message": "Unauthorized access"}), 403
+
+        # Get unique courses
+        courses = db.session.query(Student_data.course_name).distinct().all()
+        course_list = [course[0] for course in courses]
+
+        # Get total number of students
+        total_students = db.session.query(func.count(User.id)).scalar()
+
+        return jsonify({
+            "courses": course_list,
+            "total_students": total_students
+        }), 200
+
+    except Exception as e:
+        # Log the error (you may want to use a proper logging system)
+        print(f"An error occurred: {str(e)}")
+        
+        # Return a 500 error with the error message
+        return jsonify({
+            "message": "An internal server error occurred",
+            "error": str(e)
+        }), 500
 
