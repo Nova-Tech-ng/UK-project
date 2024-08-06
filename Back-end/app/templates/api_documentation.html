@@ -366,6 +366,62 @@
             </div>
 
             <div class="route">
+                <h3>Get all the subject avaliable and the total number of students</h3>
+                <pre>GET /api/admin/courses-and-students</pre>
+                <div class="request">
+                    <p><strong>Request:</strong></p>
+                    <p>Authorization: Bearer access-token</p>
+                </div>
+                <div class="response">
+                    <p><strong>Response:</strong></p>
+                    <div class="code">
+                        {
+                            "courses": [
+                                "PHE",
+                                "HE",
+                                "CRS",
+                                "Advance french",
+                                "Advance English"
+                            ],
+                            "total_students": 7
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="route">
+                <h3>Get all the predictions avaliable</h3>
+                <pre>GET /api/admin/students/predictions</pre>
+                <div class="request">
+                    <p><strong>Request:</strong></p>
+                    <p>Authorization: Bearer access-token</p>
+                </div>
+                <div class="response">
+                    <p><strong>Response:</strong></p>
+                    <div class="code">
+                        {
+                            "omorrrrr": {
+                                "actual_grades": {
+                                    "PHE": "B",
+                                    "cgpa": 3.5
+                                },
+                                "predicted_grades": {
+                                    "PHE": [
+                                        {
+                                            "linear_regression_pred": 9.3301,
+                                            "predicted_grade": "A",
+                                            "risk_factor": "Not at risk"
+                                        }
+                                    ]
+                                },
+                                "student_name": "omorr omorr"
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="route">
                 <h3>Get All Students</h3>
                 <pre>GET /api/admin/students</pre>
                 <div class="request">

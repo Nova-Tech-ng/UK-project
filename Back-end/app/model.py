@@ -5,6 +5,7 @@ class User(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=db.func.uuid_generate_v4())
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
+    gender = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
@@ -85,6 +86,7 @@ class Predicted_score(db.Model):
     decision_tree_pred_class = db.Column(db.Float, nullable=False)
     decision_tree_pred_prob = db.Column(db.Float, nullable=False)
     linear_regression_pred = db.Column(db.Float, nullable=False)
+    predicted_grade = db.Column(db.String(10), nullable=False)
     risk_factor = db.Column(db.String(50), nullable=False)
     student_data_id = db.Column(db.String(36), db.ForeignKey('student_data.id'), nullable=False)
     course_name = db.Column(db.String(50), nullable=False)
@@ -110,7 +112,9 @@ class Predicted_score(db.Model):
             'decision tree pred prob': self.check_decision_tree_pred_prob(),
             'decision tree pred class': self.check_decision_tree_pred_class(),
             'linear regression pred': self.check_linear_regression_pred(),
+            'predicted grade': self.predicted_grade,
             'risk factor': self.check_risk_factor(),
             'course name': self.course_name,
             'student_data_id': self.student_data_id
         }
+

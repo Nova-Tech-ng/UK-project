@@ -3,7 +3,6 @@ from flask import Blueprint, request, jsonify
 from .model import User, Student_data, Predicted_score
 from .extensions import db
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import UnsupportedMediaType
 import uuid
 from .predictions.grade_prediction_model import GradePredictionModel
@@ -19,6 +18,21 @@ linear_regression_path = os.path.join(current_dir, 'predictions', 'pickle_files'
 decision_tree_path = os.path.join(current_dir, 'predictions', 'pickle_files', 'decision_tree_model.pkl')
 
 grade_model = GradePredictionModel(linear_regression_path, decision_tree_path)
+
+# converts the scores
+def convert_grade_to_letter(x):
+    grade_mapping = {
+        (4, float('inf')): "A",
+        (3, 4): "B",
+        (2, 3): "C",
+        (1, 2): "D",
+        (0, 1): "F"
+    }
+
+    for (lower, upper), grade in grade_mapping.items():
+        if lower <= x < upper:
+            return grade
+    return "Invalid score"
 
 # Student Registration
 @student_bp.route('/api/student/register', methods=['POST'])
@@ -49,13 +63,16 @@ def student_register():
         else:
             raise UnsupportedMediaType(f"Unsupported content type: {request.content_type}")
 
-        required_fields = ['first_name', 'last_name', 'username', 'email', 'password']
+        required_fields = ['first_name', 'last_name', 'username', 'email', 'password', 'gender']
         for field in required_fields:
             if field not in data:
                 return jsonify({"message": f"Missing required field: {field}"}), 400
 
         if User.query.filter_by(email=data['email']).first():
-            return jsonify({"message": "User already exists"}), 400
+            return jsonify({"message": "email already exists"}), 400
+        
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({"message": "username already exists"}), 400
 
         new_user = User(
             id=str(uuid.uuid4()),
@@ -63,7 +80,8 @@ def student_register():
             last_name=data['last_name'],
             username=data['username'],
             email=data['email'],
-            password=generate_password_hash(data['password'])
+            password=data['password'],
+            gender=data['gender']
         )
 
         db.session.add(new_user)
@@ -78,6 +96,7 @@ def student_register():
                 "last_name": new_user.last_name,
                 "username": new_user.username,
                 "email": new_user.email,
+                "gender" : new_user.gender,
                 "access_token": access_token,
             }
         }), 201
@@ -106,7 +125,7 @@ def student_login():
     data = request.get_json()
     user = User.query.filter_by(email=data['email']).first()
 
-    if user and check_password_hash(user.password, data['password']):
+    if user and (user.password == data['password']):
         access_token = create_access_token(identity=user.id)
         return jsonify({
             "access_token": access_token,
@@ -114,7 +133,8 @@ def student_login():
                 "first_name": user.first_name,
                 "last_name": user.last_name,
                 "username": user.username,
-                "email": user.email
+                "email": user.email,
+                "gender": user.gender
             }
         }), 200
 
@@ -247,11 +267,15 @@ def create_student_prediction():
         risk_factor = predictions['risk_factor']
         linear_regression_pred = float(predictions['linear_regression'])
         
+        # convert grade to letter
+        pred_grade_letter = convert_grade_to_letter(linear_regression_pred)
+        
         # Create new Predicted_score entry
         new_prediction = Predicted_score(
             decision_tree_pred_class=decision_tree_pred_class,
             decision_tree_pred_prob=decision_tree_pred_prob,
             linear_regression_pred=linear_regression_pred,
+            predicted_grade=pred_grade_letter,
             risk_factor=risk_factor,
             student_data_id=student_data.id,
             course_name=data['course_name']
@@ -286,13 +310,14 @@ def get_student_predictions(course_name: str=None):
         JSON: {
                     "predictions": [
                         {
-                            "course name": ".........",
                             "course_name": ".........",
-                            "decision tree pred class": .........,
-                            "decision tree pred prob": .........,
+                            "actual_grade": ".........",
+                            "decision_tree_pred_class": .........,
+                            "decision_tree_pred_prob": .........,
                             "id": ".........",
-                            "linear regression pred": .........,
-                            "risk factor": ".........",
+                            "linear_regression_pred": .........,
+                            "predicted_grade": ".........",
+                            "risk_factor": ".........",
                             "student_data_id": "........."
                         }
                     ],
@@ -321,11 +346,12 @@ def get_student_predictions(course_name: str=None):
         for score in predicted_scores:
             prediction_dict = score.to_dict()
             prediction_dict['course_name'] = student_data.course_name
+            prediction_dict['previous_grade'] = student_data.actual_grade
+            prediction_dict['previous_cgpa'] = student_data.cgpa
             all_predictions.append(prediction_dict)
     
     return jsonify({
         "user_id": current_user,
         "predictions": all_predictions
     }), 200
-
 
