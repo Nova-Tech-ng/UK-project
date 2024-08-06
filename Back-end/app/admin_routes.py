@@ -54,7 +54,7 @@ def admin_register():
             admin_name=data['admin_name'],
             username=data['username'],
             email=data['email'],
-            password=generate_password_hash(data['password'])
+            password=data['password']
         )
 
         db.session.add(new_admin)
@@ -95,7 +95,7 @@ def admin_login():
     data = request.get_json()
     admin = Admin.query.filter_by(email=data['email']).first()
 
-    if admin and check_password_hash(admin.password, data['password']):
+    if admin and (admin.password == data['password']):
         access_token = create_access_token(identity=admin.id)
         return jsonify({
             "access_token": access_token,
