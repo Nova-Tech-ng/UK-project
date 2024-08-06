@@ -37,7 +37,6 @@ const DataEntryPage = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
-      console.log("Token retrieved:", storedToken); // Debugging: log the retrieved token
     } else {
       setMessage("Authorization token is missing.");
     }
@@ -62,8 +61,8 @@ const DataEntryPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); // Clear any previous error message
-    setSuccessMessage(""); // Clear any previous success message
+    setMessage("");
+    setSuccessMessage("");
 
     if (!validateForm()) {
       setMessage("Please fill in all fields.");
@@ -76,8 +75,6 @@ const DataEntryPage = () => {
     }
 
     try {
-      console.log("Token before request:", token); // Debugging: log the token before the request
-
       const response = await axios.post(
         "https://amaremoelaebi.pythonanywhere.com/api/student/data",
         formData,
@@ -88,12 +85,26 @@ const DataEntryPage = () => {
         }
       );
 
-      setSuccessMessage("Data entry successful!");
+      const predictionResponse = await axios.post(
+        "https://amaremoelaebi.pythonanywhere.com/api/student/create/prediction",
+        { course_name: formData.course_name },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Save formData to local storage
+      const courses = JSON.parse(localStorage.getItem("courses")) || [];
+      courses.push(formData);
+      localStorage.setItem("courses", JSON.stringify(courses));
+
+      setSuccessMessage("Data entry and prediction successful!");
       setTimeout(() => {
         navigate("/student/dashboard");
       }, 2000);
     } catch (error) {
-      console.error("Error submitting data:", error);
       if (error.response && error.response.data) {
         setMessage(
           `Error: ${
@@ -139,8 +150,19 @@ const DataEntryPage = () => {
                 <input
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:outline"
                   id={key}
-                  type={key === "age" ? "number" : "text"}
-                  placeholder={key}
+                  type={
+                    key === "age" ||
+                    key === "past_grades" ||
+                    key === "standardized_test_scores" ||
+                    key === "course_id" ||
+                    key === "class_size" ||
+                    key === "attendance" ||
+                    key === "study_time" ||
+                    key === "cgpa"
+                      ? "number"
+                      : "text"
+                  }
+                  placeholder={getPlaceholder(key)}
                   value={formData[key]}
                   onChange={handleChange}
                 />
@@ -166,6 +188,34 @@ const DataEntryPage = () => {
       </div>
     </div>
   );
+};
+
+const getPlaceholder = (key) => {
+  const placeholders = {
+    age: "19",
+    grade_level: "Sophomore",
+    learning_style: "visual",
+    socio_economic_status: "middle income",
+    past_grades: "85.6",
+    standardized_test_scores: "1050",
+    prior_knowledge: "Biology",
+    course_id: "102",
+    course_name: "PHE",
+    course_difficulty: "hard",
+    class_size: "35",
+    teaching_style: "interactive",
+    course_work_load: "Exams, Project",
+    attendance: "92",
+    study_time: "10",
+    time_of_year: "Fall semester",
+    extra_curricular_activities: "yes",
+    health: "good",
+    home_environment: "quiet",
+    actual_grade: "B",
+    cgpa: "4",
+  };
+
+  return placeholders[key] || "";
 };
 
 export default DataEntryPage;

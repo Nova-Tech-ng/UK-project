@@ -12,6 +12,7 @@ function StudentRegister() {
     username: "",
     email: "",
     password: "",
+    gender: "", // Added gender field
   });
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ function StudentRegister() {
       !formData.last_name ||
       !formData.username ||
       !formData.email ||
-      !formData.password
+      !formData.password ||
+      !formData.gender // Check if gender is filled
     ) {
       setErrorMessage("Please fill in all fields.");
       return;
@@ -62,14 +64,24 @@ function StudentRegister() {
           localStorage.getItem("token")
         ); // Log the token from localStorage
 
-        // Save student name in local storage
-        const studentName = `${user.first_name} ${user.last_name}`;
-        localStorage.setItem("studentName", studentName);
+        // Save student data in local storage
+        const studentData = {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          username: user.username,
+          email: user.email,
+          gender: user.gender, // Assuming you have gender in your response
+          predictedGrade: user.predictedGrade, // Assuming you have these fields
+          actualGrade: user.actualGrade, // in your response
+          attendanceRate: user.attendanceRate,
+          performanceData: user.performanceData, // Assuming this is an array of performance over time
+        };
+        localStorage.setItem("studentData", JSON.stringify(studentData));
 
         login(token, "student");
         setSuccessMessage("Registration successful!");
         setTimeout(() => {
-          navigate("/student/data");
+          navigate("/student/getstudentinfo");
         }, 3000); // Redirect to dashboard after 3 seconds
       } else {
         setErrorMessage("Registration failed. Try again.");
@@ -98,7 +110,7 @@ function StudentRegister() {
         <img src={signup} alt="Sign Up" className="w-[500px]" />
       </div>
       <div className="p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Create Your Account</h2>
+        <h2 className="text-2xl font-bold mb-4">Create An Account</h2>
 
         <form onSubmit={handleSubmit}>
           {/* STUDENT NAME */}
@@ -193,6 +205,29 @@ function StudentRegister() {
               </button>
             </div>
           </div>
+          {/* GENDER */}
+          <div className="mb-4">
+            <label
+              htmlFor="gender"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Gender
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              className="w-full border border-gray-300 p-2 rounded"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="" disabled>
+                Select Gender
+              </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
           {errorMessage && (
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
           )}
@@ -214,7 +249,7 @@ function StudentRegister() {
               type="submit"
               className="bg-[#D25D09] hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
             >
-              Next
+              Register
             </button>
           </div>
         </form>
