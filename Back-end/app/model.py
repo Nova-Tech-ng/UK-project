@@ -5,6 +5,7 @@ class User(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=db.func.uuid_generate_v4())
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
+    gender = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)

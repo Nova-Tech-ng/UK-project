@@ -63,7 +63,7 @@ def student_register():
         else:
             raise UnsupportedMediaType(f"Unsupported content type: {request.content_type}")
 
-        required_fields = ['first_name', 'last_name', 'username', 'email', 'password']
+        required_fields = ['first_name', 'last_name', 'username', 'email', 'password', 'gender']
         for field in required_fields:
             if field not in data:
                 return jsonify({"message": f"Missing required field: {field}"}), 400
@@ -77,7 +77,8 @@ def student_register():
             last_name=data['last_name'],
             username=data['username'],
             email=data['email'],
-            password=data['password']
+            password=data['password'],
+            gender=data['gender']
         )
 
         db.session.add(new_user)
@@ -92,6 +93,7 @@ def student_register():
                 "last_name": new_user.last_name,
                 "username": new_user.username,
                 "email": new_user.email,
+                "gender" : new_user.gender,
                 "access_token": access_token,
             }
         }), 201
@@ -128,7 +130,8 @@ def student_login():
                 "first_name": user.first_name,
                 "last_name": user.last_name,
                 "username": user.username,
-                "email": user.email
+                "email": user.email,
+                "gender": user.gender
             }
         }), 200
 

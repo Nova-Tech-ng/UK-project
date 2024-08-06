@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify, render_template
 from .model import Admin, User, Student_data, Predicted_score
+from sqlalchemy import or_
 from .extensions import db
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import UnsupportedMediaType
 import uuid
 
@@ -135,7 +135,7 @@ def get_all_students():
         return jsonify({"message": "Unauthorized access"}), 403
 
     students = User.query.all()
-    return jsonify([{"id": s.id, "username": s.username, "email": s.email, "full_name": f"{s.first_name} {s.last_name}", "time_created": s.created} for s in students]), 200
+    return jsonify([{"id": s.id, "username": s.username, "email": s.email, "first_name": s.first_name,  "last_name": s.last_name, "gender": s.gender} for s in students]), 200
 
 # Get Student by ID 
 @admin_bp.route('/api/admin/student/<string:id>', methods=['GET'])
@@ -248,3 +248,47 @@ def get_student_predictions_admin(id: str, course_name: str=None):
         "student_username": student.username,
         "predictions": all_predictions
     }), 200
+    
+    
+# get all prediction
+@admin_bp.route('/api/admin/students/predictions', methods=['GET'])
+@jwt_required()
+def get_all_prediction():
+    current_user = get_jwt_identity()
+    if not Admin.query.get(current_user):
+        return jsonify({"message": "Unauthorized access"}), 403
+    
+    # Query to join User, Student_data, and Predicted_score tables
+    results = db.session.query(User, Student_data, Predicted_score)\
+        .join(Student_data, User.id == Student_data.student_id)\
+        .join(Predicted_score, Student_data.id == Predicted_score.student_data_id)\
+        .all()
+
+    # Process the results
+    predictions = {}
+    for user, student_data, predicted_score in results:
+        full_name = f"{user.first_name} {user.last_name}"
+        
+        if full_name not in predictions:
+            predictions[full_name] = {
+                "actual_grades": {},
+                "predicted_grades": {}
+            }
+        
+        course_name = student_data.course_name
+        
+        # Add actual grade
+        predictions[full_name]["actual_grades"][course_name] = student_data.actual_grade
+        
+        # Add predicted grade
+        if course_name not in predictions[full_name]["predicted_grades"]:
+            predictions[full_name]["predicted_grades"][course_name] = []
+        
+        predictions[full_name]["predicted_grades"][course_name].append({
+            "predicted_grade": predicted_score.predicted_grade,
+            "linear_regression_pred": predicted_score.linear_regression_pred,
+            "risk_factor": predicted_score.risk_factor
+        })
+
+    return jsonify(predictions), 200
+
