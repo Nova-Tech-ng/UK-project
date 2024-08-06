@@ -42,7 +42,7 @@ function StudentRegister() {
 
     try {
       const response = await axios.post(
-        "https://backend-nova-3omg.onrender.com/api/student/register",
+        "https://amaremoelaebi.pythonanywhere.com/api/student/register",
         formData,
         {
           headers: {
@@ -52,15 +52,28 @@ function StudentRegister() {
       );
 
       const token = response.data.user.access_token; // Ensure this matches the server response
-      console.log("Token received:", token); // Log the token after receiving it
-      localStorage.setItem("token", token); // Store the token in localStorage
-      console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
+      const user = response.data.user;
 
-      login(token, "student");
-      setSuccessMessage("Registration successful!");
-      setTimeout(() => {
-        navigate("/student/data");
-      }, 3000); // Redirect to dashboard after 3 seconds
+      if (token) {
+        console.log("Token received:", token); // Log the token after receiving it
+        localStorage.setItem("token", token); // Store the token in localStorage
+        console.log(
+          "Token set in localStorage:",
+          localStorage.getItem("token")
+        ); // Log the token from localStorage
+
+        // Save student name in local storage
+        const studentName = `${user.first_name} ${user.last_name}`;
+        localStorage.setItem("studentName", studentName);
+
+        login(token, "student");
+        setSuccessMessage("Registration successful!");
+        setTimeout(() => {
+          navigate("/student/data");
+        }, 3000); // Redirect to dashboard after 3 seconds
+      } else {
+        setErrorMessage("Registration failed. Try again.");
+      }
     } catch (error) {
       console.error("Error Registering:", error);
       if (

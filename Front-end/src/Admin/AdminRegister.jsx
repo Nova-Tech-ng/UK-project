@@ -5,7 +5,7 @@ import { AuthContext } from "../auth/AuthContext";
 import signup from "../assets/signup.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-function StudentRegister() {
+function AdminRegister() {
   const [formData, setFormData] = useState({
     admin_name: "",
     username: "",
@@ -40,7 +40,7 @@ function StudentRegister() {
 
     try {
       const response = await axios.post(
-        "https://backend-nova-3omg.onrender.com/api/admin/register",
+        "https://amaremoelaebi.pythonanywhere.com/api/admin/register",
         formData,
         {
           headers: {
@@ -179,7 +179,7 @@ function StudentRegister() {
           <div>
             <p className="text-center">
               Have an account?
-              <a href="/student/login" className="text-[#0072D8] ml-1">
+              <a href="/admin/login" className="text-[#0072D8] ml-1">
                 Log In
               </a>
             </p>
@@ -199,4 +199,4 @@ function StudentRegister() {
   );
 }
 
-export default StudentRegister;
+export default AdminRegister;

@@ -12,6 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import StudentList from "./StudentList";
 
 const data = [
   { year: "2021", PredictedGrade: 70, ActualGrade: 50 },
@@ -95,12 +96,13 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <button
+      {/* <button
         onClick={handleViewStudents}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
         View Students
-      </button>
+      </button> */}
+      <StudentList />
     </div>
   );
 };

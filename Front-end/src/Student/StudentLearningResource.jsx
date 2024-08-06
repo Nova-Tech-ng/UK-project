@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./Card";
+import { useNavigate } from "react-router-dom";
 
 import image1 from "../assets/learningresources/image1.svg";
 import image2 from "../assets/learningresources/image2.svg";
@@ -102,11 +103,27 @@ const resources = [
 ];
 
 const StudentLearningResource = () => {
+  const navigate = useNavigate();
+
+  const handleBackToDashboard = () => {
+    navigate("/student/dashboard");
+  };
+
   return (
-    <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {resources.map((resource, index) => (
-        <Card key={index} {...resource} />
-      ))}
+    <div>
+      <div className="mb-4 flex justify-between">
+        <button
+          onClick={handleBackToDashboard}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Back to Dashboard
+        </button>
+      </div>
+      <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {resources.map((resource, index) => (
+          <Card key={index} {...resource} />
+        ))}
+      </div>
     </div>
   );
 };

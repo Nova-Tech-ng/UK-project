@@ -19,7 +19,7 @@ function AdminLogin() {
     setSuccessMessage(""); // Clear any previous success message
     try {
       const response = await axios.post(
-        "https://backend-nova-3omg.onrender.com/api/admin/login",
+        "https://amaremoelaebi.pythonanywhere.com/api/admin/login",
         { email, password } // Update the payload according to your API requirements
       );
 

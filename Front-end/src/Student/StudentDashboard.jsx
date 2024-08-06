@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import StudentLearningResource from "./StudentLearningResource";
 import {
@@ -11,7 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 const data = [
   { year: "2021", PredictedGrade: 70, ActualGrade: 50 },
@@ -21,30 +21,43 @@ const data = [
 ];
 
 const StudentDashboard = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [studentName, setStudentName] = useState("");
+
+  useEffect(() => {
+    const currentPath = location.pathname.split("/")[2];
+    setActiveTab(currentPath);
+
+    // Fetch the student name from localStorage
+    const name = localStorage.getItem("studentName") || "Default Name";
+    setStudentName(name);
+  }, [location.pathname]);
 
   const routes = [
-    { id: "/student/dashboard", name: "Individual Performance" },
-    { id: "/student/learning-resources", name: "Learning Resources" },
+    { id: "dashboard", name: "Individual Performance" },
+    { id: "learning-resources", name: "Learning Resources" },
   ];
 
   const handleNavigation = (id) => {
     setActiveTab(id);
-    window.history.pushState({}, "", `/${id}`);
+    navigate(`/student/${id}`);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove the token from localStorage
+    localStorage.removeItem("studentName"); // Remove the student name from localStorage
     navigate("/student/login"); // Redirect to the login page
   };
+
   return (
     <div className="container p-4 mx-auto">
       {/* ADMIN ICON */}
       <div className="mb-4 flex justify-between">
         <div>
           <FaRegUserCircle size={30} />
-          <p>Jacob Fatu</p>
+          <p>{studentName}</p>
         </div>
 
         <button
@@ -128,7 +141,9 @@ const StudentDashboard = () => {
           </div>
         </>
       )}
-      {activeTab === "learning-resources" && <StudentLearningResource />}
+      {activeTab === "learning-resources" && (
+        <StudentLearningResource studentName={studentName} />
+      )}
     </div>
   );
 };

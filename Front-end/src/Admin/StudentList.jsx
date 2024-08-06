@@ -22,7 +22,7 @@ const StudentList = () => {
         }
 
         const response = await axios.get(
-          "https://backend-nova-3omg.onrender.com/api/admin/students",
+          "https://amaremoelaebi.pythonanywhere.com//api/admin/students",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -32,13 +32,10 @@ const StudentList = () => {
 
         const students = response.data.map((student) => ({
           id: student.id,
-          gender: student.gender,
-          name: `${student.first_name} ${student.last_name}`,
-          predictedGrade: student.predicted_grade,
-          attendance: student.attendance,
-          assignment: student.assignment,
-          gpa: student.gpa,
-          status: student.status,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          username: student.username,
+          email: student.email,
         }));
 
         setStudentData(students);
@@ -58,18 +55,18 @@ const StudentList = () => {
     setModalOpen(true);
   };
 
-  const handleBack = () => {
-    navigate("/admin/dashboard");
-  };
+  // const handleBack = () => {
+  //   navigate("/admin/dashboard");
+  // };
 
   return (
     <div className="container mx-auto p-4">
-      <button
+      {/* <button
         onClick={handleBack}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
       >
         Back to Dashboard
-      </button>
+      </button> */}
       <div className="border p-4 rounded shadow-lg">
         <h2 className="text-center mb-4">Academic Details of Students</h2>
         <div className="overflow-x-auto">
@@ -82,32 +79,24 @@ const StudentList = () => {
               <thead>
                 <tr className="bg-[#EAF1EF]">
                   <th className="px-4 py-2 border">Student ID</th>
-                  <th className="px-4 py-2 border">Gender</th>
-                  <th className="px-4 py-2 border">Student Name</th>
-                  <th className="px-4 py-2 border">Predicted Grade</th>
-                  <th className="px-4 py-2 border">Attendance Rate</th>
-                  <th className="px-4 py-2 border">Assignment Scores</th>
-                  <th className="px-4 py-2 border">GPA</th>
+                  <th className="px-4 py-2 border">First Name</th>
+                  <th className="px-4 py-2 border">Last Name</th>
+                  <th className="px-4 py-2 border">Username</th>
+                  <th className="px-4 py-2 border">Email</th>
                 </tr>
               </thead>
               <tbody>
                 {studentData.map((student) => (
                   <tr
                     key={student.id}
-                    className={`${
-                      student.gpa < 2 ? "bg-[#EC5050]" : ""
-                    } cursor-pointer`}
+                    className="cursor-pointer"
                     onClick={() => handleRowClick(student)}
                   >
                     <td className="border px-4 py-2">{student.id}</td>
-                    <td className="border px-4 py-2">{student.gender}</td>
-                    <td className="border px-4 py-2">{student.name}</td>
-                    <td className="border px-4 py-2">
-                      {student.predictedGrade}%
-                    </td>
-                    <td className="border px-4 py-2">{student.attendance}%</td>
-                    <td className="border px-4 py-2">{student.assignment}%</td>
-                    <td className="border px-4 py-2">{student.gpa}</td>
+                    <td className="border px-4 py-2">{student.first_name}</td>
+                    <td className="border px-4 py-2">{student.last_name}</td>
+                    <td className="border px-4 py-2">{student.username}</td>
+                    <td className="border px-4 py-2">{student.email}</td>
                   </tr>
                 ))}
               </tbody>

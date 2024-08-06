@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://backend-nova-3omg.onrender.com/",
+        target: "https://amaremoelaebi.pythonanywhere.com/",
         changeOrigin: true,
         secure: false,
       },
