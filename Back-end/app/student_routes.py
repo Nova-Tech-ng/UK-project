@@ -301,7 +301,6 @@ def create_student_prediction():
 @student_bp.route('/api/student/predictions/<string:course_name>', methods=['GET'])
 @jwt_required()
 def get_student_predictions(course_name: str=None):
-    
     """Get student predictions route for student
 
     Args:
@@ -311,13 +310,14 @@ def get_student_predictions(course_name: str=None):
         JSON: {
                     "predictions": [
                         {
-                            "course name": ".........",
                             "course_name": ".........",
-                            "decision tree pred class": .........,
-                            "decision tree pred prob": .........,
+                            "actual_grade": ".........",
+                            "decision_tree_pred_class": .........,
+                            "decision_tree_pred_prob": .........,
                             "id": ".........",
-                            "linear regression pred": .........,
-                            "risk factor": ".........",
+                            "linear_regression_pred": .........,
+                            "predicted_grade": ".........",
+                            "risk_factor": ".........",
                             "student_data_id": "........."
                         }
                     ],
@@ -346,11 +346,12 @@ def get_student_predictions(course_name: str=None):
         for score in predicted_scores:
             prediction_dict = score.to_dict()
             prediction_dict['course_name'] = student_data.course_name
+            prediction_dict['previous_grade'] = student_data.actual_grade
+            prediction_dict['previous_cgpa'] = student_data.cgpa
             all_predictions.append(prediction_dict)
     
     return jsonify({
         "user_id": current_user,
         "predictions": all_predictions
     }), 200
-
 
