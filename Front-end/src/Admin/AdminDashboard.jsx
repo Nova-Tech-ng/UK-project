@@ -21,16 +21,20 @@ const data = [
   { year: "2024", PredictedGrade: 70, ActualGrade: 40 },
 ];
 
+const studentData = [
+  { id: 1, name: "Grace Evans", predictedGrade: 89, actualGrade: 89 },
+  { id: 2, name: "Maro Oghenereukevwe", predictedGrade: 90, actualGrade: 94 },
+  { id: 3, name: "Matthew Jonathan", predictedGrade: 75, actualGrade: 25 },
+  { id: 4, name: "Glory Evans", predictedGrade: 76, actualGrade: 56 },
+  { id: 5, name: "Wila Amirs", predictedGrade: 55, actualGrade: 62 },
+];
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove the token from localStorage
     navigate("/admin/login"); // Redirect to the login page
-  };
-
-  const handleViewStudents = () => {
-    navigate("/admin/students");
   };
 
   return (
@@ -47,30 +51,23 @@ const AdminDashboard = () => {
           Logout
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-        <div className="border p-2 rounded shadow-lg">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        <div className="border p-4 rounded shadow-lg">
           <label className="block mb-2 font-semibold">Select Course</label>
           <select className="border p-2 w-full">
             <option>All</option>
           </select>
         </div>
-        <div className="border p-2 rounded shadow-lg">
-          <label className="block mb-2 font-semibold">Select Grade Level</label>
-          <select className="border p-2 w-full">
-            <option>All</option>
-          </select>
-        </div>
-        <div className="border p-2 rounded shadow-lg flex flex-col justify-around">
-          <span className="ml-2 font-semibold">Overall Class Performance</span>
-          <div className="flex justify-end">
-            <p className="text-5xl font-semibold">3.75</p>
-          </div>
-        </div>
-        <div className="border p-2 rounded shadow-lg flex justify-between px-4">
-          <img src={studentgraduate} alt="studentgraduate" />
-          <div className="flex flex-col justify-between">
-            <p className="flex justify-end font-semibold">Students</p>
-            <p className="text-5xl font-semibold">433</p>
+        <div className="border p-4 rounded shadow-lg flex items-center justify-between">
+          <img
+            src={studentgraduate}
+            alt="studentgraduate"
+            className="w-12 h-12"
+          />
+          <div>
+            <p className="font-semibold text-right">Students</p>
+            <p className="text-3xl font-semibold text-right">433</p>
           </div>
         </div>
       </div>
@@ -91,18 +88,36 @@ const AdminDashboard = () => {
           </ResponsiveContainer>
         </div>
         <div className="border p-4 rounded shadow-lg">
-          <h2 className="text-center">Accuracy of Trained Model</h2>
-          {/* Placeholder for accuracy chart */}
+          <h2 className="text-center mb-4">Accuracy of Trained Model</h2>
+          <table className="w-full table-auto">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Student ID</th>
+                <th className="px-4 py-2">Student Name</th>
+                <th className="px-4 py-2">Predicted Grade</th>
+                <th className="px-4 py-2">Actual Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentData.map((student) => (
+                <tr key={student.id}>
+                  <td className="border px-4 py-2">{student.id}</td>
+                  <td className="border px-4 py-2">{student.name}</td>
+                  <td className="border px-4 py-2">
+                    {student.predictedGrade}%
+                  </td>
+                  <td className="border px-4 py-2">{student.actualGrade}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
-      {/* <button
-        onClick={handleViewStudents}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        View Students
-      </button> */}
-      <StudentList />
+      <div className="border p-4 rounded shadow-lg">
+        <h2 className="text-center mb-4">Student Data</h2>
+        <StudentList students={studentData} />
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 function StudentLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext); // Access login function from AuthContext
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,33 +15,32 @@ function StudentLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Clear any previous error message
-    setSuccessMessage(""); // Clear any previous success message
+    setErrorMessage("");
+    setSuccessMessage("");
     try {
       const response = await axios.post(
         "https://amaremoelaebi.pythonanywhere.com/api/student/login",
-        { email, password } // Update the payload according to your API requirements
+        { email, password }
       );
 
       const accessToken = response.data.access_token;
       const user = response.data.user;
 
       if (accessToken) {
-        console.log("Access token received:", accessToken); // Log the token after receiving it
-        localStorage.setItem("token", accessToken); // Store the token in localStorage
+        console.log("Access token received:", accessToken);
+        localStorage.setItem("token", accessToken);
 
-        // Save student name in local storage
-        const studentName = `${user.first_name} ${user.last_name}`;
-        localStorage.setItem("studentName", studentName);
+        // Save student data in local storage
+        localStorage.setItem("studentData", JSON.stringify(user));
 
         console.log(
           "Access token set in localStorage:",
           localStorage.getItem("token")
-        ); // Log the token from localStorage
+        );
 
         login(accessToken, "student");
         setSuccessMessage("Login successful!");
-        navigate("/student/dashboard"); // Redirect to dashboard immediately
+        navigate("/student/dashboard");
       } else {
         setErrorMessage("Login failed. Try again.");
       }
@@ -52,7 +51,7 @@ function StudentLogin() {
         error.response.data &&
         error.response.data.message
       ) {
-        setErrorMessage(error.response.data.message); // Set error message from backend response
+        setErrorMessage(error.response.data.message);
       } else {
         setErrorMessage("Login failed. Please try again.");
       }
@@ -69,7 +68,6 @@ function StudentLogin() {
         <h2 className="text-2xl font-bold mb-4">Log In</h2>
 
         <form onSubmit={handleSubmit}>
-          {/* EMAIL */}
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -87,7 +85,7 @@ function StudentLogin() {
               className="w-full border border-gray-300 p-2 rounded"
             />
           </div>
-          {/* PASSWORD */}
+
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -114,13 +112,14 @@ function StudentLogin() {
               </button>
             </div>
           </div>
+
           {errorMessage && (
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
           )}
           {successMessage && (
             <div className="mb-4 text-green-500 text-sm">{successMessage}</div>
           )}
-          {/* FIRST TIME HERE? */}
+
           <div className="text-center mb-4">
             <p>
               First Time Here?
@@ -129,7 +128,7 @@ function StudentLogin() {
               </a>
             </p>
           </div>
-          {/* BUTTON */}
+
           <div className="flex items-center justify-between">
             <button
               type="submit"
