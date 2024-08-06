@@ -12,6 +12,7 @@ import StudentLearningResource from "./Student/StudentLearningResource";
 import StudentList from "./Admin/StudentList";
 import StudentDetails from "./Admin/StudentDetails";
 import LetsGetToKnowYou from "./Student/GetToKnowStudent";
+import CourseTable from "./Student/StudentDataTable";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
       { path: "data", element: <DataEntryPage /> },
       { path: "dashboard", element: <StudentDashboard /> },
       { path: "learning-resources", element: <StudentLearningResource /> },
+      { path: "example", element: <CourseTable /> },
     ],
   },
 ]);
