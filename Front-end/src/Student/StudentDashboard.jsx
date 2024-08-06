@@ -75,6 +75,8 @@ const StudentDashboard = () => {
         cgpa: course.cgpa,
       };
       console.log("Request Data:", requestData);
+      const myJSON = JSON.stringify(requestData);
+      console.log(myJSON);
 
       const response = await axios.post(
         "https://amaremoelaebi.pythonanywhere.com/api/student/create/prediction",

@@ -230,29 +230,7 @@ function StudentRegister() {
               </button>
             </div>
           </div>
-          {/* GENDER */}
-          <div className="mb-4">
-            <label
-              htmlFor="gender"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Gender
-            </label>
-            <select
-              id="gender"
-              name="gender"
-              className="w-full border border-gray-300 p-2 rounded"
-              value={formData.gender}
-              onChange={handleChange}
-            >
-              <option value="" disabled>
-                Select Gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+
           {errorMessage && (
             <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
           )}
