@@ -67,7 +67,7 @@ const StudentList = () => {
           ) : (
             <table className="min-w-full table-auto">
               <thead>
-                <tr className="bg-[#EAF1EF]">
+                <tr className="bg-[#EAF1EF] text-left">
                   <th className="px-4 py-2 border">Student ID</th>
                   <th className="px-4 py-2 border">First Name</th>
                   <th className="px-4 py-2 border">Last Name</th>
@@ -80,7 +80,7 @@ const StudentList = () => {
                 {studentData.map((student) => (
                   <tr
                     key={student.id}
-                    className="cursor-pointer"
+                    className="cursor-pointer text-left"
                     onClick={() => handleRowClick(student)}
                   >
                     <td className="border px-4 py-2">{student.id}</td>

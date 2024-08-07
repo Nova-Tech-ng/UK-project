@@ -125,12 +125,6 @@ const CourseTable = () => {
                     >
                       Get Prediction
                     </button>
-                    <button
-                      className="bg-red-500 text-white px-4 py-2 rounded"
-                      onClick={() => handleDelete(course.id)}
-                    >
-                      Delete
-                    </button>
                   </div>
                 </td>
               </tr>
