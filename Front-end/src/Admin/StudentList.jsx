@@ -30,12 +30,13 @@ const StudentList = () => {
           }
         );
 
-        const students = response.data.map((student) => ({
-          id: student.id,
+        const students = response.data.map((student, index) => ({
+          id: index + 1,
           first_name: student.first_name,
           last_name: student.last_name,
           username: student.username,
           email: student.email,
+          gender: student.gender,
         }));
 
         setStudentData(students);
@@ -55,20 +56,9 @@ const StudentList = () => {
     setModalOpen(true);
   };
 
-  // const handleBack = () => {
-  //   navigate("/admin/dashboard");
-  // };
-
   return (
     <div className="container mx-auto p-4">
-      {/* <button
-        onClick={handleBack}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
-      >
-        Back to Dashboard
-      </button> */}
-      <div className="border p-4 rounded shadow-lg">
-        <h2 className="text-center mb-4">Academic Details of Students</h2>
+      <div className="">
         <div className="overflow-x-auto">
           {loading ? (
             <p>Loading...</p>
@@ -77,19 +67,20 @@ const StudentList = () => {
           ) : (
             <table className="min-w-full table-auto">
               <thead>
-                <tr className="bg-[#EAF1EF]">
+                <tr className="bg-[#EAF1EF] text-left">
                   <th className="px-4 py-2 border">Student ID</th>
                   <th className="px-4 py-2 border">First Name</th>
                   <th className="px-4 py-2 border">Last Name</th>
                   <th className="px-4 py-2 border">Username</th>
                   <th className="px-4 py-2 border">Email</th>
+                  <th className="px-4 py-2 border">Gender</th>
                 </tr>
               </thead>
               <tbody>
                 {studentData.map((student) => (
                   <tr
                     key={student.id}
-                    className="cursor-pointer"
+                    className="cursor-pointer text-left"
                     onClick={() => handleRowClick(student)}
                   >
                     <td className="border px-4 py-2">{student.id}</td>
@@ -97,6 +88,7 @@ const StudentList = () => {
                     <td className="border px-4 py-2">{student.last_name}</td>
                     <td className="border px-4 py-2">{student.username}</td>
                     <td className="border px-4 py-2">{student.email}</td>
+                    <td className="border px-4 py-2">{student.gender}</td>
                   </tr>
                 ))}
               </tbody>
