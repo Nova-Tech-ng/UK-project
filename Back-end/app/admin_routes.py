@@ -329,12 +329,86 @@ def get_courses_and_student_count():
             "courses": course_list,
             "total_students": total_students
         }), 200
+        
 
     except Exception as e:
         # Log the error (you may want to use a proper logging system)
         print(f"An error occurred: {str(e)}")
         
         # Return a 500 error with the error message
+        return jsonify({
+            "message": "An internal server error occurred",
+            "error": str(e)
+        }), 500
+
+
+@admin_bp.route('/api/admin/course-data/<string:course_name>', methods=['GET'])
+@jwt_required()
+def get_course_data(course_name):
+    """
+    Admin route to get all student data and predictions for a specific course
+
+    Args:
+        course_name (str): The name of the course
+
+    Returns:
+        JSON: {
+            "course_name": "course_name",
+            "students": [
+                {
+                    "student_id": "...",
+                    "username": "...",
+                    "student_data": {
+                        "age": ...,
+                        "grade_level": "...",
+                        "actual_grade": "...",
+                        ...
+                    },
+                    "predicted_data": {
+                        "predicted_grade": "...",
+                        "linear_regression_pred": ...,
+                        "risk_factor": "...",
+                        ...
+                    }
+                },
+                ...
+            ]
+        }
+    """
+    try:
+        current_user = get_jwt_identity()
+        admin = Admin.query.get(current_user)
+
+        if not admin:
+            return jsonify({"message": "Unauthorized access"}), 403
+
+        # Query to join User, Student_data, and Predicted_score tables
+        results = db.session.query(User, Student_data, Predicted_score)\
+            .join(Student_data, User.id == Student_data.student_id)\
+            .join(Predicted_score, Student_data.id == Predicted_score.student_data_id)\
+            .filter(Student_data.course_name == course_name)\
+            .all()
+
+        if not results:
+            return jsonify({"message": f"No data found for course: {course_name}"}), 404
+
+        students_data = []
+        for user, student_data, predicted_score in results:
+            student_info = {
+                "student_id": user.id,
+                "username": user.username,
+                "student_data": student_data.to_dict(),
+                "predicted_data": predicted_score.to_dict()
+            }
+            students_data.append(student_info)
+
+        return jsonify({
+            "course_name": course_name,
+            "students": students_data
+        }), 200
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
         return jsonify({
             "message": "An internal server error occurred",
             "error": str(e)
