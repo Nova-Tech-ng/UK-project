@@ -75,7 +75,7 @@ const AdminDashboard = () => {
         }
 
         const response = await axios.get(
-          `https://amaremoelaebi.pythonanywhere.com/api/admin/student/predictions/${selectedCourse}`,
+          `https://amaremoelaebi.pythonanywhere.com/api/admin/course-data/${selectedCourse}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -83,22 +83,46 @@ const AdminDashboard = () => {
           }
         );
 
-        const predictions = response.data.predictions;
+        const { predictions = [] } = response.data;
+
+        const convertLetterToNumeric = (letterGrade) => {
+          switch (letterGrade) {
+            case "A":
+              return 4.0;
+            case "B":
+              return 3.0;
+            case "C":
+              return 2.0;
+            case "D":
+              return 1.0;
+            case "F":
+              return 0.0;
+            default:
+              return NaN;
+          }
+        };
 
         const formattedData = predictions.map((prediction) => ({
-          PredictedGrade: prediction.linear_regression_pred,
-          previousGrade: prediction.previousGrade,
+          year: prediction.year,
+          PredictedGrade: convertLetterToNumeric(
+            prediction.linear_regression_pred
+          ),
+          previousGrade: convertLetterToNumeric(prediction.previousGrade),
         }));
 
         // Calculate average predictions
+        const validPredictions = formattedData.filter(
+          (data) => !isNaN(data.PredictedGrade) && !isNaN(data.previousGrade)
+        );
         const averageData = {
+          year: "Average",
           PredictedGrade: (
-            predictions.reduce((sum, p) => sum + p.linear_regression_pred, 0) /
-            predictions.length
+            validPredictions.reduce((sum, p) => sum + p.PredictedGrade, 0) /
+            validPredictions.length
           ).toFixed(2),
           previousGrade: (
-            predictions.reduce((sum, p) => sum + p.previousGrade, 0) /
-            predictions.length
+            validPredictions.reduce((sum, p) => sum + p.previousGrade, 0) /
+            validPredictions.length
           ).toFixed(2),
         };
 
@@ -117,6 +141,7 @@ const AdminDashboard = () => {
     navigate("/admin/login");
   };
 
+  console.log(chartData);
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between mb-4">
@@ -131,6 +156,10 @@ const AdminDashboard = () => {
           Logout
         </button>
       </div>
+
+      {error && (
+        <div className="bg-red-200 text-red-700 p-4 rounded mb-4">{error}</div>
+      )}
 
       <div className="grid grid-cols-3 mb-4 gap-3">
         <div className="border p-4 rounded shadow-lg">
@@ -161,7 +190,7 @@ const AdminDashboard = () => {
         </div>
         <div className="border p-4 rounded shadow-lg">
           <div>
-            <p className="font-semibold ">Accuracy of Trained Model</p>
+            <p className="font-semibold">Accuracy of Trained Model</p>
             <p className="text-3xl font-semibold text-right">1</p>
           </div>
         </div>

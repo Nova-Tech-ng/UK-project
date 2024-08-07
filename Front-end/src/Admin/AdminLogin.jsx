@@ -25,12 +25,7 @@ function AdminLogin() {
 
       const accessToken = response.data.access_token;
       if (accessToken) {
-        console.log("Access token received:", accessToken); // Log the token after receiving it
         localStorage.setItem("token", accessToken); // Store the token in localStorage
-        console.log(
-          "Access token set in localStorage:",
-          localStorage.getItem("token")
-        ); // Log the token from localStorage
 
         login(accessToken, "admin");
         setSuccessMessage("Login successful!");
@@ -41,7 +36,6 @@ function AdminLogin() {
         setErrorMessage("Login failed. Try again.");
       }
     } catch (error) {
-      console.error("Error logging in:", error);
       if (
         error.response &&
         error.response.data &&
@@ -59,81 +53,88 @@ function AdminLogin() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Log in to your dashboard</h2>
+    <div>
+      <button className="absolute">
+        <a href="/">Back to Home</a>
+      </button>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="p-8 w-full max-w-md">
+          <h2 className="text-2xl font-bold mb-4">Log in to your dashboard</h2>
 
-        <form onSubmit={handleSubmit}>
-          {/* EMAIL */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded"
-            />
-          </div>
-          {/* PASSWORD */}
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Password
-            </label>
-            <div className="relative">
+          <form onSubmit={handleSubmit}>
+            {/* EMAIL */}
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Email
+              </label>
               <input
-                type={passwordType}
-                id="password"
-                name="password"
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-gray-300 p-2 rounded"
               />
-              <button
-                type="button"
-                className="absolute top-0 right-0 m-2"
-                onClick={togglePasswordVisibility}
+            </div>
+            {/* PASSWORD */}
+            <div className="mb-4">
+              <label
+                htmlFor="password"
+                className="block text-gray-700 text-sm font-bold mb-2"
               >
-                {passwordType === "password" ? <FaEye /> : <FaEyeSlash />}
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={passwordType}
+                  id="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border border-gray-300 p-2 rounded"
+                />
+                <button
+                  type="button"
+                  className="absolute top-0 right-0 m-2"
+                  onClick={togglePasswordVisibility}
+                >
+                  {passwordType === "password" ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </div>
+            </div>
+            {errorMessage && (
+              <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
+            )}
+            {successMessage && (
+              <div className="mb-4 text-green-500 text-sm">
+                {successMessage}
+              </div>
+            )}
+            {/* FIRST TIME HERE? */}
+            <div className="text-center mb-4">
+              <p>
+                First Time Here?
+                <a href="/admin/register" className="text-[#0072D8] ml-1">
+                  Sign Up
+                </a>
+              </p>
+            </div>
+            {/* BUTTON */}
+            <div className="flex items-center justify-between">
+              <button
+                type="submit"
+                className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              >
+                Login
               </button>
             </div>
-          </div>
-          {errorMessage && (
-            <div className="mb-4 text-red-500 text-sm">{errorMessage}</div>
-          )}
-          {successMessage && (
-            <div className="mb-4 text-green-500 text-sm">{successMessage}</div>
-          )}
-          {/* FIRST TIME HERE? */}
-          <div className="text-center mb-4">
-            <p>
-              First Time Here?
-              <a href="/admin/register" className="text-[#0072D8] ml-1">
-                Sign Up
-              </a>
-            </p>
-          </div>
-          {/* BUTTON */}
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-            >
-              Login
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

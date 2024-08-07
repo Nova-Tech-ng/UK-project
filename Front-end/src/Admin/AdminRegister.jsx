@@ -50,9 +50,8 @@ function AdminRegister() {
       );
 
       const token = response.data.user.access_token; // Ensure this matches the server response
-      console.log("Token received:", token); // Log the token after receiving it
+
       localStorage.setItem("token", token); // Store the token in localStorage
-      console.log("Token set in localStorage:", localStorage.getItem("token")); // Log the token from localStorage
 
       login(token, "admin");
       setSuccessMessage("Registration successful!");
@@ -60,7 +59,6 @@ function AdminRegister() {
         navigate("/admin/dashboard");
       }, 3000); // Redirect to dashboard after 3 seconds
     } catch (error) {
-      console.error("Error Registering:", error);
       if (
         error.response &&
         error.response.data &&

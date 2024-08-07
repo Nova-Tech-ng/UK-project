@@ -61,10 +61,6 @@ const CourseTable = () => {
     }
   };
 
-  const handleDelete = (courseId) => {
-    setCourses(courses.filter((course) => course.id !== courseId));
-  };
-
   const handleError = (error) => {
     if (error.response && error.response.status === 400) {
       setErrorData(error.response.data);

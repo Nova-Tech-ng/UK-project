@@ -17,7 +17,7 @@ const ChartComponent = ({ data }) => {
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
+          <XAxis dataKey="course" />
           <YAxis />
           <Tooltip />
           <Legend />

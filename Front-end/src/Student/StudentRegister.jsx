@@ -59,12 +59,7 @@ function StudentRegister() {
       const user = response.data.user;
 
       if (token) {
-        console.log("Token received:", token); // Log the token after receiving it
         localStorage.setItem("token", token); // Store the token in localStorage
-        console.log(
-          "Token set in localStorage:",
-          localStorage.getItem("token")
-        ); // Log the token from localStorage
 
         // Save student data in local storage
         const studentData = {
@@ -89,7 +84,6 @@ function StudentRegister() {
         setErrorMessage("Registration failed. Try again.");
       }
     } catch (error) {
-      console.error("Error Registering:", error);
       if (
         error.response &&
         error.response.data &&

@@ -23,7 +23,7 @@ const AddCourseButton = ({ addCourse }) => {
     extra_curricular_activities: "",
     health: "",
     home_environment: "",
-    previous_grade: "",
+    actual_grade: "",
     cgpa: "",
   });
   const [error, setError] = useState(null);
@@ -54,7 +54,7 @@ const AddCourseButton = ({ addCourse }) => {
       "extra_curricular_activities",
       "health",
       "home_environment",
-      "previous_grade",
+      "actual_grade",
       "cgpa",
     ];
 
@@ -105,7 +105,7 @@ const AddCourseButton = ({ addCourse }) => {
         extra_curricular_activities: "",
         health: "",
         home_environment: "",
-        previous_grade: "",
+        actual_grade: "",
         cgpa: "",
       });
       setError(null);
