@@ -79,7 +79,7 @@ function StudentRegister() {
         setSuccessMessage("Registration successful!");
         setTimeout(() => {
           navigate("/student/getstudentinfo");
-        }, 3000); // Redirect to dashboard after 3 seconds
+        }, 1000); // Redirect to dashboard after 3 seconds
       } else {
         setErrorMessage("Registration failed. Try again.");
       }

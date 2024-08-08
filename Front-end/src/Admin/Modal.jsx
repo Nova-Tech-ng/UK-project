@@ -53,14 +53,15 @@ const Modal = ({ isOpen, onClose, student }) => {
 
   const getRiskStatus = (studentData) => {
     if (studentData.length === 0) return "No data available";
+
     const riskStatuses = studentData.map((data) => {
       return Object.values(data.predicted_grades).some((grades) =>
         grades.some((grade) => grade.risk_factor === "At risk")
-      )
-        ? "At risk"
-        : "Not at risk";
+      );
     });
-    return riskStatuses.includes("At risk") ? "At risk" : "Not at risk";
+
+    // If any risk status is true, return "At risk". Otherwise, return "Not at risk".
+    return riskStatuses.some((status) => status) ? "At risk" : "Not at risk";
   };
 
   const riskStatus = getRiskStatus(studentData);

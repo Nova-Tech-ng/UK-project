@@ -7,7 +7,7 @@ const CourseTable = () => {
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [errorData, setErrorData] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const getToken = () => {
     return localStorage.getItem("token") || "your_default_token";
@@ -20,7 +20,7 @@ const CourseTable = () => {
   const fetchCourses = async () => {
     setIsLoading(true);
     setError(null);
-    setErrorData(null);
+    setMessage(null);
     try {
       const response = await axios.get(
         "https://amaremoelaebi.pythonanywhere.com/api/student/datas",
@@ -41,7 +41,7 @@ const CourseTable = () => {
   const handlePrediction = async (courseName) => {
     setIsLoading(true);
     setError(null);
-    setErrorData(null);
+    setMessage(null);
     setPrediction(null);
     try {
       const response = await axios.post(
@@ -53,7 +53,16 @@ const CourseTable = () => {
           },
         }
       );
-      setPrediction(response.data.prediction);
+
+      if (
+        response.data.message === "Prediction for this course already exists"
+      ) {
+        setMessage("Prediction already exists");
+        setPrediction(response.data.existing_prediction);
+      } else {
+        setMessage("Prediction successful");
+        setPrediction(response.data.prediction);
+      }
     } catch (error) {
       handleError(error);
     } finally {
@@ -63,7 +72,10 @@ const CourseTable = () => {
 
   const handleError = (error) => {
     if (error.response && error.response.status === 400) {
-      setErrorData(error.response.data);
+      const errorResponse = error.response.data;
+      const existingPrediction = errorResponse.existing_prediction || {};
+      setMessage(errorResponse.message);
+      setPrediction(existingPrediction);
     } else {
       console.error("Error:", error);
       setError("An error occurred. Please try again.");
@@ -75,20 +87,15 @@ const CourseTable = () => {
   };
 
   return (
-    <div className="course-detail p-4">
+    <div className="course-detail p-6 bg-gray-50">
+      <h2 className="text-2xl font-bold mb-4">Course Detail</h2>
       <AddNewCourse addCourse={handleAddCourse} />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p className="text-gray-500">Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      {errorData && (
-        <div className="bg-red-100 text-red-700 p-4 rounded mb-4">
-          <h3 className="font-semibold mb-2">You already have a prediction</h3>
-          <pre>{JSON.stringify(errorData, null, 2)}</pre>
-        </div>
-      )}
-      {!isLoading && !error && !errorData && (
-        <table className="min-w-full bg-white">
+      {!isLoading && !error && (
+        <table className="min-w-full bg-white shadow-md rounded">
           <thead>
-            <tr>
+            <tr className="bg-gray-200 text-left">
               <th className="py-2 px-4 border-b">Course Name</th>
               <th className="py-2 px-4 border-b">Course ID</th>
               <th className="py-2 px-4 border-b">Prior Knowledge</th>
@@ -96,7 +103,7 @@ const CourseTable = () => {
               <th className="py-2 px-4 border-b">Course Workload</th>
               <th className="py-2 px-4 border-b">Season</th>
               <th className="py-2 px-4 border-b">Previous Grade</th>
-              <th className="py-2 px-4 border-b">Actions</th>
+              <th className="py-2 px-4 border-b">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -114,24 +121,41 @@ const CourseTable = () => {
                 <td className="py-2 px-4 border-b">{course.time_of_year}</td>
                 <td className="py-2 px-4 border-b">{course.past_grades}%</td>
                 <td className="py-2 px-4 border-b">
-                  <div className="flex justify-between space-x-4">
-                    <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-                      onClick={() => handlePrediction(course.course_name)}
-                    >
-                      Get Prediction
-                    </button>
-                  </div>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                    onClick={() => handlePrediction(course.course_name)}
+                  >
+                    Get Prediction
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
-      {prediction && (
-        <div className="prediction mt-4 p-4 bg-blue-100 rounded">
-          <h3 className="font-semibold">Prediction</h3>
-          <p>{prediction}</p>
+      {message && (
+        <div
+          className={`mt-4 p-4 ${
+            message === "Prediction successful"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          } rounded`}
+        >
+          <h3 className="text-lg font-semibold">{message}</h3>
+          {prediction && (
+            <div className="mt-2">
+              <p>
+                <strong>Course Name:</strong> {prediction["course name"]}
+              </p>
+              <p>
+                <strong>Predicted Grade:</strong>{" "}
+                {prediction["predicted grade"]}
+              </p>
+              <p>
+                <strong>Risk Factor:</strong> {prediction["risk factor"]}
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
