@@ -1,32 +1,46 @@
 import React from "react";
+import { Bar } from "react-chartjs-2";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-} from "recharts";
+} from "chart.js";
 
-const ChartComponent = ({ data }) => {
-  return (
-    <div className="border p-4 rounded shadow-lg">
-      <h2 className="text-center mb-4">Average Grade Over Time</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="course" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="PredictedGrade" fill="#D25D09" />
-          <Bar dataKey="previousGrade" fill="#4567B7" />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  );
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const Chart = ({ data }) => {
+  const chartData = {
+    labels: data.map((item) => item.course),
+    datasets: [
+      {
+        label: "Predicted Grade",
+        data: data.map((item) => parseFloat(item.PredictedGrade)),
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+      {
+        label: "Previous Grade",
+        data: data.map((item) => parseFloat(item.previousGrade)),
+        backgroundColor: "rgba(153, 102, 255, 0.2)",
+        borderColor: "rgba(153, 102, 255, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  return <Bar data={chartData} />;
 };
 
-export default ChartComponent;
+export default Chart;

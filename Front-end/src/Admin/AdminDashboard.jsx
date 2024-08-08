@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaSpinner } from "react-icons/fa"; // Import FaSpinner
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import studentgraduate from "../assets/studentgraduate.svg";
@@ -14,6 +14,63 @@ const AdminDashboard = () => {
   const [selectedCourse, setSelectedCourse] = useState("All");
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [averagePredictedGrade, setAveragePredictedGrade] = useState(0);
+  const [averagePreviousGrade, setAveragePreviousGrade] = useState(0);
+
+  // Function to map letter grades to numeric values
+  const letterGradeToNumeric = (grade) => {
+    switch (grade) {
+      case "A":
+        return 70;
+      case "B":
+        return 60;
+      case "C":
+        return 50;
+      case "D":
+        return 40;
+      case "F":
+        return 20;
+      default:
+        return 0;
+    }
+  };
+
+  // Function to map predicted values to letter grades
+  const predictedGradeToLetter = (predictedValue) => {
+    if (predictedValue >= 4) {
+      return "A";
+    } else if (predictedValue >= 3) {
+      return "B";
+    } else if (predictedValue >= 2) {
+      return "C";
+    } else if (predictedValue >= 1.5) {
+      return "D";
+    } else {
+      return "F";
+    }
+  };
+
+  // Function to calculate averages
+  const calculateAverages = (data) => {
+    if (data.length === 0) {
+      setAveragePredictedGrade(0);
+      setAveragePreviousGrade(0);
+      return;
+    }
+
+    const totalPredicted = data.reduce(
+      (sum, item) => sum + item.PredictedGrade,
+      0
+    );
+    const totalPrevious = data.reduce(
+      (sum, item) => sum + item.previousGrade,
+      0
+    );
+
+    setAveragePredictedGrade(totalPredicted / data.length);
+    setAveragePreviousGrade(totalPrevious / data.length);
+  };
 
   useEffect(() => {
     const fetchCoursesAndStudents = async () => {
@@ -61,11 +118,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchCoursePredictions = async () => {
-      if (selectedCourse === "All") {
-        setChartData([]);
-        return;
-      }
-
+      setLoading(true);
       try {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -74,74 +127,83 @@ const AdminDashboard = () => {
           return;
         }
 
-        const response = await axios.get(
-          `https://amaremoelaebi.pythonanywhere.com/api/admin/course-data/${selectedCourse}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        if (selectedCourse === "All") {
+          let allCourseData = [];
+
+          for (const course of courses) {
+            const response = await axios.get(
+              `https://amaremoelaebi.pythonanywhere.com/api/admin/course-data/${course}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            const { students = [] } = response.data;
+            const formattedData = students.map((student) => ({
+              course,
+              PredictedGrade: letterGradeToNumeric(
+                predictedGradeToLetter(
+                  student.predicted_data["linear regression pred"]
+                )
+              ),
+              previousGrade: letterGradeToNumeric(
+                student.student_data.actual_grade
+              ),
+            }));
+
+            allCourseData = [...allCourseData, ...formattedData];
           }
-        );
 
-        const { predictions = [] } = response.data;
+          setChartData(allCourseData);
+          calculateAverages(allCourseData);
+        } else {
+          const response = await axios.get(
+            `https://amaremoelaebi.pythonanywhere.com/api/admin/course-data/${selectedCourse}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
 
-        const convertLetterToNumeric = (letterGrade) => {
-          switch (letterGrade) {
-            case "A":
-              return 4.0;
-            case "B":
-              return 3.0;
-            case "C":
-              return 2.0;
-            case "D":
-              return 1.0;
-            case "F":
-              return 0.0;
-            default:
-              return NaN;
-          }
-        };
+          const { students = [] } = response.data;
 
-        const formattedData = predictions.map((prediction) => ({
-          year: prediction.year,
-          PredictedGrade: convertLetterToNumeric(
-            prediction.linear_regression_pred
-          ),
-          previousGrade: convertLetterToNumeric(prediction.previousGrade),
-        }));
+          const formattedData = students.map((student) => ({
+            course: selectedCourse,
+            PredictedGrade: letterGradeToNumeric(
+              predictedGradeToLetter(
+                student.predicted_data["linear regression pred"]
+              )
+            ),
+            previousGrade: letterGradeToNumeric(
+              student.student_data.actual_grade
+            ),
+          }));
 
-        // Calculate average predictions
-        const validPredictions = formattedData.filter(
-          (data) => !isNaN(data.PredictedGrade) && !isNaN(data.previousGrade)
-        );
-        const averageData = {
-          year: "Average",
-          PredictedGrade: (
-            validPredictions.reduce((sum, p) => sum + p.PredictedGrade, 0) /
-            validPredictions.length
-          ).toFixed(2),
-          previousGrade: (
-            validPredictions.reduce((sum, p) => sum + p.previousGrade, 0) /
-            validPredictions.length
-          ).toFixed(2),
-        };
-
-        setChartData([...formattedData, averageData]);
+          setChartData(formattedData);
+          calculateAverages(formattedData);
+        }
       } catch (error) {
         console.error("Error fetching course predictions:", error);
         setError(error.message);
       }
+      setLoading(false);
     };
 
-    fetchCoursePredictions();
-  }, [selectedCourse, navigate]);
+    if (selectedCourse === "All" && courses.length > 0) {
+      fetchCoursePredictions();
+    } else if (selectedCourse !== "All") {
+      fetchCoursePredictions();
+    }
+  }, [selectedCourse, courses, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/admin/login");
   };
 
-  console.log(chartData);
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between mb-4">
@@ -190,15 +252,29 @@ const AdminDashboard = () => {
         </div>
         <div className="border p-4 rounded shadow-lg">
           <div>
-            <p className="font-semibold">Accuracy of Trained Model</p>
-            <p className="text-3xl font-semibold text-right">1</p>
+            <p className="font-semibold">Average Predicted Grade</p>
+            <p className="text-3xl font-semibold text-right">
+              {averagePredictedGrade.toFixed(2)}
+            </p>
+          </div>
+          <div>
+            <p className="font-semibold">Average Previous Grade</p>
+            <p className="text-3xl font-semibold text-right">
+              {averagePreviousGrade.toFixed(2)}
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="">
-        <Chart data={chartData} />
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <FaSpinner className="animate-spin text-4xl text-blue-500" />
+        </div>
+      ) : (
+        <div className="">
+          <Chart data={chartData} />
+        </div>
+      )}
 
       <div className="border p-4 rounded shadow-lg">
         <h2 className="text-center mb-4">Student Data</h2>
