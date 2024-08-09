@@ -126,10 +126,15 @@ const AddCourseButton = ({ addCourse }) => {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-full">
-            <h2 className="text-xl font-semibold mb-4">Add New Course</h2>
+          <div
+            className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-4xl mx-4 sm:mx-6 overflow-y-auto"
+            style={{ maxHeight: "90vh" }}
+          >
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">
+              Add New Course
+            </h2>
             {error && <p className="text-red-500 mb-4">{error}</p>}
-            <div className="grid grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.keys(newCourse).map((key) => (
                 <div key={key}>
                   <label className="block text-sm font-medium text-gray-700">
