@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaSpinner } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import studentgraduate from "../assets/studentgraduate.svg";
@@ -224,7 +224,7 @@ const AdminDashboard = () => {
         <div className="bg-red-200 text-red-700 p-4 rounded mb-4">{error}</div>
       )}
 
-      <div className="grid grid-cols-3 mb-4 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mb-4 gap-3">
         <div className="border p-4 rounded shadow-lg">
           <label className="block mb-2 font-semibold">Select Course</label>
           <select
@@ -258,6 +258,8 @@ const AdminDashboard = () => {
               {averagePredictedGrade.toFixed(2)}
             </p>
           </div>
+        </div>
+        <div className="border p-4 rounded shadow-lg">
           <div>
             <p className="font-semibold">Average Previous Grade</p>
             <p className="text-3xl font-semibold text-right">
@@ -268,15 +270,19 @@ const AdminDashboard = () => {
       </div>
 
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <div className="flex justify-center items-center h-64">
+          <FaSpinner className="animate-spin text-4xl text-gray-500" />
+        </div>
       ) : (
         <div className="">
           <Chart data={chartData} />
         </div>
       )}
 
-      <div className="border p-4 rounded shadow-lg">
-        <h2 className="text-center mb-4">Student Data</h2>
+      <div className="border p-4 rounded shadow-lg mt-4">
+        <h2 className="text-center mb-4 font-semibold text-3xl">
+          Student Data
+        </h2>
         <StudentList />
       </div>
       <Modal />

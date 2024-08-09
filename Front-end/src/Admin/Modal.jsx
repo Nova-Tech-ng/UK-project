@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Modal = ({ isOpen, onClose, student }) => {
   if (!isOpen || !student) return null;
+
   const [studentData, setStudentData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -68,9 +69,9 @@ const Modal = ({ isOpen, onClose, student }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 sm:p-6 md:p-8">
-      <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg w-full max-w-3xl md:max-w-4xl lg:max-w-5xl h-3/4 md:h-4/5 lg:h-3/4 overflow-auto relative">
-        <div className="flex justify-between mb-8">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
+      <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg md:max-w-3xl lg:max-w-4xl h-auto md:h-3/4 lg:h-3/4 overflow-auto relative">
+        <div className="flex justify-between mb-4 md:mb-8">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold">
             {student.first_name} {student.last_name}
           </h2>
           <button
@@ -79,7 +80,7 @@ const Modal = ({ isOpen, onClose, student }) => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-5 w-5 md:h-6 md:w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -93,15 +94,15 @@ const Modal = ({ isOpen, onClose, student }) => {
             </svg>
           </button>
         </div>
-        <div className="flex flex-col sm:flex-row items-center mb-4">
-          <span className="text-lg sm:text-xl lg:text-2xl font-semibold">
+        <div className="flex flex-col sm:flex-row items-center mb-4 md:mb-8">
+          <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
             {student.id}
           </span>
           <span
             className={`${
               riskStatus === "At risk"
-                ? "ml-0 sm:ml-auto text-red-500 text-lg sm:text-xl lg:text-2xl font-semibold"
-                : "ml-0 sm:ml-auto text-green-500 text-lg sm:text-xl lg:text-2xl font-semibold"
+                ? "ml-0 sm:ml-auto text-red-500 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold"
+                : "ml-0 sm:ml-auto text-green-500 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold"
             }`}
           >
             <p className="text-black">Status:</p> {riskStatus}
@@ -111,16 +112,18 @@ const Modal = ({ isOpen, onClose, student }) => {
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-[#EAF1EF] text-left">
-                <th className="px-4 py-2 border">Student Name</th>
-                <th className="px-4 py-2 border">Previous Grades</th>
-                <th className="px-4 py-2 border">Predicted Grades</th>
+                <th className="px-2 sm:px-4 py-2 border">Student Name</th>
+                <th className="px-2 sm:px-4 py-2 border">Previous Grades</th>
+                <th className="px-2 sm:px-4 py-2 border">Predicted Grades</th>
               </tr>
             </thead>
             <tbody>
               {studentData.map((student, index) => (
                 <tr key={index}>
-                  <td className="border px-4 py-2">{student.student_name}</td>
-                  <td className="border px-4 py-2">
+                  <td className="border px-2 sm:px-4 py-2">
+                    {student.student_name}
+                  </td>
+                  <td className="border px-2 sm:px-4 py-2">
                     {Object.entries(student.previous_grades).map(
                       ([subject, grade]) => (
                         <div key={subject}>
@@ -129,7 +132,7 @@ const Modal = ({ isOpen, onClose, student }) => {
                       )
                     )}
                   </td>
-                  <td className="border px-4 py-2">
+                  <td className="border px-2 sm:px-4 py-2">
                     {Object.entries(student.predicted_grades).map(
                       ([subject, grades]) => (
                         <div key={subject}>
